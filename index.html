@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="da">
 <head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta charset="utf-8"/>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Plus Pack – Produktionsstop (kombineret + skift + migration)</title>
@@ -88,6 +92,16 @@ html[data-theme="dark"] .muted{color:#9ca3af}
 .bar{height:10px;border-radius:999px;background:linear-gradient(90deg,#c7d2fe,#93c5fd)}
 .small{font-size:12px}.select{min-width:220px}
 </style>
+
+<!-- 🔧 Start af vedvarende timer-funktioner -->
+<script>
+const CURRENT_STOP = 'produktionsstop.current.v1';
+const loadCurrentStop = () => { try { return JSON.parse(localStorage.getItem(CURRENT_STOP)); } catch(e){ return null; } };
+const saveCurrentStop = (obj) => localStorage.setItem(CURRENT_STOP, JSON.stringify(obj));
+const clearCurrentStop = () => localStorage.removeItem(CURRENT_STOP);
+</script>
+<!-- 🔧 Slut af vedvarende timer-funktioner -->
+
 </head>
 <body>
   <div class="brand">Plus Pack – Produktionsstop</div>
@@ -959,6 +973,70 @@ function init(){
 window.addEventListener('DOMContentLoaded', init);
 
 </script>
+
+
+<!-- 🔁 Script for at bevare aktivt stop ved refresh -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    const cur = JSON.parse(localStorage.getItem('produktionsstop.current.v1'));
+    if (cur && cur.start) {
+      STOP_START_ISO = cur.start;
+      stopMeta = cur.meta || null;
+      setStatus(true);
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => {
+        if (IS_STOPPED && STOP_START_ISO) {
+          const ms = Date.now() - new Date(STOP_START_ISO);
+          els.liveTimer.textContent = fmtDur(ms);
+        }
+        renderActivity8h();
+        renderLog8h();
+      }, 1000);
+    }
+  } catch(e){ console.error(e); }
+});
+
+// Når stop bekræftes
+const oldStopConfirm = els.stopConfirm.onclick;
+els.stopConfirm.onclick = () => {
+  if (typeof oldStopConfirm === 'function') oldStopConfirm();
+  saveCurrentStop({ start: STOP_START_ISO, meta: stopMeta });
+};
+
+// Når start trykkes (stop afsluttes)
+const oldStartClick = els.btnStart.onclick;
+els.btnStart.onclick = () => {
+  if (typeof oldStartClick === 'function') oldStartClick();
+  clearCurrentStop();
+};
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    const cur = JSON.parse(localStorage.getItem('produktionsstop.current.v1'));
+    if (cur && cur.start) {
+      STOP_START_ISO = cur.start;
+      stopMeta = cur.meta || null;
+      setStatus(true);
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => {
+        if (IS_STOPPED && STOP_START_ISO) {
+          const ms = Date.now() - new Date(STOP_START_ISO);
+          els.liveTimer.textContent = fmtDur(ms);
+        }
+        renderActivity8h();
+        renderLog8h();
+      }, 1000);
+    }
+  } catch (e) {
+    console.error("Genoptag stop-fejl:", e);
+  }
+});
+</script>
+
 </body>
 </html>
 
