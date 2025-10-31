@@ -186,8 +186,7 @@ textarea{min-height:70px;resize:vertical}
           <input id="itemNo" type="text">
         </div>
       </div>
-
-        <div class="section-flex" style="margin-top:8px">
+      <div class="section-flex" style="margin-top:8px">
         <div class="field">
           <label>Operatør (valgfri)</label>
           <input id="operator" type="text" placeholder="Navn/initialer">
@@ -245,8 +244,7 @@ textarea{min-height:70px;resize:vertical}
       </div>
     </div> <!-- /ov-stop -->
   </section>
-
-    <!-- INDSTILLINGER -->
+  <!-- INDSTILLINGER -->
   <section id="view-settings" style="display:none">
     <div class="card">
       <h3>Indstillinger</h3>
@@ -307,7 +305,6 @@ textarea{min-height:70px;resize:vertical}
       <div id="causeList" style="margin-top:12px;font-size:14px"></div>
     </div>
   </section>
-
 <script>
 /* ======== Hjælpefunktioner og lagring (Edge-kompatibel) ======== */
 
@@ -360,8 +357,7 @@ function loadSettings(){
   catch(e){ return {}; }
 }
 function saveSettings(x){ localStorage.setItem(SETTINGS, JSON.stringify(x)); }
-
-  /* ======== Status & timer (kompatibel med gammel Edge) ======== */
+/* ======== Status & timer (kompatibel med gammel Edge) ======== */
 
 var IS_STOPPED=false;
 var STOP_START_ISO=null;
@@ -436,8 +432,6 @@ function handleStart(){
   stopMeta=null;
   if(timer){clearInterval(timer); timer=null;}
 }
-
-
 /* ======== Knap- og modalstyring ======== */
 
 // Åbn/luk stopmodal
@@ -490,8 +484,7 @@ function bindButtons(){
     }
   });
 }
-
- /* ======== Indstillinger (tema & farver) ======== */
+/* ======== Indstillinger (tema & farver) ======== */
 
 function applyTheme(theme){
   if(theme==='dark'){
@@ -531,8 +524,7 @@ function bindSettings(){
     };
   }
 }
- 
-  /* ======== Årsager – tilføj, vis og nulstil ======== */
+/* ======== Årsager – tilføj, vis og nulstil ======== */
 
 function getAllCauses(){
   var s = loadSettings();
@@ -627,7 +619,6 @@ function bindCauseButtons(){
     };
   }
 }
-
 /* ======== Faneskift (Handling <-> Indstillinger) ======== */
 
 function setActiveTab(which){
@@ -662,42 +653,6 @@ function initThemeOnLoad(){
   applyBrand();
   applyTheme(s.theme||'standard');
 }
-
-  /* ======== Faneskift (Handling <-> Indstillinger) ======== */
-
-function setActiveTab(which){
-  var tabHandling = byId('tab-handling');
-  var tabSettings = byId('tab-settings');
-  var viewHandling = byId('view-handling');
-  var viewSettings = byId('view-settings');
-
-  if(which==='handling'){
-    addClass(tabHandling,'active');
-    remClass(tabSettings,'active');
-    show(viewHandling);
-    hide(viewSettings);
-  }else{
-    addClass(tabSettings,'active');
-    remClass(tabHandling,'active');
-    show(viewSettings);
-    hide(viewHandling);
-  }
-}
-
-function bindTabs(){
-  var tabHandling = byId('tab-handling');
-  var tabSettings = byId('tab-settings');
-  if(tabHandling) tabHandling.onclick=function(){ setActiveTab('handling'); };
-  if(tabSettings) tabSettings.onclick=function(){ setActiveTab('settings'); };
-}
-
-/* ======== Tema ved første load ======== */
-function initThemeOnLoad(){
-  var s = loadSettings();
-  applyBrand();
-  applyTheme(s.theme||'standard');
-}
-
 /* ======== Init – samler alt ======== */
 
 function bindInputSync(){
@@ -944,3 +899,5 @@ function openRepMailDraft(){
 
 </body>
 </html>
+
+  
