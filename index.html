@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Plus Pack – Produktionsstop (kombineret + skift + migration)</title>
 
+
     <style>
     :root{
       --brand:#0a61ae; --bg:#f6f8fb; --panel:#fff; --divider:#e7edf4;
@@ -31,6 +32,7 @@
     .field{display:grid;gap:6px}
     .pill{padding:2px 8px;border:1px solid #d8e0eb;border-radius:999px;background:#fff;font-size:12px}
 
+
           /* Tabs/status */
     .tabs{display:flex;gap:8px;background:#fff;border-bottom:1px solid var(--divider);padding:8px 10px;align-items:center;position:sticky;top:0;z-index:9}
     .tab{border:0;background:transparent;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:800}
@@ -52,6 +54,7 @@
     .activity .runbg{fill:rgba(16,185,129,.06)}
     .activity .label{fill:#475569;font-size:10px}
     .activity .stop{fill:rgba(220,38,38,.28);stroke:#dc2626;stroke-width:1}
+
 
           /* Chips */
     .chips{display:flex;flex-wrap:wrap;gap:10px}
@@ -85,20 +88,69 @@
     .barlist{display:grid;gap:8px}.barrow{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
     .bar{height:10px;border-radius:999px;background:linear-gradient(90deg,#c7d2fe,#93c5fd)}
     .small{font-size:12px}.select{min-width:220px}
+    /* Sticky fallback for older Edge */
+    html.no-sticky .tabs { position: static; top: auto; }
   </style>
+
+  <!-- Edge-kompatible polyfills + sticky-fallback detektor -->
+  <script>
+  /* String.padStart */
+  if(!String.prototype.padStart){
+    String.prototype.padStart=function(targetLength,padString){
+      targetLength=targetLength>>0; padString=String(padString||' ');
+      if(this.length>=targetLength) return String(this);
+      targetLength=targetLength-this.length;
+      if(targetLength>padString.length){ padString+=padString.repeat(Math.ceil(targetLength/padString.length)); }
+      return padString.slice(0,targetLength)+String(this);
+    };
+  }
+  /* Array.from */
+  if(!Array.from){ Array.from=function(iterable){ return [].slice.call(iterable); }; }
+  /* Object.assign */
+  if(typeof Object.assign!=='function'){
+    Object.assign=function(target){
+      if(target==null) throw new TypeError('Cannot convert undefined or null to object');
+      var to=Object(target);
+      for(var i=1;i<arguments.length;i++){
+        var src=arguments[i];
+        if(src!=null){ for(var k in src){ if(Object.prototype.hasOwnProperty.call(src,k)){ to[k]=src[k]; } } }
+      }
+      return to;
+    };
+  }
+  /* Element.closest */
+  if(window.Element && !Element.prototype.closest){
+    Element.prototype.closest=function(s){
+      var el=this;
+      do{ if(el.matches && el.matches(s)) return el; el=el.parentElement||el.parentNode; } while(el && el.nodeType===1);
+      return null;
+    };
+  }
+  /* Intl guard for old Edge (toLocaleString with locales) */
+  (function(){
+    try{ (new Date()).toLocaleString('da-DK'); }catch(e){
+      var orig=Date.prototype.toLocaleString;
+      if(orig) Date.prototype.toLocaleString=function(){ return orig.call(this); };
+    }
+  })();
+  /* Sticky support detect */
+  (function(){
+    var test=document.createElement('a'); var props=['sticky','-webkit-sticky']; var ok=false;
+    for(var i=0;i<props.length;i++){ test.style.position=props[i]; if(test.style.position.indexOf('sticky')!==-1){ ok=true; break; } }
+    if(!ok){ document.documentElement.className += (document.documentElement.className?' ':'') + 'no-sticky'; }
+  })();
+  </script>
 
     <!-- Vedvarende timer + CURRENT_STOP -->
   <script>
     const CURRENT_STOP = 'produktionsstop.current.v1';
-    const loadCurrentStop = () => {
-      try { return JSON.parse(localStorage.getItem(CURRENT_STOP)); } catch(e){ return null; }
-    };
+    const loadCurrentStop = () => { try { return JSON.parse(localStorage.getItem(CURRENT_STOP)); } catch(e){ return null; } };
     const saveCurrentStop = (obj) => localStorage.setItem(CURRENT_STOP, JSON.stringify(obj));
     const clearCurrentStop = () => localStorage.removeItem(CURRENT_STOP);
   </script>
 </head>
 
-<body>
+  <body>
   <div class="brand">Plus Pack – Produktionsstop</div>
 
   <div class="tabs">
@@ -112,7 +164,7 @@
 
   <div class="container">
 
-        <!-- Handling -->
+       <!-- Handling -->
     <section id="view-handling">
       <div class="card">
         <div class="actions">
@@ -175,7 +227,7 @@
         </div>
       </div>
 
-      <div class="card">
+            <div class="card">
         <h3 style="margin:0 0 8px;font-weight:900">Aktivitet – sidste 8 timer</h3>
         <svg class="activity" viewBox="0 0 920 140" id="activity8h"></svg>
         <p class="muted small" style="margin-top:6px">Røde felter = registrerede stop. Højre kant er nu.</p>
@@ -250,7 +302,7 @@
       </div>
     </div>
 
-      <!-- Stats -->
+        <!-- Stats -->
     <section id="view-stats" style="display:none">
       <div class="card">
         <div class="grid" style="grid-template-columns:1fr auto;align-items:center;margin-bottom:8px">
@@ -414,7 +466,7 @@
       </div>
     </div>
 
-    <!-- EDIT MODAL (til historik-redigering) -->
+    <!-- EDIT MODAL -->
     <div class="overlay" id="ov-edit">
       <div class="modal">
         <div class="modal-h">
@@ -464,29 +516,15 @@
     const closeOv = id => remClass(byId(id),'open');
 
     const pad = n => (n<10?'0':'')+n;
-    const fmtDate = d => {
-      const dt = (d instanceof Date)? d : new Date(d);
-      try { return dt.toLocaleString('da-DK'); } catch(e){ return dt.toString(); }
-    };
-    const fmtDur = ms => {
-      const s = Math.floor((ms||0)/1000);
-      const h = pad(Math.floor(s/3600));
-      const m = pad(Math.floor((s%3600)/60));
-      const ss = pad(s%60);
-      return `${h}:${m}:${ss}`;
-    };
+    const fmtDate = d => { const dt=(d instanceof Date)?d:new Date(d); try{ return dt.toLocaleString('da-DK'); }catch(e){ return dt.toString(); } };
+    const fmtDur = ms => { const s=Math.floor((ms||0)/1000), h=pad(Math.floor(s/3600)), m=pad(Math.floor((s%3600)/60)), ss=pad(s%60); return `${h}:${m}:${ss}`; };
     const fmtShortDur = ms => {
-      const s = Math.floor((ms||0)/1000);
-      const h = Math.floor(s/3600), m = Math.floor((s%3600)/60), ss = s%60;
+      const s=Math.floor((ms||0)/1000), h=Math.floor(s/3600), m=Math.floor((s%3600)/60), ss=s%60;
       if(h>0) return `${h}t ${String(m).padStart(2,'0')}m`;
       if(m>0) return `${m}m ${String(ss).padStart(2,'0')}s`;
       return `${String(ss).padStart(2,'0')}s`;
     };
-    const toLocalInputValue = iso => {
-      if(!iso) return '';
-      const d = new Date(iso), p=n=>String(n).padStart(2,'0');
-      return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
-    };
+    const toLocalInputValue = iso => { if(!iso) return ''; const d=new Date(iso), p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`; };
     const fromLocalInputValue = val => val? new Date(val) : null;
     const uuid = () => `id-${Date.now()}-${Math.floor(Math.random()*1e6)}`;
     const bytesLen = str => unescape(encodeURIComponent(str||'')).length;
@@ -498,7 +536,7 @@
     const V1_EVENTS_KEY='produktionsstop.events.v1';
     const V1_SETTINGS_KEY='produktionsstop.settings.v1';
 
-            const DEFAULT_REASONS=[
+        const DEFAULT_REASONS=[
       {code:'PRES', label:'Presse',   chips:['Rensning','Smøring','Opsætning']},
       {code:'VAERK',label:'Værktøj',  chips:['Skift','Slid','Defekt']},
       {code:'STAK' ,label:'Stakker',  chips:['Fejl','Opsamler','Andet']},
@@ -547,8 +585,7 @@
         if(v1SettingsRaw){
           let v1s={}; try{v1s=JSON.parse(v1SettingsRaw)||{}}catch(e){v1s={}}
           const newS={...loadSettings()};
-          for(const k of ['defaultTo','brandColor','theme','orderNo','itemNo','operator','line'])
-            if(v1s[k]) newS[k]=v1s[k];
+          ['defaultTo','brandColor','theme','orderNo','itemNo','operator','line'].forEach(k=>{ if(v1s[k]) newS[k]=v1s[k]; });
           if(Array.isArray(v1s.customCauses)) newS.customCauses=v1s.customCauses;
           newS.__migratedFromV1=true; saveSettings(newS); did=true;
         }
@@ -557,7 +594,7 @@
       }catch(err){ console.warn('Migration error:', err); }
     }
 
-            /* ==== Elements ============================================================= */
+      /* ==== Elements ============================================================= */
     const els={
       tabHandling:byId('tab-handling'), tabStats:byId('tab-stats'), tabHist:byId('tab-hist'),
       tabShare:byId('tab-share'), tabSettings:byId('tab-settings'),
@@ -630,7 +667,7 @@
     };
     const selectedChips = ()=> Array.from(els.reasonChips.querySelectorAll('input[type="checkbox"]')).filter(i=>i.checked).map(i=>i.value);
 
-            const onReasonAreaClick = e => {
+    const onReasonAreaClick = e => {
       const t=e.target;
       if(t && t.name==='reasonRadio'){ renderChipsByCode(t.value); els.stopValidation.textContent=''; }
     };
@@ -737,7 +774,7 @@
       });
     }
 
-         /* ==== Handover + autosave ================================================ */
+            /* ==== Handover + autosave ================================================ */
     function renderHandover(){
       const list=loadHandover().sort((a,b)=>new Date(b.ts)-new Date(a.ts));
       const c=els.handoverList; c.innerHTML='';
@@ -807,7 +844,7 @@
       return Array.from(map.values()).sort((a,b)=> (b.count-a.count) || (b.dur-a.dur) );
     }
 
-         /* ==== Charts (SVG) ======================================================== */
+    /* ==== Charts (SVG) ======================================================== */
     function renderDonut(svgEl, data, getVal){
       svgEl.innerHTML='';
       const cx=120, cy=120, r=80, th=28;
@@ -896,8 +933,7 @@
         t.textContent=(i*20)+'%'; g.appendChild(t);
       }
     }
-
-            /* ==== Stats render & historik ============================================= */
+    /* ==== Stats render & historik ============================================= */
     function computeStats(rows){
       const totalDur=rows.reduce((a,r)=>a+(r.durationMs||0),0);
       return {count:rows.length, dur:totalDur, avg: rows.length? Math.round(totalDur/rows.length):0};
@@ -983,8 +1019,7 @@
       const date = (d.toLocaleDateString? d.toLocaleDateString('da-DK') : `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`);
       return `Produktionsstop${line?` – ${line}`:''}${ord?` – Ordre ${ord}`:''} – ${date}`;
     };
-
-            let EDIT_ID=null;
+    let EDIT_ID=null;
 
     function setActiveTab(which){
       [els.tabHandling,els.tabStats,els.tabHist,els.tabShare,els.tabSettings].forEach(t=>remClass(t,'active'));
@@ -1255,11 +1290,10 @@
         saveSettings(s); applyBrand(); renderStats(); alert('Indstillinger gemt.');
       };
 
-      // Init liste
-      (function initCauseList(){ // sikre visning
+      // Init årsagsliste
+      (function initCauseList(){
         const s=loadSettings(); if(!Array.isArray(s.customCauses)) s.customCauses=[];
         saveSettings(s);
-        // definer renderCustomList i scope
         (typeof renderCustomList==='function') && renderCustomList();
       })();
     }
@@ -1273,8 +1307,8 @@
         renderTable();
         renderHandover();
         bindEvents();
-        restoreHandoverDraft(); // gendan udkast
-        bindDraftAutosave();    // autosave ved input
+        restoreHandoverDraft();
+        bindDraftAutosave();
 
         // Genoptag aktivt stop fra CURRENT_STOP
         const cur = loadCurrentStop();
@@ -1308,7 +1342,7 @@
       }
     }
     window.addEventListener('DOMContentLoaded', init);
-  </script>
+    </script>
   </div><!-- /.container -->
 </body>
 </html>
