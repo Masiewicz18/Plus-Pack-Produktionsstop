@@ -1,3 +1,16 @@
+Perfekt — her får du en fuld, færdig **single-file** løsning, hvor:
+
+* **Hvert stop** kræver **Linje, Ordre nr. og Vare nr.** før det kan registreres.
+* Hvis du vælger **“Opret rep-seddel”**, bliver den:
+
+  * sendt til dit Power Automate/SharePoint-flow (udfyld URL),
+  * **lagt på en lokal liste** på siden (seneste øverst), så overblikket altid er der.
+* Basisfelter gemmes i browseren, så de **overlever refresh**, indtil du rydder dem.
+* Kompakt, strømlinet layout, ingen pop-ups eller faner.
+
+Gem som fx `pp_stop_compact_replist.html` og åbn i Edge på Windows 10 20H2.
+
+```html
 <!doctype html>
 <html lang="da">
 <head>
@@ -593,3 +606,6 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+```
+
+Hvis du også vil kunne **opdatere status** på rep-sedler (fx “I gang”, “Løst”), sig til — så tilføjer jeg et lille status-dropdown i listen og sender opdateringen til SharePoint.
