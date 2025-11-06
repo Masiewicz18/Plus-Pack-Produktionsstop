@@ -1,16 +1,3 @@
-Perfekt — her får du en fuld, færdig **single-file** løsning, hvor:
-
-* **Hvert stop** kræver **Linje, Ordre nr. og Vare nr.** før det kan registreres.
-* Hvis du vælger **“Opret rep-seddel”**, bliver den:
-
-  * sendt til dit Power Automate/SharePoint-flow (udfyld URL),
-  * **lagt på en lokal liste** på siden (seneste øverst), så overblikket altid er der.
-* Basisfelter gemmes i browseren, så de **overlever refresh**, indtil du rydder dem.
-* Kompakt, strømlinet layout, ingen pop-ups eller faner.
-
-Gem som fx `pp_stop_compact_replist.html` og åbn i Edge på Windows 10 20H2.
-
-```html
 <!doctype html>
 <html lang="da">
 <head>
@@ -20,7 +7,7 @@ Gem som fx `pp_stop_compact_replist.html` og åbn i Edge på Windows 10 20H2.
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plus Pack – Produktionsstop (Kompakt + Rep-liste)</title>
+<title>Plus Pack – Produktionsstop (Kompakt + hurtigvalg)</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
@@ -58,12 +45,8 @@ textarea{min-height:72px}
 .loglist li:last-child{border-bottom:0}
 .log-ts{min-width:130px;color:#6b7280;font-size:12px}
 .tag{display:inline-block;border:1px solid #e2e8f0;background:#f8fafc;border-radius:999px;padding:2px 8px;font-size:12px;margin-left:6px}
-.replist{list-style:none;margin:0;padding:0}
-.replist li{border:1px solid #e6ecf3;border-radius:10px;padding:8px;margin-bottom:8px;background:#fff}
-.rep-meta{color:#6b7280;font-size:12px}
-.badge{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid #dbe4ef;background:#f8fafc;font-size:12px}
-.ok{background:#ecfdf5;border-color:#bde7d2}
-.warn{background:#fff7ed;border-color:#f2d7ae}
+.quick{display:flex;flex-wrap:wrap;gap:8px}
+.quick .btn{padding:8px 10px}
 @media (max-width:900px){.row{display:block}}
 </style>
 </head>
@@ -71,7 +54,7 @@ textarea{min-height:72px}
 <div class="brand">Plus Pack – Produktionsstop</div>
 <div class="container">
 
-  <!-- STATUS + KNAPPER -->
+  <!-- STATUS + KNAPPER (kompakt) -->
   <div class="card">
     <div class="row" style="align-items:center;gap:10px">
       <div class="statuspill"><span id="dot" class="dot"></span><span id="statxt">Kører</span></div>
@@ -83,11 +66,11 @@ textarea{min-height:72px}
     </div>
   </div>
 
-  <!-- BASISOPLYSNINGER -->
+  <!-- BASISOPLYSNINGER (øverst, kompakt) -->
   <div class="card sm">
     <h3>Basisoplysninger</h3>
     <div class="row">
-      <div class="field"><label>Linje / maskine <span class="badge warn">krævet</span></label>
+      <div class="field"><label>Linje / maskine</label>
         <select id="line">
           <option value="">— Vælg —</option>
           <option>L10 75 t Rhodes special presse</option>
@@ -120,34 +103,37 @@ textarea{min-height:72px}
           <option>L82 Lys-manchetter</option>
         </select>
       </div>
-      <div class="field"><label>Ordre nr. <span class="badge warn">krævet</span></label><input id="orderNo" type="text"></div>
-      <div class="field"><label>Vare nr. <span class="badge warn">krævet</span></label><input id="itemNo" type="text"></div>
+      <div class="field"><label>Ordre nr. (krævet)</label><input id="orderNo" type="text"></div>
+      <div class="field"><label>Vare nr. (krævet)</label><input id="itemNo" type="text"></div>
       <div class="field"><label>Operatør (valgfri)</label><input id="operator" type="text" placeholder="Navn/initialer"></div>
       <div class="field"><label>&nbsp;</label><button id="btn-clear-order" class="btn">Ryd ordre/varenr</button></div>
       <div class="field"><label>&nbsp;</label><button id="btn-clear-line" class="btn">Ryd linje/navn</button></div>
     </div>
-    <div class="hint">Felter huskes lokalt i denne browser indtil du rydder dem.</div>
+    <div class="hint">Felter huskes i denne browser, indtil du rydder dem.</div>
   </div>
 
-  <!-- REGISTRÉR STOP -->
+  <!-- REGISTRÉR STOP (panel med hurtigvalg) -->
   <div class="card" id="stopPanel" style="display:none">
     <div class="row" style="justify-content:space-between;align-items:center">
       <h3>Registrér stop</h3>
-      <div id="stopHint" class="hint">Udfyld linje, ordre og vare før bekræftelse.</div>
+      <div id="stopHint" class="hint">Udfyld Ordre nr. og Vare nr. før du bekræfter.</div>
     </div>
 
+    <!-- Hurtig udfyldning -->
     <div class="sep"></div>
-
-    <!-- Hurtigvalg (seneste) + skabeloner -->
     <div class="row">
       <div class="field" style="flex:1 1 320px">
-        <label>Hurtig udfyldning – seneste 10</label>
-        <select id="quick-last"><option value="">— Vælg tidligere registrering —</option></select>
+        <label>Hurtig udfyldning – seneste registreringer</label>
+        <select id="quick-last">
+          <option value="">— Vælg tidligere registrering (seneste 10) —</option>
+        </select>
       </div>
       <div class="field" style="flex:1 1 320px">
-        <label>Skabeloner</label>
+        <label>Skabeloner (egne favoritter)</label>
         <div class="row" style="gap:6px">
-          <select id="tpl-select" style="flex:1"><option value="">— Vælg skabelon —</option></select>
+          <select id="tpl-select" style="flex:1">
+            <option value="">— Vælg skabelon —</option>
+          </select>
           <button id="tpl-save" class="btn">Gem som skabelon</button>
           <button id="tpl-del" class="btn">Slet skabelon</button>
         </div>
@@ -165,7 +151,7 @@ textarea{min-height:72px}
       <div class="field" style="flex:1 1 360px">
         <label>Uddybning</label>
         <div id="reasonChips" class="chips"></div>
-        <div class="row" style="gap:6px;margin-top:6px">
+        <div class="row quick" style="margin-top:6px">
           <button id="btn-copy-last" class="btn" type="button" style="display:none">Kopier sidste for denne årsag</button>
           <button id="btn-clear-detail" class="btn" type="button">Ryd felter</button>
         </div>
@@ -218,12 +204,6 @@ textarea{min-height:72px}
     </div>
   </div>
 
-  <!-- REPARATIONSSedler – LISTE -->
-  <div class="card">
-    <h3>Reparationssedler (seneste)</h3>
-    <ul id="repList" class="replist"></ul>
-  </div>
-
   <!-- OVERLEVERING -->
   <div class="card">
     <h3>Overlevering / skift-noter</h3>
@@ -241,7 +221,7 @@ textarea{min-height:72px}
 </div><!-- /container -->
 
 <script>
-/* ===== Hjælpere ===== */
+/* ===== Hjælpere (legacy-edge venlige) ===== */
 function $(id){return document.getElementById(id)}
 function show(el){if(el) el.style.display=''}
 function hide(el){if(el) el.style.display='none'}
@@ -249,6 +229,7 @@ function pad(n){return (n<10?'0':'')+n}
 function fmtDate(d){var dt=(d instanceof Date)?d:new Date(d); try{return dt.toLocaleString('da-DK')}catch(e){return dt.toString()}}
 function fmtDur(ms){var s=Math.floor((ms||0)/1000),h=pad(Math.floor(s/3600)),m=pad(Math.floor((s%3600)/60)),ss=pad(s%60);return h+':'+m+':'+ss}
 function uuid(){return 'id-'+Date.now()+'-'+Math.floor(Math.random()*1e6)}
+function bytesLen(str){return unescape(encodeURIComponent(str||'')).length}
 
 /* ===== Storage keys ===== */
 var STORAGE='produktionsstop.events.v2';
@@ -257,7 +238,6 @@ var HANDOVER='produktionsstop.handover.v1';
 var DRAFT='produktionsstop.handoverDraft.v1';
 var CURRENT_STOP='produktionsstop.current.v1';
 var TEMPLATES='produktionsstop.templates.v1';
-var REPS='produktionsstop.reps.v1';
 
 function loadJSON(k,def){try{return JSON.parse(localStorage.getItem(k))||def}catch(e){return def}}
 function saveJSON(k,v){localStorage.setItem(k,JSON.stringify(v))}
@@ -274,10 +254,8 @@ function saveCurrentStop(x){saveJSON(CURRENT_STOP,x)}
 function clearCurrentStop(){localStorage.removeItem(CURRENT_STOP)}
 function loadTemplates(){return loadJSON(TEMPLATES,[])}
 function saveTemplates(x){saveJSON(TEMPLATES,x)}
-function loadReps(){return loadJSON(REPS,[])}
-function saveReps(x){saveJSON(REPS,x)}
 
-/* ===== Power Automate / SharePoint endpoints (RET TIL) ===== */
+/* ===== Power Automate/SharePoint endpoints (UDSKIFT) ===== */
 var ENDPOINT_EVENT   = "https://<din-flow-url>/event";
 var ENDPOINT_REP     = "https://<din-flow-url>/rep";
 var ENDPOINT_HANDOVER= "https://<din-flow-url>/handover";
@@ -304,7 +282,6 @@ var els={
   activity:$('activity8h'), log8h:$('log8h'),
   quickLast:$('quick-last'),
   tplSelect:$('tpl-select'), tplSave:$('tpl-save'), tplDel:$('tpl-del'),
-  repList:$('repList'),
   handoverText:$('handoverText'), handoverTag:$('handoverTag'), handoverSave:$('handoverSave'), handoverClear:$('handoverClear'), handoverList:$('handoverList')
 };
 var IS_STOPPED=false, STOP_START_ISO=null, stopMeta=null, timer=null;
@@ -429,10 +406,10 @@ function restoreBasics(){
   if(s.itemNo) els.itemNo.value=s.itemNo; if(s.operator) els.operator.value=s.operator;
 }
 
-/* ===== Quick (seneste) + skabeloner ===== */
+/* ===== Hurtig udfyldning (seneste 10) ===== */
 function refreshQuickLast(){
   var rows=loadEvents().slice(-10).reverse();
-  var html='<option value="">— Vælg tidligere registrering —</option>';
+  var html='<option value="">— Vælg tidligere registrering (seneste 10) —</option>';
   for(var i=0;i<rows.length;i++){
     var r=rows[i], code=(r.reason&&r.reason.code)||'?', lab=(r.reason&&r.reason.label)||'?';
     html+='<option value="'+r.id+'">'+code+' · '+lab+' · '+(r.comment||'-')+'</option>';
@@ -441,12 +418,17 @@ function refreshQuickLast(){
 }
 function applyFromEvent(ev){
   if(!ev) return;
+  // vælg årsag
   var radios=document.getElementsByName('reasonRadio'), i;
   for(i=0;i<radios.length;i++){ if(radios[i].value===((ev.reason&&ev.reason.code)||'')){ radios[i].checked=true; renderChipsByCode(radios[i].value); break } }
+  // chips
   var nodes=els.reasonChips.getElementsByTagName('input'), set=(ev.detailChips||[]);
   for(i=0;i<nodes.length;i++){ nodes[i].checked=(set.indexOf(nodes[i].value)>=0) }
+  // øvrige felter
   els.other.value=ev.other||''; els.comment.value=ev.comment||'';
 }
+
+/* ===== Skabeloner (gem/brug favoritter) ===== */
 function refreshTemplates(){
   var list=loadTemplates(), i, html='<option value="">— Vælg skabelon —</option>';
   for(i=0;i<list.length;i++){ html+='<option value="'+list[i].id+'">'+list[i].name+'</option>' }
@@ -461,8 +443,7 @@ function captureCurrentStopForm(){
     comment:(els.comment.value||'').trim()
   };
 }
-function applyTemplate(t){
-  if(!t) return;
+function applyTemplate(t){ if(!t) return; // set reason+fields
   var radios=document.getElementsByName('reasonRadio'), i;
   for(i=0;i<radios.length;i++){ if(radios[i].value===t.reason.code){ radios[i].checked=true; renderChipsByCode(radios[i].value); break } }
   var nodes=els.reasonChips.getElementsByTagName('input'), set=(t.detailChips||[]);
@@ -470,31 +451,15 @@ function applyTemplate(t){
   els.other.value=t.other||''; els.comment.value=t.comment||'';
 }
 
-/* ===== Replist render ===== */
-function renderRepList(){
-  var list=loadReps().slice(0,50); // vis seneste 50
-  var ul=els.repList; ul.innerHTML='';
-  if(!list.length){ ul.innerHTML='<li class="hint">Ingen rep-sedler endnu.</li>'; return }
-  for(var i=0;i<list.length;i++){
-    var r=list[i];
-    var li=document.createElement('li');
-    li.innerHTML='<div class="rep-meta">'+fmtDate(r.created)+' · '+(r.line||'?')+' · Ordre '+(r.order||'?')+' · Vare '+(r.item||'?')+'</div>'+
-                 '<div><b>'+r.type+'</b> – '+(r.description||'')+'</div>'+
-                 '<div style="display:flex;gap:8px;align-items:center;margin-top:6px">'+
-                 '<span class="badge '+(r.priority==='Kritisk'?'warn':'ok')+'">Prioritet: '+r.priority+'</span>'+
-                 '<span class="badge">Status: '+(r.status||'Afventer')+'</span>'+
-                 '</div>';
-    ul.appendChild(li);
-  }
-}
-
 /* ===== Init ===== */
 window.addEventListener('DOMContentLoaded', function(){
-  // start-status
-  setStatus(false); restoreBasics(); renderReasons(); renderActivity8h(); renderLog8h();
-  refreshQuickLast(); refreshTemplates(); renderRepList();
+  setStatus(false);
+  restoreBasics();
+  renderReasons();
+  renderActivity8h(); renderLog8h();
+  refreshQuickLast(); refreshTemplates();
 
-  // genoptag aktivt stop
+  // aktivt stop fra tidligere
   var cur=loadCurrentStop(); if(cur&&cur.start){ STOP_START_ISO=cur.start; stopMeta=cur.meta||null; setStatus(true); if(timer)clearInterval(timer); timer=setInterval(tick,1000) }
 
   // basis input
@@ -506,29 +471,43 @@ window.addEventListener('DOMContentLoaded', function(){
   els.btnStop.onclick=function(){ show(els.stopPanel); els.stopHint.innerHTML='' };
   els.stopCancel.onclick=function(){ hide(els.stopPanel); els.stopHint.innerHTML='' };
 
-  // rep fold
+  // rep-seddel fold
   els.repMode.onchange=function(){ if(els.repMode.value==='create'){ show(els.repFields); if(!els.repTo.value){ var s=loadSettings(); els.repTo.value=s.defaultTo||'vedligehold@pluspack.com' } } else { hide(els.repFields) } };
 
-  // quick/templ
+  // Quick-last
   els.quickLast.onchange=function(){
     var id=this.value; if(!id) return;
     var rows=loadEvents(), i, ev=null; for(i=0;i<rows.length;i++){ if(rows[i].id===id){ ev=rows[i]; break } }
     applyFromEvent(ev);
   };
-  els.tplSave.onclick=function(){ var name=prompt('Navn på skabelon?'); if(!name) return; var t=captureCurrentStopForm(); t.id=uuid(); t.name=name; var list=loadTemplates(); list.unshift(t); saveTemplates(list); refreshTemplates(); alert('Skabelon gemt.'); };
-  els.tplDel.onclick=function(){ var id=els.tplSelect.value; if(!id) return; var list=loadTemplates().filter(function(x){return x.id!==id}); saveTemplates(list); refreshTemplates(); };
-  els.tplSelect.onchange=function(){ var id=this.value; if(!id) return; var list=loadTemplates(), i, t=null; for(i=0;i<list.length;i++){ if(list[i].id===id){ t=list[i]; break } } applyTemplate(t); };
-  $('btn-clear-detail').onclick=function(){ els.other.value=''; els.comment.value=''; var nodes=els.reasonChips.getElementsByTagName('input'); for(var i=0;i<nodes.length;i++){nodes[i].checked=false} };
+
+  // Templates
+  els.tplSave.onclick=function(){
+    var name=prompt('Navn på skabelon?'); if(!name) return;
+    var t=captureCurrentStopForm(); t.id=uuid(); t.name=name;
+    var list=loadTemplates(); list.unshift(t); saveTemplates(list); refreshTemplates(); alert('Skabelon gemt.');
+  };
+  els.tplDel.onclick=function(){
+    var id=els.tplSelect.value; if(!id) return;
+    var list=loadTemplates().filter(function(x){return x.id!==id}); saveTemplates(list); refreshTemplates();
+  };
+  els.tplSelect.onchange=function(){
+    var id=this.value; if(!id) return;
+    var list=loadTemplates(), i, t=null; for(i=0;i<list.length;i++){ if(list[i].id===id){ t=list[i]; break } }
+    applyTemplate(t);
+  };
 
   // årsag ændret
-  function onReasonChangeLocal(e){ var t=e.target||e.srcElement; if(t && t.name==='reasonRadio'){ renderChipsByCode(t.value); maybeShowCopyButton(t.value); } }
+  function onReasonChangeLocal(e){
+    var t=e.target||e.srcElement;
+    if(t && t.name==='reasonRadio'){ renderChipsByCode(t.value); maybeShowCopyButton(t.value); }
+  }
   els.reasonTop.onclick=onReasonChangeLocal; els.reasonMore.onclick=onReasonChangeLocal;
+  $('btn-clear-detail').onclick=function(){ els.other.value=''; els.comment.value=''; var nodes=els.reasonChips.getElementsByTagName('input'); for(var i=0;i<nodes.length;i++){nodes[i].checked=false} };
 
   // Bekræft stop (start timing)
   els.stopConfirm.onclick=function(){
-    if(!(els.line.value||'').trim() || !(els.orderNo.value||'').trim() || !(els.itemNo.value||'').trim()){
-      els.stopHint.innerHTML='Linje, Ordre nr. og Vare nr. er påkrævet.'; return
-    }
+    if(!(els.orderNo.value||'').trim() || !(els.itemNo.value||'').trim()){ els.stopHint.innerHTML='Udfyld Ordre nr. og Vare nr. før du bekræfter.'; return }
     var sel=document.querySelector('input[name="reasonRadio"]:checked'); var reason=getReason(sel?sel.value:null)||{code:'ANDET',label:'Andet'};
     stopMeta={
       reason:{code:reason.code,label:reason.label},
@@ -541,7 +520,7 @@ window.addEventListener('DOMContentLoaded', function(){
     saveCurrentStop({start:STOP_START_ISO, meta:stopMeta});
   };
 
-  // Start (afslut + send + rep-liste)
+  // Start (afslut og send)
   els.btnStart.onclick=function(){
     if(!IS_STOPPED) return;
     var end=new Date(), start=new Date(STOP_START_ISO), dur=end-start;
@@ -549,27 +528,20 @@ window.addEventListener('DOMContentLoaded', function(){
       line:els.line.value||'', operator:els.operator.value||'', orderNo:els.orderNo.value||'', itemNo:els.itemNo.value||'',
       reason: stopMeta?stopMeta.reason:null, detailChips: stopMeta?stopMeta.detailChips:[], other: stopMeta?stopMeta.other:'', comment: stopMeta?stopMeta.comment:'' };
 
-    // Send stop til SharePoint
+    // send til SharePoint
     var payloadEvent={ id:row.id, start:row.start, end:row.end, duration_ms:row.durationMs,
       line:row.line, order:row.orderNo, item:row.itemNo, operator:row.operator,
       cause_code:(row.reason&&row.reason.code)||'', cause_label:(row.reason&&row.reason.label)||'',
       details:(row.detailChips||[]).join(', '), other:row.other||'', comment:row.comment||'' };
     postJSON(ENDPOINT_EVENT, payloadEvent, function(){});
 
-    // Opret rep-objekt hvis valgt, send + læg på lokal liste
     if(stopMeta && stopMeta.rep){
       var rp=stopMeta.rep;
-      var repObj={ id:'rep-'+uuid(), created:new Date().toISOString(), related_event_id:row.id,
-        line:row.line, order:row.orderNo, item:row.itemNo, operator:row.operator,
-        priority:rp.pri, type:rp.type, description:rp.desc, to:rp.to, cc:rp.cc, status:'Afventer' };
-      var reps=loadReps(); reps.unshift(repObj); saveReps(reps); renderRepList();
-
       var payloadRep={ related_event_id:row.id, line:row.line, order:row.orderNo, item:row.itemNo, operator:row.operator,
         priority:rp.pri, type:rp.type, description:rp.desc, to:rp.to, cc:rp.cc };
       postJSON(ENDPOINT_REP, payloadRep, function(){});
     }
 
-    // Gem lokalt + UI
     var rows=loadEvents(); rows.push(row); saveEvents(rows);
     setStatus(false); STOP_START_ISO=null; stopMeta=null; if(timer){clearInterval(timer); timer=null}
     renderActivity8h(); renderLog8h(); refreshQuickLast(); clearCurrentStop();
@@ -606,6 +578,3 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
-```
-
-Hvis du også vil kunne **opdatere status** på rep-sedler (fx “I gang”, “Løst”), sig til — så tilføjer jeg et lille status-dropdown i listen og sender opdateringen til SharePoint.
