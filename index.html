@@ -7,77 +7,72 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plus Pack – Produktionsstop (Single Page, Legacy Edge)</title>
+<title>Plus Pack – Produktionsstop (Kompakt + hurtigvalg)</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{margin:0;font-family:Segoe UI,Arial,Helvetica,sans-serif;background:#f4f6f9;color:#0f172a}
-.brand{background:#0a61ae;color:#fff;padding:12px 18px;font-weight:800}
-.container{max-width:1180px;margin:0 auto;padding:14px}
-.card{background:#fff;border:1px solid #e6ecf3;border-radius:14px;padding:14px;box-shadow:0 6px 20px rgba(15,23,42,.06);margin-bottom:12px}
-label{font-size:12px;color:#6b7280;display:block;margin-bottom:4px}
-input,select,textarea{width:100%;border:1px solid #e1e7f0;border-radius:10px;padding:10px 12px;background:#fff}
-textarea{min-height:80px}
-.flex{display:flex}.gap12{gap:12px}.col{flex:1 1 0}.stack>*{margin-bottom:10px}
-.field{margin-bottom:10px}
-.btn{border:1px solid #dbe4ef;background:#fff;border-radius:12px;padding:12px 16px;font-weight:800;cursor:pointer}
+.brand{background:#0a61ae;color:#fff;padding:10px 16px;font-weight:800}
+.container{max-width:1180px;margin:0 auto;padding:12px}
+.card{background:#fff;border:1px solid #e6ecf3;border-radius:12px;padding:12px;box-shadow:0 6px 20px rgba(15,23,42,.06);margin-bottom:10px}
+h3{margin:0 0 6px}
+label{font-size:11px;color:#6b7280;display:block;margin-bottom:3px}
+input,select,textarea{width:100%;border:1px solid #dfe7f2;border-radius:10px;padding:8px 10px;background:#fff;font-size:14px;line-height:1.2}
+textarea{min-height:72px}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.sm .field{flex:1 1 220px}
+.field{margin-bottom:8px}
+.hint{font-size:12px;color:#6b7280}
+.btn{border:1px solid #dbe4ef;background:#fff;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer;font-size:14px}
 .btn:disabled{opacity:.55;cursor:not-allowed}
 .btn-stop{border-color:#f3b3b3;background:#fff1f1;color:#7f1d1d}
 .btn-start{border-color:#b7e6c7;background:#ebfff2;color:#0b5a3c}
-.timer{font:700 40px/1.1 ui-monospace,Consolas,monospace}
-.timer small{display:block;font:600 12px/1 Segoe UI,Arial;color:#6b7280;margin-bottom:4px}
 .statuspill{display:inline-flex;align-items:center;gap:8px;border:1px solid #e6ecf3;border-radius:999px;padding:6px 10px;background:#fff}
-.dot{width:12px;height:12px;border-radius:999px;background:#17833e}.dot.stop{background:#dc2626}
-.row3{display:flex;flex-wrap:wrap;gap:10px}.row3 .field{flex:1 1 200px}
-.row2{display:flex;flex-wrap:wrap;gap:10px}.row2 .field{flex:1 1 300px}
-.hint{font-size:12px;color:#6b7280}
+.dot{width:10px;height:10px;border-radius:999px;background:#17833e}.dot.stop{background:#dc2626}
+.timer{font:700 34px/1.1 ui-monospace,Consolas,monospace}
+.timer small{display:block;font:600 11px/1 Segoe UI,Arial;color:#6b7280;margin-bottom:3px}
 .sep{height:1px;background:#e6ecf3;margin:8px 0}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid #dbe4ef;background:#f5f9ff;border-radius:999px;padding:8px 10px;font-size:13px;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #dbe4ef;background:#f5f9ff;border-radius:999px;padding:6px 8px;font-size:13px;cursor:pointer}
 .chip input{width:16px;height:16px}
-.activity{width:100%;height:140px}
+.activity{width:100%;height:120px}
 .activity .gridline{stroke:#e5e7eb;stroke-width:1}.activity .gridline.sub{opacity:.5}
 .activity .now{stroke:#0a61ae;stroke-width:2}
 .activity .runbg{fill:rgba(16,185,129,.06)} .activity .label{fill:#475569;font-size:10px}
 .activity .stop{fill:rgba(220,38,38,.28);stroke:#dc2626;stroke-width:1}
-.loglist{list-style:none;margin:0;padding:0;max-height:220px;overflow:auto;border:1px dashed #dbe4ef;border-radius:12px;background:#fff}
-.loglist li{display:flex;gap:10px;padding:8px 10px;border-bottom:1px solid #eef2f7}
+.loglist{list-style:none;margin:0;padding:0;max-height:200px;overflow:auto;border:1px dashed #dbe4ef;border-radius:10px;background:#fff}
+.loglist li{display:flex;gap:8px;padding:6px 8px;border-bottom:1px solid #eef2f7}
 .loglist li:last-child{border-bottom:0}
-.log-ts{min-width:140px;color:#6b7280;font-size:12px}
+.log-ts{min-width:130px;color:#6b7280;font-size:12px}
 .tag{display:inline-block;border:1px solid #e2e8f0;background:#f8fafc;border-radius:999px;padding:2px 8px;font-size:12px;margin-left:6px}
-.kpi{border:1px solid #e6ecf3;border-radius:10px;background:#f8fafc;padding:10px;min-width:140px}
-.kpi .val{font-weight:900;font-size:22px}
-.barlist{display:block}
-.barrow{display:flex;align-items:center;gap:10px;margin:6px 0}
-.bar{flex:1;height:10px;border-radius:999px;background:linear-gradient(90deg,#60a5fa,#2563eb)}
-@media (max-width:900px){.flex,.row2,.row3{display:block}}
+.quick{display:flex;flex-wrap:wrap;gap:8px}
+.quick .btn{padding:8px 10px}
+@media (max-width:900px){.row{display:block}}
 </style>
 </head>
 <body>
 <div class="brand">Plus Pack – Produktionsstop</div>
 <div class="container">
 
-  <!-- STATUS / KNAPPER -->
+  <!-- STATUS + KNAPPER (kompakt) -->
   <div class="card">
-    <div class="flex gap12" style="align-items:center;flex-wrap:wrap">
+    <div class="row" style="align-items:center;gap:10px">
       <div class="statuspill"><span id="dot" class="dot"></span><span id="statxt">Kører</span></div>
-    </div>
-    <div class="stack" style="margin-top:8px">
-      <div class="flex gap12">
-        <button id="btn-stop"  class="btn btn-stop col">Stop</button>
-        <button id="btn-start" class="btn btn-start col" disabled>Start</button>
+      <div class="row" style="flex:1;gap:8px">
+        <button id="btn-stop"  class="btn btn-stop" style="flex:1">Stop</button>
+        <button id="btn-start" class="btn btn-start" style="flex:1" disabled>Start</button>
       </div>
-      <div class="timer"><small>Aktuelt stop</small><span id="liveTimer">—</span></div>
+      <div class="timer" style="min-width:160px;text-align:right"><small>Aktuelt stop</small><span id="liveTimer">—</span></div>
     </div>
   </div>
 
-  <!-- BASISOPLYSNINGER (øverst, persisteres) -->
-  <div class="card">
-    <h3 style="margin:0 0 8px">Basisoplysninger</h3>
-    <div class="row3">
+  <!-- BASISOPLYSNINGER (øverst, kompakt) -->
+  <div class="card sm">
+    <h3>Basisoplysninger</h3>
+    <div class="row">
       <div class="field"><label>Linje / maskine</label>
         <select id="line">
-          <option value="">— Vælg maskine —</option>
+          <option value="">— Vælg —</option>
           <option>L10 75 t Rhodes special presse</option>
           <option>L11 Mech RF135 serie nr 18-11 Mnr888</option>
           <option>L13 Press Beutler PD 40</option>
@@ -110,118 +105,140 @@ textarea{min-height:80px}
       </div>
       <div class="field"><label>Ordre nr. (krævet)</label><input id="orderNo" type="text"></div>
       <div class="field"><label>Vare nr. (krævet)</label><input id="itemNo" type="text"></div>
-    </div>
-    <div class="row3">
       <div class="field"><label>Operatør (valgfri)</label><input id="operator" type="text" placeholder="Navn/initialer"></div>
       <div class="field"><label>&nbsp;</label><button id="btn-clear-order" class="btn">Ryd ordre/varenr</button></div>
       <div class="field"><label>&nbsp;</label><button id="btn-clear-line" class="btn">Ryd linje/navn</button></div>
     </div>
-    <div class="hint">Oplysningerne bliver husket i denne browser indtil du trykker “Ryd…”.</div>
+    <div class="hint">Felter huskes i denne browser, indtil du rydder dem.</div>
   </div>
 
-  <!-- REGISTRÉR STOP (panel – ingen popups) -->
+  <!-- REGISTRÉR STOP (panel med hurtigvalg) -->
   <div class="card" id="stopPanel" style="display:none">
-    <h3 style="margin:0 0 6px">Registrér stop</h3>
-    <div class="hint" id="stopHint">Udfyld Ordre nr. og Vare nr. før du bekræfter.</div>
-    <div class="sep"></div>
+    <div class="row" style="justify-content:space-between;align-items:center">
+      <h3>Registrér stop</h3>
+      <div id="stopHint" class="hint">Udfyld Ordre nr. og Vare nr. før du bekræfter.</div>
+    </div>
 
-    <div class="row2">
-      <div class="field col">
-        <label>Årsag</label>
-        <div id="reasonTop" class="chips"></div>
-        <div id="reasonMore" class="chips" style="margin-top:6px"></div>
-        <div class="field" style="margin-top:6px">
-          <button id="btn-copy-last" class="btn" type="button" style="display:none">Gentag sidste registrering for denne årsag</button>
-        </div>
+    <!-- Hurtig udfyldning -->
+    <div class="sep"></div>
+    <div class="row">
+      <div class="field" style="flex:1 1 320px">
+        <label>Hurtig udfyldning – seneste registreringer</label>
+        <select id="quick-last">
+          <option value="">— Vælg tidligere registrering (seneste 10) —</option>
+        </select>
       </div>
-      <div class="field col">
-        <label>Uddybning</label>
-        <div id="reasonChips" class="chips"></div>
+      <div class="field" style="flex:1 1 320px">
+        <label>Skabeloner (egne favoritter)</label>
+        <div class="row" style="gap:6px">
+          <select id="tpl-select" style="flex:1">
+            <option value="">— Vælg skabelon —</option>
+          </select>
+          <button id="tpl-save" class="btn">Gem som skabelon</button>
+          <button id="tpl-del" class="btn">Slet skabelon</button>
+        </div>
       </div>
     </div>
 
-    <div class="row2">
-      <div class="field col"><label>Andet</label><input id="other" type="text"></div>
-      <div class="field col"><label>Kommentar</label><input id="comment" type="text"></div>
+    <div class="sep"></div>
+
+    <div class="row sm">
+      <div class="field" style="flex:1 1 360px">
+        <label>Årsag</label>
+        <div id="reasonTop" class="chips"></div>
+        <div id="reasonMore" class="chips" style="margin-top:6px"></div>
+      </div>
+      <div class="field" style="flex:1 1 360px">
+        <label>Uddybning</label>
+        <div id="reasonChips" class="chips"></div>
+        <div class="row quick" style="margin-top:6px">
+          <button id="btn-copy-last" class="btn" type="button" style="display:none">Kopier sidste for denne årsag</button>
+          <button id="btn-clear-detail" class="btn" type="button">Ryd felter</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row sm">
+      <div class="field"><label>Andet</label><input id="other" type="text"></div>
+      <div class="field"><label>Kommentar</label><input id="comment" type="text"></div>
     </div>
 
     <!-- Integreret rep-seddel -->
     <div class="sep"></div>
-    <div class="row2">
-      <div class="field col">
+    <div class="row sm">
+      <div class="field" style="flex:1 1 240px">
         <label>Rep-seddel</label>
         <select id="rep-mode">
           <option value="none">Ingen rep-seddel</option>
           <option value="create">Opret rep-seddel</option>
         </select>
       </div>
-      <div class="field col"></div>
+      <div class="field" style="flex:3 1 520px"></div>
     </div>
     <div id="rep-fields" style="display:none">
-      <div class="row2">
-        <div class="field col"><label>Modtager</label><input id="rep-to" type="email" placeholder="vedligehold@pluspack.com"></div>
-        <div class="field col"><label>CC</label><input id="rep-cc" type="text" placeholder="valgfri, kommasepareret"></div>
+      <div class="row sm">
+        <div class="field"><label>Modtager</label><input id="rep-to" type="email" placeholder="vedligehold@pluspack.com"></div>
+        <div class="field"><label>CC</label><input id="rep-cc" type="text" placeholder="valgfri, kommasepareret"></div>
+        <div class="field"><label>Prioritet</label><select id="rep-pri"><option>Lav</option><option>Mellem</option><option>Høj</option><option>Kritisk</option></select></div>
+        <div class="field"><label>Fejltype</label><input id="rep-type" type="text" placeholder="fx Mekanisk, Elektrisk"></div>
       </div>
-      <div class="row2">
-        <div class="field col"><label>Prioritet</label><select id="rep-pri"><option>Lav</option><option>Mellem</option><option>Høj</option><option>Kritisk</option></select></div>
-        <div class="field col"><label>Fejltype</label><input id="rep-type" type="text" placeholder="fx Mekanisk, Elektrisk"></div>
-      </div>
-      <div class="field"><label>Beskrivelse</label><textarea id="rep-desc" placeholder="Kort og præcis beskrivelse (symptomer, hvornår, hvad er prøvet)"></textarea></div>
+      <div class="field"><label>Beskrivelse</label><textarea id="rep-desc" placeholder="Kort og præcis beskrivelse"></textarea></div>
     </div>
 
-    <div class="flex gap12" style="justify-content:flex-end;margin-top:6px">
+    <div class="row" style="justify-content:flex-end;gap:8px">
       <button id="stop-cancel" class="btn">Annuller</button>
       <button id="stop-confirm" class="btn btn-stop">Bekræft stop</button>
     </div>
   </div>
 
-  <!-- AKTIVITET / LOG -->
-  <div class="flex gap12">
-    <div class="card col">
-      <h3 style="margin:0 0 8px">Aktivitet – sidste 8 timer</h3>
-      <svg class="activity" id="activity8h" viewBox="0 0 920 140"></svg>
+  <!-- AKTIVITET + LOG -->
+  <div class="row" style="gap:10px">
+    <div class="card" style="flex:1">
+      <h3>Aktivitet – sidste 8 timer</h3>
+      <svg class="activity" id="activity8h" viewBox="0 0 920 120"></svg>
       <div class="hint">Røde felter = registrerede stop. Højre kant er “nu”.</div>
     </div>
-    <div class="card col">
-      <h3 style="margin:0 0 8px">Aktivitetslog</h3>
+    <div class="card" style="flex:1">
+      <h3>Aktivitetslog</h3>
       <ul id="log8h" class="loglist"></ul>
     </div>
   </div>
 
   <!-- OVERLEVERING -->
   <div class="card">
-    <h3 style="margin:0 0 8px">Overlevering / skift-noter</h3>
-    <div class="row2">
-      <div class="field col"><label>Noter</label><textarea id="handoverText" placeholder="Kort status, åbne punkter, kendte fejl…"></textarea></div>
-      <div class="field col"><label>Tag (valgfri)</label><input id="handoverTag" type="text" placeholder="fx Vedligehold, Kvalitet"></div>
+    <h3>Overlevering / skift-noter</h3>
+    <div class="row sm">
+      <div class="field" style="flex:2"><label>Noter</label><textarea id="handoverText" placeholder="Kort status, åbne punkter, kendte fejl…"></textarea></div>
+      <div class="field" style="flex:1"><label>Tag (valgfri)</label><input id="handoverTag" type="text" placeholder="fx Vedligehold, Kvalitet"></div>
     </div>
-    <div class="flex gap12">
+    <div class="row" style="gap:8px">
       <button id="handoverSave" class="btn btn-start">Gem note</button>
       <button id="handoverClear" class="btn">Ryd felt</button>
     </div>
-    <div id="handoverList" style="margin-top:10px"></div>
+    <div id="handoverList" style="margin-top:8px"></div>
   </div>
 
 </div><!-- /container -->
 
 <script>
-/*** ======= Hjælpere (legacy-sikre) ======= ***/
+/* ===== Hjælpere (legacy-edge venlige) ===== */
 function $(id){return document.getElementById(id)}
 function show(el){if(el) el.style.display=''}
 function hide(el){if(el) el.style.display='none'}
-function addClass(el,c){if(!el)return; if((' '+el.className+' ').indexOf(' '+c+' ')<0) el.className+=(el.className?' ':'')+c}
-function remClass(el,c){if(!el)return; el.className=el.className.split(' ').filter(function(x){return x!==c}).join(' ')}
 function pad(n){return (n<10?'0':'')+n}
 function fmtDate(d){var dt=(d instanceof Date)?d:new Date(d); try{return dt.toLocaleString('da-DK')}catch(e){return dt.toString()}}
 function fmtDur(ms){var s=Math.floor((ms||0)/1000),h=pad(Math.floor(s/3600)),m=pad(Math.floor((s%3600)/60)),ss=pad(s%60);return h+':'+m+':'+ss}
-function bytesLen(str){return unescape(encodeURIComponent(str||'')).length}
 function uuid(){return 'id-'+Date.now()+'-'+Math.floor(Math.random()*1e6)}
-/*** Storage keys ***/
+function bytesLen(str){return unescape(encodeURIComponent(str||'')).length}
+
+/* ===== Storage keys ===== */
 var STORAGE='produktionsstop.events.v2';
 var SETTINGS='produktionsstop.settings.v2';
 var HANDOVER='produktionsstop.handover.v1';
 var DRAFT='produktionsstop.handoverDraft.v1';
 var CURRENT_STOP='produktionsstop.current.v1';
+var TEMPLATES='produktionsstop.templates.v1';
+
 function loadJSON(k,def){try{return JSON.parse(localStorage.getItem(k))||def}catch(e){return def}}
 function saveJSON(k,v){localStorage.setItem(k,JSON.stringify(v))}
 function loadEvents(){return loadJSON(STORAGE,[])}
@@ -235,14 +252,15 @@ function saveDraft(x){saveJSON(DRAFT,x)}
 function loadCurrentStop(){return loadJSON(CURRENT_STOP,null)}
 function saveCurrentStop(x){saveJSON(CURRENT_STOP,x)}
 function clearCurrentStop(){localStorage.removeItem(CURRENT_STOP)}
+function loadTemplates(){return loadJSON(TEMPLATES,[])}
+function saveTemplates(x){saveJSON(TEMPLATES,x)}
 
-/*** ======= SharePoint/Flow endpoints – UDFYLD DISSE ======= ***/
-var ENDPOINT_EVENT   = "https://<din-flow-url>/event";     // stop-post
-var ENDPOINT_REP     = "https://<din-flow-url>/rep";       // rep-seddel
-var ENDPOINT_HANDOVER= "https://<din-flow-url>/handover";  // overlevering
-
+/* ===== Power Automate/SharePoint endpoints (UDSKIFT) ===== */
+var ENDPOINT_EVENT   = "https://<din-flow-url>/event";
+var ENDPOINT_REP     = "https://<din-flow-url>/rep";
+var ENDPOINT_HANDOVER= "https://<din-flow-url>/handover";
 function postJSON(url,payload,cb){
-  if(!url || url.indexOf('http')!==0){ if(cb) cb(true); return } // no-op hvis ikke sat
+  if(!url || url.indexOf('http')!==0){ if(cb) cb(true); return }
   try{
     var xhr=new XMLHttpRequest();
     xhr.open('POST',url,true);
@@ -252,22 +270,23 @@ function postJSON(url,payload,cb){
   }catch(e){ if(cb) cb(false) }
 }
 
-/*** ======= UI refs / state ======= ***/
+/* ===== Element refs ===== */
 var els={
   btnStop:$('btn-stop'), btnStart:$('btn-start'), dot:$('dot'), statxt:$('statxt'), liveTimer:$('liveTimer'),
   line:$('line'), orderNo:$('orderNo'), itemNo:$('itemNo'), operator:$('operator'),
   btnClearOrder:$('btn-clear-order'), btnClearLine:$('btn-clear-line'),
   stopPanel:$('stopPanel'), stopHint:$('stopHint'), stopCancel:$('stop-cancel'), stopConfirm:$('stop-confirm'),
   reasonTop:$('reasonTop'), reasonMore:$('reasonMore'), reasonChips:$('reasonChips'), other:$('other'), comment:$('comment'),
-  btnCopyLast:$('btn-copy-last'),
+  btnCopyLast:$('btn-copy-last'), btnClearDetail:$('btn-clear-detail'),
   repMode:$('rep-mode'), repFields:$('rep-fields'), repTo:$('rep-to'), repCc:$('rep-cc'), repPri:$('rep-pri'), repType:$('rep-type'), repDesc:$('rep-desc'),
   activity:$('activity8h'), log8h:$('log8h'),
+  quickLast:$('quick-last'),
+  tplSelect:$('tpl-select'), tplSave:$('tpl-save'), tplDel:$('tpl-del'),
   handoverText:$('handoverText'), handoverTag:$('handoverTag'), handoverSave:$('handoverSave'), handoverClear:$('handoverClear'), handoverList:$('handoverList')
 };
-
 var IS_STOPPED=false, STOP_START_ISO=null, stopMeta=null, timer=null;
 
-/*** ======= Årsager ======= ***/
+/* ===== Årsager ===== */
 var DEFAULT_REASONS=[
   {code:'PRES',label:'Presse',chips:['Rensning','Smøring','Opsætning']},
   {code:'VAERK',label:'Værktøj',chips:['Skift','Slid','Defekt']},
@@ -277,26 +296,26 @@ var DEFAULT_REASONS=[
   {code:'ANDET',label:'Andet', chips:['Sikkerhed','Rengøring']}
 ];
 function allReasons(){
-  var s=loadSettings(), list=(s.customCauses||[]), map={}, out=[];
-  for(var i=0;i<DEFAULT_REASONS.length;i++) map[DEFAULT_REASONS[i].code]=DEFAULT_REASONS[i];
-  for(var j=0;j<list.length;j++){ var c=list[j]; map[c.code]={code:c.code,label:c.label,chips:c.chips||[]} }
+  var s=loadSettings(), list=(s.customCauses||[]), map={}, out=[], i;
+  for(i=0;i<DEFAULT_REASONS.length;i++) map[DEFAULT_REASONS[i].code]=DEFAULT_REASONS[i];
+  for(i=0;i<list.length;i++){ var c=list[i]; map[c.code]={code:c.code,label:c.label,chips:c.chips||[]} }
   for(var k in map) out.push(map[k]);
   out.sort(function(a,b){return a.label.localeCompare(b.label)});
   return out;
 }
-function getReason(code){ var L=allReasons(); for(var i=0;i<L.length;i++){ if(L[i].code===code) return L[i] } return null }
+function getReason(code){var i,L=allReasons(); for(i=0;i<L.length;i++){if(L[i].code===code)return L[i]} return null}
 function renderChipsByCode(code){
   var r=getReason(code)||{chips:[]}, html='', i;
   for(i=0;i<r.chips.length;i++) html+='<label class="chip"><input type="checkbox" value="'+r.chips[i]+'">'+r.chips[i]+'</label>';
   els.reasonChips.innerHTML=html;
 }
 function selectedChips(){
-  var boxes=els.reasonChips.getElementsByTagName('input'), out=[];
-  for(var i=0;i<boxes.length;i++){ if(boxes[i].checked) out.push(boxes[i].value) }
+  var boxes=els.reasonChips.getElementsByTagName('input'), out=[], i;
+  for(i=0;i<boxes.length;i++){ if(boxes[i].checked) out.push(boxes[i].value) }
   return out;
 }
 function renderReasons(){
-  var list=allReasons(), top=list.slice(0,8), more=list.slice(8), html='', i;
+  var list=allReasons(), top=list.slice(0,8), more=list.slice(8), i, html='';
   function mk(r){return '<label class="chip"><input type="radio" name="reasonRadio" value="'+r.code+'"><b>'+r.code+'</b> – '+r.label+'</label>'}
   for(i=0;i<top.length;i++) html+=mk(top[i]); els.reasonTop.innerHTML=html;
   html=''; for(i=0;i<more.length;i++) html+=mk(more[i]); els.reasonMore.innerHTML=html;
@@ -306,54 +325,49 @@ function renderReasons(){
 }
 function onReasonChange(e){
   var t=e.target||e.srcElement;
-  if(t && t.name==='reasonRadio'){ renderChipsByCode(t.value); els.stopHint.innerHTML=''; maybeShowCopyButton(t.value); }
-}
-function maybeShowCopyButton(code){
-  var last=findLastByCause(code);
-  if(last){ els.btnCopyLast.style.display=''; els.btnCopyLast.onclick=function(){
-      els.other.value=last.other||''; els.comment.value=last.comment||'';
-      // markér chips
-      var chips=selectedChips(), i, map={}; for(i=0;i<chips.length;i++) map[chips[i]]=true;
-      var nodes=els.reasonChips.getElementsByTagName('input');
-      for(i=0;i<nodes.length;i++){ nodes[i].checked=(last.detailChips||[]).indexOf(nodes[i].value)>=0 }
-  }; }
-  else { els.btnCopyLast.style.display='none'; }
+  if(t && t.name==='reasonRadio'){ renderChipsByCode(t.value); els.stopHint.innerHTML=''; maybeShowCopyButton(t.value) }
 }
 function findLastByCause(code){
   var rows=loadEvents().filter(function(r){return r.reason && r.reason.code===code}).sort(function(a,b){return new Date(b.start)-new Date(a.start)});
   return rows.length?rows[0]:null;
 }
+function maybeShowCopyButton(code){
+  var last=findLastByCause(code);
+  if(last){ els.btnCopyLast.style.display=''; els.btnCopyLast.onclick=function(){
+    els.other.value=last.other||''; els.comment.value=last.comment||'';
+    var nodes=els.reasonChips.getElementsByTagName('input'), i, set=(last.detailChips||[]);
+    for(i=0;i<nodes.length;i++){ nodes[i].checked=(set.indexOf(nodes[i].value)>=0) }
+  }; }
+  else { els.btnCopyLast.style.display='none' }
+}
 
-/*** ======= Status/timer ======= ***/
+/* ===== Status/timer ===== */
 function setStatus(st){
-  IS_STOPPED=st;
-  els.btnStop.disabled=st; els.btnStart.disabled=!st;
-  els.dot.className=st?'dot stop':'dot';
-  els.statxt.innerHTML=st?'Stoppet':'Kører';
+  IS_STOPPED=st; els.btnStop.disabled=st; els.btnStart.disabled=!st;
+  els.dot.className=st?'dot stop':'dot'; els.statxt.innerHTML=st?'Stoppet':'Kører';
   els.liveTimer.innerHTML=st?'00:00:00':'—';
 }
 function tick(){
   if(!IS_STOPPED) return;
-  var ms=Date.now()-new Date(STOP_START_ISO);
-  els.liveTimer.innerHTML=fmtDur(ms);
+  var ms=Date.now()-new Date(STOP_START_ISO); els.liveTimer.innerHTML=fmtDur(ms);
   renderActivity8h(); renderLog8h();
 }
 
-/*** ======= Aktivitet & log ======= ***/
+/* ===== Aktivitet & log ===== */
 function renderActivity8h(){
   var svg=els.activity; if(!svg) return; svg.innerHTML='';
-  var W=920,H=140,m={l:40,r:10,t:20,b:20},w=W-m.l-m.r,h=H-m.t-m.b;
+  var W=920,H=120,m={l:40,r:10,t:18,b:18},w=W-m.l-m.r,h=H-m.t-m.b;
   var now=new Date(), start=new Date(now.getTime()-8*3600*1000);
   function xPos(t){return m.l+Math.max(0,Math.min(w,((t-start)/(8*3600*1000))*w))}
   var bg=document.createElementNS('http://www.w3.org/2000/svg','rect'); bg.setAttribute('x',m.l); bg.setAttribute('y',m.t); bg.setAttribute('width',w); bg.setAttribute('height',h); bg.setAttribute('class','runbg'); svg.appendChild(bg);
-  for(var i=0;i<=8;i++){
+  var i; for(i=0;i<=8;i++){
     var x=m.l+(w*(i/8)), ln=document.createElementNS('http://www.w3.org/2000/svg','line');
     ln.setAttribute('x1',x); ln.setAttribute('y1',m.t); ln.setAttribute('x2',x); ln.setAttribute('y2',m.t+h); ln.setAttribute('class','gridline'); svg.appendChild(ln);
     var t=document.createElementNS('http://www.w3.org/2000/svg','text'); var dt=new Date(start.getTime()+i*3600*1000);
     t.setAttribute('x',x+2); t.setAttribute('y',H-4); t.setAttribute('class','label'); t.textContent=pad(dt.getHours())+':00'; svg.appendChild(t);
     if(i<8){var xh=x+(w/8)/2, ln2=document.createElementNS('http://www.w3.org/2000/svg','line'); ln2.setAttribute('x1',xh); ln2.setAttribute('y1',m.t); ln2.setAttribute('x2',xh); ln2.setAttribute('y2',m.t+h); ln2.setAttribute('class','gridline sub'); svg.appendChild(ln2)}
   }
-  var rows=loadEvents(), i, stops=[];
+  var rows=loadEvents(), stops=[];
   for(i=0;i<rows.length;i++){
     var r=rows[i]; if(!r.end) continue;
     var s=new Date(r.start), e=new Date(r.end); if(e<start||s>now) continue;
@@ -362,7 +376,7 @@ function renderActivity8h(){
   if(IS_STOPPED && STOP_START_ISO){ var s2=Math.max(new Date(STOP_START_ISO).getTime(),start.getTime()), e2=now.getTime(); if(e2>s2) stops.push([s2,e2]) }
   for(i=0;i<stops.length;i++){
     var xs=xPos(stops[i][0]), xe=xPos(stops[i][1]), rr=document.createElementNS('http://www.w3.org/2000/svg','rect');
-    rr.setAttribute('x',xs); rr.setAttribute('y',m.t+8); rr.setAttribute('width',Math.max(1,xe-xs)); rr.setAttribute('height',h-16); rr.setAttribute('class','stop'); svg.appendChild(rr);
+    rr.setAttribute('x',xs); rr.setAttribute('y',m.t+6); rr.setAttribute('width',Math.max(1,xe-xs)); rr.setAttribute('height',h-12); rr.setAttribute('class','stop'); svg.appendChild(rr);
   }
   var xnow=xPos(now), nowLn=document.createElementNS('http://www.w3.org/2000/svg','line'); nowLn.setAttribute('x1',xnow); nowLn.setAttribute('y1',m.t-2); nowLn.setAttribute('x2',xnow); nowLn.setAttribute('y2',m.t+h+2); nowLn.setAttribute('class','now'); svg.appendChild(nowLn);
 }
@@ -370,7 +384,7 @@ function renderLog8h(){
   var el=els.log8h; el.innerHTML='';
   var now=new Date(), start=new Date(now.getTime()-8*3600*1000);
   var rows=loadEvents().filter(function(r){return r.end && new Date(r.end)>start}).sort(function(a,b){return new Date(b.start)-new Date(a.start)});
-  if(rows.length===0 && !(IS_STOPPED && STOP_START_ISO)){ el.innerHTML='<li class="hint" style="padding:8px 10px">Ingen registreringer i perioden</li>'; return; }
+  if(rows.length===0 && !(IS_STOPPED && STOP_START_ISO)){ el.innerHTML='<li class="hint" style="padding:6px 8px">Ingen registreringer i perioden</li>'; return; }
   if(IS_STOPPED && STOP_START_ISO){
     var ms=Date.now()-new Date(STOP_START_ISO), li=document.createElement('li');
     li.innerHTML='<div class="log-ts">NU</div><div><strong>Aktivt stop</strong> <span class="tag">'+fmtDur(ms)+'</span></div>'; el.appendChild(li);
@@ -382,55 +396,131 @@ function renderLog8h(){
   }
 }
 
-/*** ======= Persistens af basisoplysninger ======= ***/
+/* ===== Persistens af basisfelter ===== */
 function syncBasics(){
-  var s=loadSettings();
-  s.line=els.line.value||''; s.orderNo=els.orderNo.value||''; s.itemNo=els.itemNo.value||''; s.operator=els.operator.value||'';
-  saveSettings(s);
+  var s=loadSettings(); s.line=els.line.value||''; s.orderNo=els.orderNo.value||''; s.itemNo=els.itemNo.value||''; s.operator=els.operator.value||''; saveSettings(s);
 }
 function restoreBasics(){
   var s=loadSettings();
-  if(s.line) els.line.value=s.line;
-  if(s.orderNo) els.orderNo.value=s.orderNo;
-  if(s.itemNo) els.itemNo.value=s.itemNo;
-  if(s.operator) els.operator.value=s.operator;
+  if(s.line) els.line.value=s.line; if(s.orderNo) els.orderNo.value=s.orderNo;
+  if(s.itemNo) els.itemNo.value=s.itemNo; if(s.operator) els.operator.value=s.operator;
 }
 
-/*** ======= Init ======= ***/
+/* ===== Hurtig udfyldning (seneste 10) ===== */
+function refreshQuickLast(){
+  var rows=loadEvents().slice(-10).reverse();
+  var html='<option value="">— Vælg tidligere registrering (seneste 10) —</option>';
+  for(var i=0;i<rows.length;i++){
+    var r=rows[i], code=(r.reason&&r.reason.code)||'?', lab=(r.reason&&r.reason.label)||'?';
+    html+='<option value="'+r.id+'">'+code+' · '+lab+' · '+(r.comment||'-')+'</option>';
+  }
+  els.quickLast.innerHTML=html;
+}
+function applyFromEvent(ev){
+  if(!ev) return;
+  // vælg årsag
+  var radios=document.getElementsByName('reasonRadio'), i;
+  for(i=0;i<radios.length;i++){ if(radios[i].value===((ev.reason&&ev.reason.code)||'')){ radios[i].checked=true; renderChipsByCode(radios[i].value); break } }
+  // chips
+  var nodes=els.reasonChips.getElementsByTagName('input'), set=(ev.detailChips||[]);
+  for(i=0;i<nodes.length;i++){ nodes[i].checked=(set.indexOf(nodes[i].value)>=0) }
+  // øvrige felter
+  els.other.value=ev.other||''; els.comment.value=ev.comment||'';
+}
+
+/* ===== Skabeloner (gem/brug favoritter) ===== */
+function refreshTemplates(){
+  var list=loadTemplates(), i, html='<option value="">— Vælg skabelon —</option>';
+  for(i=0;i<list.length;i++){ html+='<option value="'+list[i].id+'">'+list[i].name+'</option>' }
+  els.tplSelect.innerHTML=html;
+}
+function captureCurrentStopForm(){
+  var sel=document.querySelector('input[name="reasonRadio"]:checked'), code=sel?sel.value:null, reason=getReason(code)||{code:'ANDET',label:'Andet'};
+  return {
+    reason:{code:reason.code,label:reason.label},
+    detailChips:selectedChips(),
+    other:(els.other.value||'').trim(),
+    comment:(els.comment.value||'').trim()
+  };
+}
+function applyTemplate(t){ if(!t) return; // set reason+fields
+  var radios=document.getElementsByName('reasonRadio'), i;
+  for(i=0;i<radios.length;i++){ if(radios[i].value===t.reason.code){ radios[i].checked=true; renderChipsByCode(radios[i].value); break } }
+  var nodes=els.reasonChips.getElementsByTagName('input'), set=(t.detailChips||[]);
+  for(i=0;i<nodes.length;i++){ nodes[i].checked=(set.indexOf(nodes[i].value)>=0) }
+  els.other.value=t.other||''; els.comment.value=t.comment||'';
+}
+
+/* ===== Init ===== */
 window.addEventListener('DOMContentLoaded', function(){
   setStatus(false);
   restoreBasics();
   renderReasons();
   renderActivity8h(); renderLog8h();
+  refreshQuickLast(); refreshTemplates();
 
-  // genoptag aktivt stop
+  // aktivt stop fra tidligere
   var cur=loadCurrentStop(); if(cur&&cur.start){ STOP_START_ISO=cur.start; stopMeta=cur.meta||null; setStatus(true); if(timer)clearInterval(timer); timer=setInterval(tick,1000) }
 
-  // Basis inputs
+  // basis input
   els.line.onchange=syncBasics; els.orderNo.oninput=syncBasics; els.itemNo.oninput=syncBasics; els.operator.oninput=syncBasics;
-  $('btn-clear-order').onclick=function(){els.orderNo.value=''; els.itemNo.value=''; syncBasics()}
-  $('btn-clear-line').onclick=function(){els.line.value=''; els.operator.value=''; syncBasics()}
+  els.btnClearOrder.onclick=function(){els.orderNo.value='';els.itemNo.value='';syncBasics()};
+  els.btnClearLine.onclick=function(){els.line.value='';els.operator.value='';syncBasics()};
 
-  // Åbn/luk stop-panel
-  els.btnStop.onclick=function(){ show(els.stopPanel); els.stopHint.innerHTML='' }
-  els.stopCancel.onclick=function(){ hide(els.stopPanel); els.stopHint.innerHTML='' }
+  // åbne/lukke registreringspanel
+  els.btnStop.onclick=function(){ show(els.stopPanel); els.stopHint.innerHTML='' };
+  els.stopCancel.onclick=function(){ hide(els.stopPanel); els.stopHint.innerHTML='' };
 
-  // Rep-seddel fold/ud
-  els.repMode.onchange=function(){ if(els.repMode.value==='create'){ show(els.repFields); if(!els.repTo.value){ els.repTo.value=(loadSettings().defaultTo||'vedligehold@pluspack.com') } } else { hide(els.repFields) } };
+  // rep-seddel fold
+  els.repMode.onchange=function(){ if(els.repMode.value==='create'){ show(els.repFields); if(!els.repTo.value){ var s=loadSettings(); els.repTo.value=s.defaultTo||'vedligehold@pluspack.com' } } else { hide(els.repFields) } };
 
-  // Bekræft stop → Start aktivt stop
+  // Quick-last
+  els.quickLast.onchange=function(){
+    var id=this.value; if(!id) return;
+    var rows=loadEvents(), i, ev=null; for(i=0;i<rows.length;i++){ if(rows[i].id===id){ ev=rows[i]; break } }
+    applyFromEvent(ev);
+  };
+
+  // Templates
+  els.tplSave.onclick=function(){
+    var name=prompt('Navn på skabelon?'); if(!name) return;
+    var t=captureCurrentStopForm(); t.id=uuid(); t.name=name;
+    var list=loadTemplates(); list.unshift(t); saveTemplates(list); refreshTemplates(); alert('Skabelon gemt.');
+  };
+  els.tplDel.onclick=function(){
+    var id=els.tplSelect.value; if(!id) return;
+    var list=loadTemplates().filter(function(x){return x.id!==id}); saveTemplates(list); refreshTemplates();
+  };
+  els.tplSelect.onchange=function(){
+    var id=this.value; if(!id) return;
+    var list=loadTemplates(), i, t=null; for(i=0;i<list.length;i++){ if(list[i].id===id){ t=list[i]; break } }
+    applyTemplate(t);
+  };
+
+  // årsag ændret
+  function onReasonChangeLocal(e){
+    var t=e.target||e.srcElement;
+    if(t && t.name==='reasonRadio'){ renderChipsByCode(t.value); maybeShowCopyButton(t.value); }
+  }
+  els.reasonTop.onclick=onReasonChangeLocal; els.reasonMore.onclick=onReasonChangeLocal;
+  $('btn-clear-detail').onclick=function(){ els.other.value=''; els.comment.value=''; var nodes=els.reasonChips.getElementsByTagName('input'); for(var i=0;i<nodes.length;i++){nodes[i].checked=false} };
+
+  // Bekræft stop (start timing)
   els.stopConfirm.onclick=function(){
     if(!(els.orderNo.value||'').trim() || !(els.itemNo.value||'').trim()){ els.stopHint.innerHTML='Udfyld Ordre nr. og Vare nr. før du bekræfter.'; return }
     var sel=document.querySelector('input[name="reasonRadio"]:checked'); var reason=getReason(sel?sel.value:null)||{code:'ANDET',label:'Andet'};
-    stopMeta={reason:{code:reason.code,label:reason.label},detailChips:selectedChips(),other:(els.other.value||'').trim(),comment:(els.comment.value||'').trim(),
-              rep: (els.repMode.value==='create') ? {
-                to:(els.repTo.value||''), cc:(els.repCc.value||''), pri:(els.repPri.value||'Mellem'), type:(els.repType.value||''), desc:(els.repDesc.value||'')
-              } : null};
+    stopMeta={
+      reason:{code:reason.code,label:reason.label},
+      detailChips:selectedChips(),
+      other:(els.other.value||'').trim(),
+      comment:(els.comment.value||'').trim(),
+      rep:(els.repMode.value==='create')?{to:(els.repTo.value||''), cc:(els.repCc.value||''), pri:(els.repPri.value||'Mellem'), type:(els.repType.value||''), desc:(els.repDesc.value||'')}:null
+    };
     STOP_START_ISO=new Date().toISOString(); setStatus(true); if(timer)clearInterval(timer); timer=setInterval(tick,1000); tick(); hide(els.stopPanel);
-    saveCurrentStop({start:STOP_START_ISO, meta: stopMeta});
+    saveCurrentStop({start:STOP_START_ISO, meta:stopMeta});
   };
 
-  // Start → afslut aktivt stop (gem lokalt + send til SharePoint)
+  // Start (afslut og send)
   els.btnStart.onclick=function(){
     if(!IS_STOPPED) return;
     var end=new Date(), start=new Date(STOP_START_ISO), dur=end-start;
@@ -438,38 +528,31 @@ window.addEventListener('DOMContentLoaded', function(){
       line:els.line.value||'', operator:els.operator.value||'', orderNo:els.orderNo.value||'', itemNo:els.itemNo.value||'',
       reason: stopMeta?stopMeta.reason:null, detailChips: stopMeta?stopMeta.detailChips:[], other: stopMeta?stopMeta.other:'', comment: stopMeta?stopMeta.comment:'' };
 
-    // send event til SharePoint
-    var payloadEvent={
-      id:row.id, start:row.start, end:row.end, duration_ms:row.durationMs,
+    // send til SharePoint
+    var payloadEvent={ id:row.id, start:row.start, end:row.end, duration_ms:row.durationMs,
       line:row.line, order:row.orderNo, item:row.itemNo, operator:row.operator,
       cause_code:(row.reason&&row.reason.code)||'', cause_label:(row.reason&&row.reason.label)||'',
-      details:(row.detailChips||[]).join(', '), other:row.other||'', comment:row.comment||''
-    };
+      details:(row.detailChips||[]).join(', '), other:row.other||'', comment:row.comment||'' };
     postJSON(ENDPOINT_EVENT, payloadEvent, function(){});
 
-    // rep-seddel hvis valgt
     if(stopMeta && stopMeta.rep){
       var rp=stopMeta.rep;
-      var payloadRep={
-        related_event_id: row.id,
-        line: row.line, order: row.orderNo, item: row.itemNo, operator: row.operator,
-        priority: rp.pri, type: rp.type, description: rp.desc, to: rp.to, cc: rp.cc
-      };
+      var payloadRep={ related_event_id:row.id, line:row.line, order:row.orderNo, item:row.itemNo, operator:row.operator,
+        priority:rp.pri, type:rp.type, description:rp.desc, to:rp.to, cc:rp.cc };
       postJSON(ENDPOINT_REP, payloadRep, function(){});
     }
 
     var rows=loadEvents(); rows.push(row); saveEvents(rows);
     setStatus(false); STOP_START_ISO=null; stopMeta=null; if(timer){clearInterval(timer); timer=null}
-    renderActivity8h(); renderLog8h(); clearCurrentStop();
+    renderActivity8h(); renderLog8h(); refreshQuickLast(); clearCurrentStop();
   };
 
-  // Handover
+  /* Overlevering */
   function renderHandover(){
     var list=loadHandover().sort(function(a,b){return new Date(b.ts)-new Date(a.ts)}), c=els.handoverList;
-    c.innerHTML='';
-    if(!list.length){ c.innerHTML='<div class="hint">Ingen noter endnu</div>'; return }
+    c.innerHTML=''; if(!list.length){ c.innerHTML='<div class="hint">Ingen noter endnu</div>'; return }
     for(var i=0;i<list.length;i++){
-      var it=list[i], d=document.createElement('div'); d.className='card'; d.style.padding='10px';
+      var it=list[i], d=document.createElement('div'); d.className='card'; d.style.padding='8px';
       d.innerHTML='<div class="hint">'+fmtDate(it.ts)+(it.tag?(' · '+it.tag):'')+'</div><div>'+it.txt+'</div>'+
                   '<div style="text-align:right;margin-top:6px"><button class="btn" data-i="'+i+'">Slet</button></div>';
       c.appendChild(d);
@@ -485,17 +568,13 @@ window.addEventListener('DOMContentLoaded', function(){
 
   els.handoverSave.onclick=function(){
     var txt=(els.handoverText.value||'').trim(); if(!txt){alert('Skriv en note.');return}
-    var tag=(els.handoverTag.value||'').trim(); var arr=loadHandover();
-    var row={ts:new Date().toISOString(), txt:txt, tag:tag, line:els.line.value||'', operator:els.operator.value||''};
-    arr.unshift(row); saveHandover(arr); localStorage.removeItem(DRAFT);
-    // send til SharePoint
-    postJSON(ENDPOINT_HANDOVER, row, function(){});
+    var tag=(els.handoverTag.value||'').trim(); var row={ts:new Date().toISOString(), txt:txt, tag:tag, line:els.line.value||'', operator:els.operator.value||''};
+    var arr=loadHandover(); arr.unshift(row); saveHandover(arr); localStorage.removeItem(DRAFT);
+    postJSON(ENDPOINT_HANDOVER,row,function(){});
     els.handoverText.value=''; els.handoverTag.value=''; renderHandover();
   };
   els.handoverClear.onclick=function(){ els.handoverText.value=''; els.handoverTag.value=''; localStorage.removeItem(DRAFT) };
 });
-
-/*** ======= Reason “copy last” knap opdateres når panel åbnes ======= */
 </script>
 </body>
 </html>
