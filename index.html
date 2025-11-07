@@ -3,573 +3,402 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plus Pack – Produktionsstop (Intuitiv kode + samlet feed)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plus Pack – Stop & Rep Registrering</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
-body{margin:0;font-family:Segoe UI,Arial,Helvetica,sans-serif;background:#f5f7fb;color:#0f172a}
-.brand{background:#0a61ae;color:#fff;padding:10px 16px;font-weight:800}
-.container{max-width:1180px;margin:0 auto;padding:12px}
-/* Cards / UI */
-.card{background:#fff;border:1px solid #e6ecf3;border-radius:12px;padding:12px;box-shadow:0 6px 20px rgba(15,23,42,.06);margin-bottom:10px}
-h3{margin:0 0 6px}
-label{font-size:11px;color:#6b7280;display:block;margin-bottom:3px}
-input,select,textarea{width:100%;border:1px solid #dfe7f2;border-radius:10px;padding:8px 10px;background:#fff;font-size:14px;line-height:1.2}
-textarea{min-height:72px}
-.row{display:flex;flex-wrap:wrap;margin:-6px}
-.row > *{margin:6px}
-.field{min-width:220px;flex:1 1 220px}
-.hint{font-size:12px;color:#6b7280}
-.btn{border:1px solid #dbe4ef;background:#fff;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer;font-size:14px}
-.btn:disabled{opacity:.55;cursor:not-allowed}
-.btn-stop{border-color:#f3b3b3;background:#fff1f1;color:#7f1d1d}
-.btn-start{border-color:#b7e6c7;background:#ebfff2;color:#0b5a3c}
-.statuspill{display:inline-flex;align-items:center;border:1px solid #e6ecf3;border-radius:999px;padding:6px 10px;background:#fff}
-.dot{width:10px;height:10px;border-radius:999px;background:#17833e;margin-right:8px}.dot.stop{background:#dc2626}
-.timer{font:700 34px/1.1 ui-monospace,Consolas,monospace}
-.timer small{display:block;font:600 11px/1 Segoe UI,Arial;color:#6b7280;margin-bottom:3px}
-.sep{height:1px;background:#e6ecf3;margin:10px 0}
-
-/* Kodevælger */
-.code-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.filterbox{min-width:260px}
-.codes{display:flex;flex-wrap:wrap;margin:-6px}
-.code{display:inline-flex;align-items:center;border:1px solid #dbe4ef;background:#f5f9ff;border-radius:12px;padding:8px 10px;margin:6px;cursor:pointer}
-.code input{margin-right:8px}
-.code b{margin-right:6px}
-.chips{display:flex;flex-wrap:wrap;margin:-6px}
-.chips label{display:inline-flex;align-items:center;border:1px solid #dbe4ef;background:#f0fdf4;border-radius:999px;padding:6px 8px;margin:6px;cursor:pointer}
-
-/* Aktivitet */
-.activity{width:100%;height:120px}
-.activity .gridline{stroke:#e5e7eb;stroke-width:1}.activity .gridline.sub{opacity:.5}
-.activity .now{stroke:#0a61ae;stroke-width:2}
-.activity .runbg{fill:rgba(16,185,129,.06)} .activity .label{fill:#475569;font-size:10px}
-.activity .stop{fill:rgba(220,38,38,.28);stroke:#dc2626;stroke-width:1}
-
-/* Feed (stop + noter) */
-.feed{list-style:none;margin:0;padding:0}
-.feed li{border:1px solid #e6ecf3;border-radius:12px;padding:10px;margin-bottom:10px;background:#fff;display:flex}
-.feed li .bar{width:6px;border-radius:6px;margin-right:10px}
-.feed li.stop .bar{background:#ef4444}
-.feed li.note .bar{background:#3b82f6}
-.feed .meta{color:#6b7280;font-size:12px;margin-bottom:6px}
-.tag{display:inline-block;border:1px solid #e2e8f0;background:#f8fafc;border-radius:999px;padding:2px 8px;font-size:12px;margin-left:6px}
-.grid-mini{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:8px}
-.kv{background:#f8fafc;border:1px solid #eef2f7;border-radius:8px;padding:6px 8px;font-size:12px}
-.kv b{display:block;font-size:11px;color:#6b7280;font-weight:600}
-@media (max-width:920px){.grid-mini{grid-template-columns:repeat(2,minmax(120px,1fr))}}
-@media (max-width:560px){.grid-mini{grid-template-columns:repeat(1,minmax(120px,1fr))}}
-
-/* Log (sidste 8 timer) */
-.loglist{list-style:none;margin:0;padding:0;max-height:220px;overflow:auto;border:1px dashed #dbe4ef;border-radius:10px;background:#fff}
-.loglist li{display:flex;padding:6px 8px;border-bottom:1px solid #eef2f7}
-.loglist li:last-child{border-bottom:0}
-.log-ts{min-width:130px;color:#6b7280;font-size:12px}
-.small{font-size:12px}
-.badge{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid #dbe4ef;background:#f8fafc;font-size:12px}
-.warn{background:#fff7ed;border-color:#f2d7ae}
-.ok{background:#ecfdf5;border-color:#bde7d2}
+body{margin:0;font-family:Segoe UI,Arial,Helvetica,sans-serif;background:#f4f6f9;color:#0f172a}
+header{background:#0a61ae;color:#fff;padding:10px 16px;font-size:18px;font-weight:700}
+.container{max-width:1200px;margin:0 auto;padding:12px}
+.card{background:#fff;border:1px solid #e6ecf3;border-radius:12px;padding:12px 16px;margin-bottom:10px;box-shadow:0 4px 16px rgba(15,23,42,.05)}
+h3{margin:0 0 6px;font-size:17px;color:#0a366e}
+label{font-size:12px;color:#334155;display:block;margin-bottom:3px}
+input,select,textarea{width:100%;border:1px solid #cfd8e3;border-radius:8px;padding:8px 10px;font-size:14px;background:#fff}
+textarea{min-height:70px}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.field{flex:1 1 220px;margin-bottom:8px}
+.btn{border:1px solid #cfd8e3;border-radius:8px;padding:10px 12px;font-weight:600;background:#fff;cursor:pointer}
+.btn:hover{background:#f1f5f9}
+.btn-primary{background:#0a61ae;color:#fff;border:none}
+.btn-primary:hover{background:#094f8c}
+.btn-stop{background:#fee2e2;border:1px solid #fca5a5;color:#7f1d1d}
+.btn-start{background:#dcfce7;border:1px solid #86efac;color:#065f46}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chip{border:1px solid #dbe4ef;background:#f5f9ff;border-radius:999px;padding:5px 8px;font-size:13px;cursor:pointer}
+.chip input{margin-right:4px}
+.loglist{list-style:none;padding:0;margin:0;border:1px solid #e2e8f0;border-radius:10px;background:#fff;max-height:260px;overflow-y:auto}
+.loglist li{padding:8px 10px;border-bottom:1px solid #f1f5f9;font-size:14px;line-height:1.3}
+.loglist li:last-child{border-bottom:none}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;margin-right:6px}
+.tag.stop{background:#fee2e2;color:#991b1b}
+.tag.rep{background:#ffedd5;color:#9a3412}
+.tag.note{background:#dbeafe;color:#1e3a8a}
+.time{color:#475569;font-size:12px;margin-top:2px}
+.hint{font-size:12px;color:#64748b}
+.quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.smallbtn{font-size:12px;padding:6px 8px;border-radius:6px}
+.sep{height:1px;background:#e5e7eb;margin:10px 0}
+.statuspill{display:inline-flex;align-items:center;gap:6px;border:1px solid #e2e8f0;border-radius:999px;padding:6px 10px}
+.dot{width:10px;height:10px;border-radius:999px;background:#16a34a}
+.dot.stop{background:#dc2626}
+.timer{font:700 28px/1.1 ui-monospace,Consolas,monospace;color:#0f172a}
+.timer small{display:block;font:600 11px/1 Segoe UI,Arial;color:#64748b}
+@media (max-width:900px){.row{display:block}}
 </style>
 </head>
 <body>
-<div class="brand">Plus Pack – Produktionsstop</div>
+<header>Plus Pack – Stop & Rep Registrering</header>
 <div class="container">
 
-  <!-- STATUS + KNAPPER -->
+  <!-- STATUS OG BASISINFO -->
   <div class="card">
     <div class="row" style="align-items:center">
       <div class="statuspill"><span id="dot" class="dot"></span><span id="statxt">Kører</span></div>
-      <div style="flex:1"></div>
-      <button id="btn-stop"  class="btn btn-stop">Stop</button>
-      <button id="btn-start" class="btn btn-start" disabled>Start</button>
-      <div class="timer" style="min-width:170px;text-align:right"><small>Aktuelt stop</small><span id="liveTimer">—</span></div>
+      <div class="timer" style="flex:1;text-align:center"><small>Aktuelt stop</small><span id="liveTimer">—</span></div>
+      <div class="row" style="gap:8px">
+        <button id="btn-stop" class="btn btn-stop">Stop</button>
+        <button id="btn-start" class="btn btn-start" disabled>Start</button>
+      </div>
     </div>
   </div>
 
-  <!-- BASISOPLYSNINGER -->
   <div class="card">
     <h3>Basisoplysninger</h3>
     <div class="row">
-      <div class="field">
-        <label>Linje / maskine <span class="badge warn">krævet</span></label>
-        <select id="line">
-          <option value="">— Vælg —</option>
-          <option>L10 75 t Rhodes special presse</option>
-          <option>L11 Mech RF135 serie nr 18-11 Mnr888</option>
-          <option>L13 Press Beutler PD 40</option>
-          <option>L14 50 t Flexo C50 S20 presse</option>
-          <option>L15 30 t Flexo C30 S15 presse</option>
-          <option>L16 40 t Schuler PNH 40/250 presse</option>
-          <option>L17 30 t Flexo C30 S15 presse</option>
-          <option>L20 50 t Bliss 50F MKII presse</option>
-          <option>L22 50 t Bliss 50F MKII presse</option>
-          <option>L23 45 t Bliss 21½ presse</option>
-          <option>L24 30 t Flexo C30 S15</option>
-          <option>L25 30 t Flexo C30 X presse</option>
-          <option>L26 L36 30 t Flexo C30 S15 presse</option>
-          <option>L27 45 t Bliss 21½ presse</option>
-          <option>L28 50 t Flexo presse</option>
-          <option>L29 30 t Flexo C30 presse</option>
-          <option>L30 ny presse 2012</option>
-          <option>L33 50 t Bliss 50F MKII presse</option>
-          <option>L34 50 t Bliss 50F MKII presse</option>
-          <option>L35 30 t Flexo C30 S15 presse</option>
-          <option>L36 30 t Flexo C30 S15 presse Picop</option>
-          <option>L40 50 t Flexo C50 S20 presse</option>
-          <option>L41 50 t Bliss 50F MKII presse</option>
-          <option>L42 Beutler PD 40 alu 638</option>
-          <option>L43 Beutler PD 40 alu 637</option>
-          <option>L80 Choko-kapsler</option>
-          <option>L81 Lys-manchetter</option>
-          <option>L82 Lys-manchetter</option>
-        </select>
-      </div>
-      <div class="field"><label>Ordre nr. <span class="badge warn">krævet</span></label><input id="orderNo" type="text"></div>
-      <div class="field"><label>Vare nr. <span class="badge warn">krævet</span></label><input id="itemNo" type="text"></div>
-      <div class="field"><label>Operatør (valgfri)</label><input id="operator" type="text" placeholder="Navn/initialer"></div>
-      <div class="field"><label>&nbsp;</label><button id="btn-clear-order" class="btn">Ryd ordre/varenr</button></div>
-      <div class="field"><label>&nbsp;</label><button id="btn-clear-line" class="btn">Ryd linje/navn</button></div>
+      <div class="field"><label>Linje / Maskine</label><select id="line">
+        <option value="">— Vælg —</option>
+        <option>L10 Rhodes</option><option>L11 Mech RF135</option><option>L13 Beutler</option>
+        <option>L14 Flexo C50</option><option>L15 Flexo C30</option><option>L16 Schuler</option>
+      </select></div>
+      <div class="field"><label>Ordre nr.</label><input id="orderNo" type="text"></div>
+      <div class="field"><label>Vare nr.</label><input id="itemNo" type="text"></div>
+      <div class="field"><label>Operatør</label><input id="operator" type="text"></div>
     </div>
-    <div class="hint">Felter huskes lokalt i denne browser, indtil du rydder dem.</div>
+    <div class="hint">Disse felter huskes lokalt, også efter refresh.</div>
   </div>
 
-  <!-- REGISTRÉR STOP -->
+  <!-- HANDLINGER -->
+  <div class="card">
+    <h3>Handlinger</h3>
+    <div class="row" style="gap:8px">
+      <button id="btn-new-stop" class="btn btn-stop" style="flex:1">Registrér stop</button>
+      <button id="btn-new-rep" class="btn btn-primary" style="flex:1">Opret rep-seddel</button>
+      <button id="btn-new-note" class="btn" style="flex:1">Gem note</button>
+    </div>
+  </div>
+
+  <!-- PANEL: REGISTRERING AF STOP -->
   <div class="card" id="stopPanel" style="display:none">
-    <div class="code-header">
-      <h3>Registrér stop</h3>
-      <div class="filterbox">
-        <label>Søg i fejlkoder</label>
-        <input id="reasonFilter" type="text" placeholder="Skriv for at filtrere (kode eller tekst)">
+    <h3>Registrér stop</h3>
+    <div class="row">
+      <div class="field" style="flex:1 1 400px">
+        <label>Årsag</label>
+        <div id="reasonList" class="chips"></div>
+      </div>
+      <div class="field" style="flex:1 1 400px">
+        <label>Uddybning</label>
+        <div id="detailList" class="chips"></div>
       </div>
     </div>
-    <div id="stopHint" class="hint" style="margin-top:4px">Udfyld linje, ordre og vare – vælg dernæst fejlkode.</div>
-    <div class="sep"></div>
-
-    <!-- Fejlkoder -->
-    <div id="codesWrap" class="codes"></div>
-
-    <!-- Uddybning -->
-    <div class="sep"></div>
-    <div class="row">
-      <div class="field" style="flex:2 1 360px">
-        <label>Uddybning (chips)</label>
-        <div id="reasonChips" class="chips"></div>
-        <div class="small" id="copyArea" style="margin-top:6px;display:none">
-          <button id="btn-copy-last" class="btn">Kopier sidste registrering for denne årsag</button>
-          <button id="btn-clear-detail" class="btn">Ryd felter</button>
-        </div>
-      </div>
+    <div class="row sm">
       <div class="field"><label>Andet</label><input id="other" type="text"></div>
       <div class="field"><label>Kommentar</label><input id="comment" type="text"></div>
     </div>
-
-    <!-- Rep-seddel integreret -->
+    <div class="row sm">
+      <div class="field"><label>Hurtig udfyldning</label>
+        <select id="quickLast"><option value="">— Vælg tidligere registrering —</option></select>
+      </div>
+      <div class="field"><label>Skabeloner</label>
+        <select id="tplSelect"><option value="">— Vælg favorit —</option></select>
+      </div>
+    </div>
+    <div class="quick">
+      <button id="btnTplSave" class="smallbtn btn-primary">Gem som skabelon</button>
+      <button id="btnTplDel" class="smallbtn">Slet skabelon</button>
+      <button id="btnCopyLast" class="smallbtn">Kopier sidste for årsag</button>
+    </div>
     <div class="sep"></div>
-    <div class="row">
-      <div class="field" style="min-width:220px">
-        <label>Rep-seddel</label>
-        <select id="rep-mode">
-          <option value="none">Ingen rep-seddel</option>
-          <option value="create">Opret rep-seddel</option>
-        </select>
-      </div>
-      <div class="field" style="flex:1"></div>
-    </div>
-    <div id="rep-fields" style="display:none">
-      <div class="row">
-        <div class="field"><label>Modtager</label><input id="rep-to" type="email" placeholder="vedligehold@pluspack.com"></div>
-        <div class="field"><label>CC</label><input id="rep-cc" type="text" placeholder="kommasepareret, valgfri"></div>
-        <div class="field"><label>Prioritet</label><select id="rep-pri"><option>Lav</option><option>Mellem</option><option>Høj</option><option>Kritisk</option></select></div>
-        <div class="field"><label>Fejltype</label><input id="rep-type" type="text" placeholder="fx Mekanisk, Elektrisk"></div>
-      </div>
-      <div class="field"><label>Beskrivelse</label><textarea id="rep-desc" placeholder="Kort og præcis beskrivelse"></textarea></div>
-    </div>
-
-    <div class="row" style="justify-content:flex-end">
-      <button id="stop-cancel" class="btn">Annuller</button>
-      <button id="stop-confirm" class="btn btn-stop">Bekræft stop</button>
+    <div class="row" style="justify-content:flex-end;gap:6px">
+      <button id="btn-cancel-stop" class="btn">Annuller</button>
+      <button id="btn-confirm-stop" class="btn btn-stop">Bekræft stop</button>
     </div>
   </div>
 
-  <!-- AKTIVITET + LOG -->
-  <div class="row">
-    <div class="card" style="flex:1 1 520px">
-      <h3>Aktivitet – sidste 8 timer</h3>
-      <svg class="activity" id="activity8h" viewBox="0 0 920 120"></svg>
-      <div class="hint">Røde felter = registrerede stop. Højre kant er “nu”.</div>
+  <!-- PANEL: REP-SEDDEL -->
+  <div class="card" id="repPanel" style="display:none">
+    <h3>Opret rep-seddel</h3>
+    <div class="row sm">
+      <div class="field"><label>Fejltype</label><input id="rep-type" type="text"></div>
+      <div class="field"><label>Prioritet</label><select id="rep-pri"><option>Lav</option><option>Mellem</option><option>Høj</option><option>Kritisk</option></select></div>
+      <div class="field"><label>Modtager</label><input id="rep-to" type="email" placeholder="vedligehold@pluspack.com"></div>
     </div>
-    <div class="card" style="flex:1 1 520px">
-      <h3>Aktivitetslog</h3>
-      <ul id="log8h" class="loglist"></ul>
+    <div class="field"><label>Beskrivelse</label><textarea id="rep-desc"></textarea></div>
+    <div class="row" style="justify-content:flex-end;gap:6px">
+      <button id="btn-cancel-rep" class="btn">Annuller</button>
+      <button id="btn-send-rep" class="btn btn-primary">Send rep-seddel</button>
     </div>
   </div>
 
-  <!-- SAMLET FEED (Stop + Noter) -->
+  <!-- NOTE -->
+  <div class="card" id="notePanel" style="display:none">
+    <h3>Ny note</h3>
+    <textarea id="noteText" placeholder="Skriv kort note her..."></textarea>
+    <div class="row" style="justify-content:flex-end;gap:6px">
+      <button id="btn-cancel-note" class="btn">Annuller</button>
+      <button id="btn-save-note" class="btn btn-primary">Gem note</button>
+    </div>
+  </div>
+
+  <!-- FEED -->
   <div class="card">
-    <h3>Samlet oversigt – Stop & Noter</h3>
-    <ul id="feed" class="feed"></ul>
+    <h3>Seneste aktiviteter</h3>
+    <ul id="feedList" class="loglist"></ul>
   </div>
 
-  <!-- OVERLEVERING -->
-  <div class="card">
-    <h3>Overlevering / skift-noter</h3>
-    <div class="row">
-      <div class="field" style="flex:2 1 360px"><label>Noter</label><textarea id="handoverText" placeholder="Kort status, åbne punkter, kendte fejl…"></textarea></div>
-      <div class="field" style="min-width:220px"><label>Tag (valgfri)</label><input id="handoverTag" type="text" placeholder="fx Vedligehold, Kvalitet"></div>
-    </div>
-    <div class="row">
-      <button id="handoverSave" class="btn btn-start">Gem note</button>
-      <button id="handoverClear" class="btn">Ryd felt</button>
-    </div>
-  </div>
+</div>
 
-</div><!-- /container -->
+  <script>
+/* ---------- Hjælpefunktioner ---------- */
+function $(id){return document.getElementById(id);}
+function show(el){if(el)el.style.display='';}
+function hide(el){if(el)el.style.display='none';}
+function pad(n){return(n<10?'0':'')+n;}
+function fmtDate(d){var t=new Date(d);return pad(t.getHours())+':'+pad(t.getMinutes())+'  '+pad(t.getDate())+'/'+pad(t.getMonth()+1);}
+function fmtDur(ms){var s=Math.floor(ms/1000),m=Math.floor(s/60)%60,h=Math.floor(s/3600);return pad(h)+':'+pad(m)+':'+pad(s%60);}
+function uuid(){return 'id-'+Date.now()+'-'+Math.floor(Math.random()*1e6);}
 
-<script>
-/* ===== Hjælpere (Edge-venlig JS) ===== */
-function $(id){return document.getElementById(id)}
-function show(el){if(el) el.style.display=''}
-function hide(el){if(el) el.style.display='none'}
-function pad(n){return (n<10?'0':'')+n}
-function fmtDate(d){var dt=(d instanceof Date)?d:new Date(d); try{return dt.toLocaleString('da-DK')}catch(e){return dt.toString()}}
-function fmtDur(ms){var s=Math.floor((ms||0)/1000),h=pad(Math.floor(s/3600)),m=pad(Math.floor((s%3600)/60)),ss=pad(s%60);return h+':'+m+':'+ss}
-function uuid(){return 'id-'+Date.now()+'-'+Math.floor(Math.random()*1e6)}
-function bytesLen(str){return unescape(encodeURIComponent(str||'')).length}
+/* ---------- LocalStorage keys ---------- */
+var STORE_EVENTS='pluspack.v3.events', STORE_SETTINGS='pluspack.v3.settings', STORE_TEMPLATES='pluspack.v3.tpl';
+function load(k,def){try{return JSON.parse(localStorage.getItem(k))||def;}catch(e){return def;}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v));}
 
-/* ===== Storage keys ===== */
-var STORAGE='produktionsstop.events.v2';
-var SETTINGS='produktionsstop.settings.v2';
-var HANDOVER='produktionsstop.handover.v1';
-var DRAFT='produktionsstop.handoverDraft.v1';
-var CURRENT_STOP='produktionsstop.current.v1';
-var REPS='produktionsstop.reps.v1';
-
-function loadJSON(k,def){try{return JSON.parse(localStorage.getItem(k))||def}catch(e){return def}}
-function saveJSON(k,v){localStorage.setItem(k,JSON.stringify(v))}
-function loadEvents(){return loadJSON(STORAGE,[])}
-function saveEvents(x){saveJSON(STORAGE,x)}
-function loadSettings(){return loadJSON(SETTINGS,{})}
-function saveSettings(x){saveJSON(SETTINGS,x)}
-function loadHandover(){return loadJSON(HANDOVER,[])}
-function saveHandover(x){saveJSON(HANDOVER,x)}
-function loadDraft(){return loadJSON(DRAFT,{txt:'',tag:''})}
-function saveDraft(x){saveJSON(DRAFT,x)}
-function loadCurrentStop(){return loadJSON(CURRENT_STOP,null)}
-function saveCurrentStop(x){saveJSON(CURRENT_STOP,x)}
-function clearCurrentStop(){localStorage.removeItem(CURRENT_STOP)}
-function loadReps(){return loadJSON(REPS,[])}
-function saveReps(x){saveJSON(REPS,x)}
-
-/* ===== SharePoint endpoints (RET TIL) ===== */
-var ENDPOINT_EVENT   = "https://<din-flow-url>/event";
-var ENDPOINT_REP     = "https://<din-flow-url>/rep";
-var ENDPOINT_HANDOVER= "https://<din-flow-url>/handover";
-function postJSON(url,payload,cb){
-  if(!url || url.indexOf('http')!==0){ if(cb) cb(true); return }
-  try{
-    var xhr=new XMLHttpRequest();
-    xhr.open('POST',url,true);
-    xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8');
-    xhr.onreadystatechange=function(){ if(xhr.readyState===4){ if(cb) cb(xhr.status>=200&&xhr.status<300) } };
-    xhr.send(JSON.stringify(payload));
-  }catch(e){ if(cb) cb(false) }
-}
-
-/* ===== UI refs ===== */
+/* ---------- Globale refs ---------- */
 var els={
-  btnStop:$('btn-stop'), btnStart:$('btn-start'), dot:$('dot'), statxt:$('statxt'), liveTimer:$('liveTimer'),
-  line:$('line'), orderNo:$('orderNo'), itemNo:$('itemNo'), operator:$('operator'),
-  btnClearOrder:$('btn-clear-order'), btnClearLine:$('btn-clear-line'),
-  stopPanel:$('stopPanel'), stopHint:$('stopHint'), stopCancel:$('stop-cancel'), stopConfirm:$('stop-confirm'),
-  reasonFilter:$('reasonFilter'), codesWrap:$('codesWrap'),
-  reasonChips:$('reasonChips'), copyArea:$('copyArea'), btnCopyLast:$('btn-copy-last'), btnClearDetail:$('btn-clear-detail'),
-  repMode:$('rep-mode'), repFields:$('rep-fields'), repTo:$('rep-to'), repCc:$('rep-cc'), repPri:$('rep-pri'), repType:$('rep-type'), repDesc:$('rep-desc'),
-  activity:$('activity8h'), log8h:$('log8h'),
-  feed:$('feed'),
-  handoverText:$('handoverText'), handoverTag:$('handoverTag'), handoverSave:$('handoverSave'), handoverClear:$('handoverClear')
+ dot:$('dot'), statxt:$('statxt'), liveTimer:$('liveTimer'),
+ btnStop:$('btn-stop'), btnStart:$('btn-start'),
+ line:$('line'), order:$('orderNo'), item:$('itemNo'), oper:$('operator'),
+ stopPanel:$('stopPanel'), repPanel:$('repPanel'), notePanel:$('notePanel'),
+ quick:$('quickLast'), tpl:$('tplSelect'),
+ btnNewStop:$('btn-new-stop'), btnNewRep:$('btn-new-rep'), btnNewNote:$('btn-new-note'),
+ feed:$('feedList')
 };
-var IS_STOPPED=false, STOP_START_ISO=null, stopMeta=null, timer=null;
+var IS_STOP=false, STOP_START=null, stopMeta=null, timer=null;
 
-/* ===== Fejlkoder ===== */
-var DEFAULT_REASONS=[
-  {code:'PRES',label:'Presse',chips:['Rensning','Smøring','Opsætning']},
-  {code:'VAERK',label:'Værktøj',chips:['Skift','Slid','Defekt']},
-  {code:'STAK', label:'Stakker', chips:['Fejl','Opsamler','Andet']},
-  {code:'FOLIE',label:'Manglende folie',chips:['Påfyld','Bestilling']},
-  {code:'ORDRE',label:'Manglende ordre',chips:['Afventer','Uklar ordre']},
-  {code:'ANDET',label:'Andet', chips:['Sikkerhed','Rengøring']}
+/* ---------- Årsager ---------- */
+var REASONS=[
+ {code:'PRES',label:'Presse',details:['Rensning','Smøring','Opsætning']},
+ {code:'VAERK',label:'Værktøj',details:['Skift','Slid','Defekt']},
+ {code:'STAK',label:'Stakker',details:['Fejl','Opsamler','Andet']},
+ {code:'FOLIE',label:'Folie',details:['Påfyld','Bestilling']},
+ {code:'ORDRE',label:'Ordre',details:['Afventer','Uklar ordre']},
+ {code:'ANDET',label:'Andet',details:['Sikkerhed','Rengøring']}
 ];
-function allReasons(){
-  var s=loadSettings(), list=(s.customCauses||[]), map={}, out=[], i;
-  for(i=0;i<DEFAULT_REASONS.length;i++) map[DEFAULT_REASONS[i].code]=DEFAULT_REASONS[i];
-  for(i=0;i<list.length;i++){ var c=list[i]; map[c.code]={code:c.code,label:c.label,chips:c.chips||[]} }
-  for(var k in map) out.push(map[k]);
-  out.sort(function(a,b){return a.label.localeCompare(b.label)});
-  return out;
-}
-function getReason(code){var i,L=allReasons(); for(i=0;i<L.length;i++){if(L[i].code===code)return L[i]} return null}
-function renderChipBox(code){
-  var r=getReason(code)||{chips:[]}, html='', i;
-  els.reasonChips.innerHTML='';
-  for(i=0;i<r.chips.length;i++){
-    html+='<label><input type="checkbox" value="'+r.chips[i]+'"> '+r.chips[i]+'</label>';
-  }
-  els.reasonChips.innerHTML=html?html:'<div class="small hint">Ingen foruddefinerede chips for denne årsag.</div>';
-}
-function selectedChips(){
-  var inputs=els.reasonChips.getElementsByTagName('input'), out=[], i;
-  for(i=0;i<inputs.length;i++){ if(inputs[i].checked) out.push(inputs[i].value) }
-  return out;
-}
-function renderCodes(filter){
-  var list=allReasons(), i, html='';
-  filter=(filter||'').toLowerCase();
-  for(i=0;i<list.length;i++){
-    var r=list[i], text=(r.code+' '+r.label).toLowerCase();
-    if(filter && text.indexOf(filter)<0) continue;
-    html+='<label class="code"><input type="radio" name="reasonRadio" value="'+r.code+'"><b>'+r.code+'</b>'+r.label+'</label>';
-  }
-  els.codesWrap.innerHTML=html||'<div class="small hint">Ingen match på søgningen.</div>';
-  var first=els.codesWrap.querySelector('input[name="reasonRadio"]');
-  if(first && !document.querySelector('input[name="reasonRadio"]:checked')){
-    first.checked=true; renderChipBox(first.value); maybeShowCopyButton(first.value);
-  }
-  els.codesWrap.onclick=function(e){
-    var t=e.target||e.srcElement;
-    if(t && t.name==='reasonRadio'){ renderChipBox(t.value); maybeShowCopyButton(t.value) }
-  };
-}
-function findLastByCause(code){
-  var rows=loadEvents().filter(function(r){return r.reason && r.reason.code===code}).sort(function(a,b){return new Date(b.start)-new Date(a.start)});
-  return rows.length?rows[0]:null;
-}
-function maybeShowCopyButton(code){
-  var last=findLastByCause(code);
-  if(last){ show(els.copyArea); els.btnCopyLast.onclick=function(){
-    els.reasonChips.innerHTML=''; renderChipBox(code);
-    var nodes=els.reasonChips.getElementsByTagName('input'), i, set=(last.detailChips||[]);
-    for(i=0;i<nodes.length;i++){ nodes[i].checked=(set.indexOf(nodes[i].value)>=0) }
-    $('other').value=last.other||''; $('comment').value=last.comment||'';
-  }; }
-  else { hide(els.copyArea) }
+function renderReasons(){
+ var rHTML='',dHTML='';
+ for(var i=0;i<REASONS.length;i++){
+   var r=REASONS[i];
+   rHTML+='<label class="chip"><input type="radio" name="reason" value="'+r.code+'">'+r.label+'</label>';
+ }
+ $('reasonList').innerHTML=rHTML;
+ $('reasonList').onclick=function(e){
+   var t=e.target;if(t.name==='reason'){
+     var r=REASONS.filter(function(x){return x.code===t.value;})[0]||{details:[]};
+     var d='';for(var j=0;j<r.details.length;j++){d+='<label class="chip"><input type="checkbox" value="'+r.details[j]+'">'+r.details[j]+'</label>';}
+     $('detailList').innerHTML=d;
+   }
+ };
 }
 
-/* ===== Status/timer ===== */
+/* ---------- Status / Timer ---------- */
 function setStatus(st){
-  IS_STOPPED=st; els.btnStop.disabled=st; els.btnStart.disabled=!st;
-  els.dot.className=st?'dot stop':'dot'; els.statxt.innerHTML=st?'Stoppet':'Kører';
-  els.liveTimer.innerHTML=st?'00:00:00':'—';
+ IS_STOP=st;
+ els.btnStop.disabled=st;els.btnStart.disabled=!st;
+ els.dot.className=st?'dot stop':'dot';
+ els.statxt.innerHTML=st?'Stoppet':'Kører';
+ els.liveTimer.innerHTML=st?'00:00:00':'—';
 }
 function tick(){
-  if(!IS_STOPPED) return;
-  var ms=Date.now()-new Date(STOP_START_ISO); els.liveTimer.innerHTML=fmtDur(ms);
-  renderActivity8h(); renderLog8h();
+ if(!IS_STOP)return;
+ var ms=Date.now()-new Date(STOP_START).getTime();
+ els.liveTimer.innerHTML=fmtDur(ms);
 }
 
-/* ===== Aktivitet & log ===== */
-function renderActivity8h(){
-  var svg=els.activity; if(!svg) return; svg.innerHTML='';
-  var W=920,H=120,m={l:40,r:10,t:18,b:18},w=W-m.l-m.r,h=H-m.t-m.b;
-  var now=new Date(), start=new Date(now.getTime()-8*3600*1000);
-  function xPos(t){return m.l+Math.max(0,Math.min(w,((t-start)/(8*3600*1000))*w))}
-  var bg=document.createElementNS('http://www.w3.org/2000/svg','rect'); bg.setAttribute('x',m.l); bg.setAttribute('y',m.t); bg.setAttribute('width',w); bg.setAttribute('height',h); bg.setAttribute('class','runbg'); svg.appendChild(bg);
-  var i; for(i=0;i<=8;i++){
-    var x=m.l+(w*(i/8)), ln=document.createElementNS('http://www.w3.org/2000/svg','line');
-    ln.setAttribute('x1',x); ln.setAttribute('y1',m.t); ln.setAttribute('x2',x); ln.setAttribute('y2',m.t+h); ln.setAttribute('class','gridline'); svg.appendChild(ln);
-    var t=document.createElementNS('http://www.w3.org/2000/svg','text'); var dt=new Date(start.getTime()+i*3600*1000);
-    t.setAttribute('x',x+2); t.setAttribute('y',H-4); t.setAttribute('class','label'); t.textContent=pad(dt.getHours())+':00'; svg.appendChild(t);
-    if(i<8){var xh=x+(w/8)/2, ln2=document.createElementNS('http://www.w3.org/2000/svg','line'); ln2.setAttribute('x1',xh); ln2.setAttribute('y1',m.t); ln2.setAttribute('x2',xh); ln2.setAttribute('y2',m.t+h); ln2.setAttribute('class','gridline sub'); svg.appendChild(ln2)}
-  }
-  var rows=loadEvents(), stops=[];
-  for(i=0;i<rows.length;i++){
-    var r=rows[i]; if(!r.end) continue;
-    var s=new Date(r.start), e=new Date(r.end); if(e<start||s>now) continue;
-    var cs=Math.max(s.getTime(),start.getTime()), ce=Math.min(e.getTime(),now.getTime()); stops.push([cs,ce]);
-  }
-  if(IS_STOPPED && STOP_START_ISO){ var s2=Math.max(new Date(STOP_START_ISO).getTime(),start.getTime()), e2=now.getTime(); if(e2>s2) stops.push([s2,e2]) }
-  for(i=0;i<stops.length;i++){
-    var xs=xPos(stops[i][0]), xe=xPos(stops[i][1]), rr=document.createElementNS('http://www.w3.org/2000/svg','rect');
-    rr.setAttribute('x',xs); rr.setAttribute('y',m.t+6); rr.setAttribute('width',Math.max(1,xe-xs)); rr.setAttribute('height',h-12); rr.setAttribute('class','stop'); svg.appendChild(rr);
-  }
-  var xnow=xPos(now), nowLn=document.createElementNS('http://www.w3.org/2000/svg','line'); nowLn.setAttribute('x1',xnow); nowLn.setAttribute('y1',m.t-2); nowLn.setAttribute('x2',xnow); nowLn.setAttribute('y2',m.t+h+2); nowLn.setAttribute('class','now'); svg.appendChild(nowLn);
-}
-function renderLog8h(){
-  var el=els.log8h; el.innerHTML='';
-  var now=new Date(), start=new Date(now.getTime()-8*3600*1000);
-  var rows=loadEvents().filter(function(r){return r.end && new Date(r.end)>start}).sort(function(a,b){return new Date(b.start)-new Date(a.start)});
-  if(rows.length===0 && !(IS_STOPPED && STOP_START_ISO)){ el.innerHTML='<li class="small" style="padding:6px 8px;color:#6b7280">Ingen registreringer i perioden</li>'; return; }
-  if(IS_STOPPED && STOP_START_ISO){
-    var ms=Date.now()-new Date(STOP_START_ISO), li=document.createElement('li');
-    li.innerHTML='<div class="log-ts">NU</div><div><strong>Aktivt stop</strong> <span class="tag">'+fmtDur(ms)+'</span></div>'; el.appendChild(li);
-  }
-  for(var i=0;i<rows.length;i++){
-    var r=rows[i], code=(r.reason&&r.reason.code)||'', li2=document.createElement('li');
-    li2.innerHTML='<div class="log-ts">'+fmtDate(r.start)+'</div><div>'+(code?('<span class="tag">'+code+'</span> '):'')+((r.reason&&r.reason.label)||'Stop')+' – <span class="small" style="color:#6b7280">'+fmtDur(r.durationMs||0)+'</span>'+(r.comment?(' · '+r.comment):'')+'</div>';
-    el.appendChild(li2);
-  }
-}
-
-/* ===== Persistens af basisfelter ===== */
+/* ---------- Basisfelter ---------- */
 function syncBasics(){
-  var s=loadSettings(); s.line=els.line.value||''; s.orderNo=els.orderNo.value||''; s.itemNo=els.itemNo.value||''; s.operator=els.operator.value||''; saveSettings(s);
+ save(STORE_SETTINGS,{
+   line:els.line.value,order:els.order.value,item:els.item.value,oper:els.oper.value
+ });
 }
 function restoreBasics(){
-  var s=loadSettings();
-  if(s.line) els.line.value=s.line; if(s.orderNo) els.orderNo.value=s.orderNo;
-  if(s.itemNo) els.itemNo.value=s.itemNo; if(s.operator) els.operator.value=s.operator;
+ var s=load(STORE_SETTINGS,{});
+ if(s.line)els.line.value=s.line;
+ if(s.order)els.order.value=s.order;
+ if(s.item)els.item.value=s.item;
+ if(s.oper)els.oper.value=s.oper;
 }
 
-/* ===== FEED (stop + noter i én liste) ===== */
+/* ---------- Feed rendering ---------- */
 function renderFeed(){
-  var feed=els.feed; feed.innerHTML='';
-  var stops=loadEvents().map(function(r){
-    return {type:'stop', ts:r.end||r.start, row:r};
-  });
-  var notes=loadHandover().map(function(n){
-    return {type:'note', ts:n.ts, row:n};
-  });
-  var all=stops.concat(notes).sort(function(a,b){return new Date(b.ts)-new Date(a.ts)});
-  if(!all.length){ feed.innerHTML='<li class="small" style="color:#6b7280">Ingen stop eller noter endnu.</li>'; return }
+ var list=load(STORE_EVENTS,[]).sort(function(a,b){return new Date(b.ts)-new Date(a.ts);});
+ if(!list.length){els.feed.innerHTML='<li class="hint" style="padding:6px">Ingen registreringer endnu</li>';return;}
+ var html='';
+ for(var i=0;i<list.length;i++){
+   var e=list[i],tag='',clr='';
+   if(e.type==='stop'){tag='stop';clr='🔴 Stop';}
+   else if(e.type==='rep'){tag='rep';clr='🟠 Rep-seddel';}
+   else{tag='note';clr='🔵 Note';}
+   html+='<li><span class="tag '+tag+'">'+clr+'</span><b>'+ (e.line||'') +'</b> · '+fmtDate(e.ts);
+   if(e.order)html+=' · Ordre: '+e.order;
+   if(e.item)html+=' · Vare: '+e.item;
+   html+='<div>'+ (e.comment||e.desc||'-') +'</div></li>';
+ }
+ els.feed.innerHTML=html;
+}
+
+/* ---------- Stopregistrering ---------- */
+function collectStop(){
+ var rSel=document.querySelector('input[name="reason"]:checked');
+ var rCode=rSel?rSel.value:'';var rObj=REASONS.filter(function(x){return x.code===rCode;})[0]||{};
+ var det=[];var boxes=$('detailList').getElementsByTagName('input');
+ for(var i=0;i<boxes.length;i++){if(boxes[i].checked)det.push(boxes[i].value);}
+ return{
+   id:uuid(),type:'stop',ts:new Date().toISOString(),
+   line:els.line.value,order:els.order.value,item:els.item.value,oper:els.oper.value,
+   reason:rObj.label||'',detail:det.join(','),
+   comment:$('comment').value||$('other').value||''
+ };
+}
+function confirmStop(){
+ var ev=collectStop();stopMeta=ev;STOP_START=new Date().toISOString();setStatus(true);
+ if(timer)clearInterval(timer);timer=setInterval(tick,1000);hide($('stopPanel'));
+}
+
+/* ---------- Rep-seddel ---------- */
+function collectRep(){
+ return{
+   id:uuid(),type:'rep',ts:new Date().toISOString(),
+   line:els.line.value,order:els.order.value,item:els.item.value,oper:els.oper.value,
+   pri:$('rep-pri').value,typeTxt:$('rep-type').value,desc:$('rep-desc').value
+ };
+}
+function sendRep(){
+ var r=collectRep();var all=load(STORE_EVENTS,[]);all.push(r);save(STORE_EVENTS,all);
+ hide($('repPanel'));renderFeed();
+}
+
+/* ---------- Note ---------- */
+function saveNote(){
+ var t=$('noteText').value;if(!t)return;
+ var n={id:uuid(),type:'note',ts:new Date().toISOString(),line:els.line.value,comment:t};
+ var all=load(STORE_EVENTS,[]);all.push(n);save(STORE_EVENTS,all);
+ $('noteText').value='';hide($('notePanel'));renderFeed();
+}
+
+/* ---------- Quick / Templates ---------- */
+function refreshQuick(){
+ var rows=load(STORE_EVENTS,[]).filter(function(x){return x.type==='stop';}).slice(-10).reverse();
+ var h='<option value="">— Vælg tidligere —</option>';
+ for(var i=0;i<rows.length;i++){h+='<option value="'+rows[i].id+'">'+rows[i].reason+' · '+(rows[i].comment||'')+'</option>';}
+ $('quickLast').innerHTML=h;
+}
+function applyFromPrev(id){
+ var rows=load(STORE_EVENTS,[]);var ev=rows.filter(function(x){return x.id===id;})[0];
+ if(!ev)return;
+ var radios=document.getElementsByName('reason');
+ for(var i=0;i<radios.length;i++){if(radios[i].value===ev.reason)radios[i].checked=true;}
+ $('other').value='';$('comment').value=ev.comment||'';
+}
+$('quickLast').onchange=function(){if(this.value)applyFromPrev(this.value);};
+
+/* ---------- Init ---------- */
+window.addEventListener('DOMContentLoaded',function(){
+ restoreBasics();renderReasons();renderFeed();refreshQuick();
+ els.line.onchange=syncBasics;els.order.oninput=syncBasics;els.item.oninput=syncBasics;els.oper.oninput=syncBasics;
+
+ els.btnNewStop.onclick=function(){show($('stopPanel'));hide($('repPanel'));hide($('notePanel'));}
+ els.btnNewRep.onclick=function(){show($('repPanel'));hide($('stopPanel'));hide($('notePanel'));}
+ els.btnNewNote.onclick=function(){show($('notePanel'));hide($('stopPanel'));hide($('repPanel'));}
+
+ $('btn-cancel-stop').onclick=function(){hide($('stopPanel'));}
+ $('btn-cancel-rep').onclick=function(){hide($('repPanel'));}
+ $('btn-cancel-note').onclick=function(){hide($('notePanel'));}
+
+ $('btn-confirm-stop').onclick=function(){
+   var ev=collectStop();var arr=load(STORE_EVENTS,[]);arr.push(ev);save(STORE_EVENTS,arr);
+   hide($('stopPanel'));renderFeed();setStatus(true);STOP_START=new Date().toISOString();
+   if(timer)clearInterval(timer);timer=setInterval(tick,1000);
+ };
+ $('btn-start').onclick=function(){
+   if(!IS_STOP)return;
+   setStatus(false);if(timer){clearInterval(timer);timer=null;}
+   IS_STOP=false;STOP_START=null;
+ };
+ $('btn-stop').onclick=function(){show($('stopPanel'));}
+ $('btn-send-rep').onclick=sendRep;
+ $('btn-save-note').onclick=saveNote;
+});
+</script>
+<script>
+/* ---------- Power Automate endpoints ---------- */
+/*  Indsæt dine faktiske flow-URL’er her  */
+var ENDPOINT_STOP   = "https://<din-flow-url-her>/stop";
+var ENDPOINT_REP    = "https://<din-flow-url-her>/rep";
+var ENDPOINT_NOTE   = "https://<din-flow-url-her>/note";
+
+/* ---------- XHR-POST (Edge-sikker) ---------- */
+function postJSON(url,payload){
+  try{
+    var xhr=new XMLHttpRequest();
+    xhr.open("POST",url,true);
+    xhr.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+    xhr.send(JSON.stringify(payload));
+  }catch(e){
+    console.log("Send-fejl",e);
+  }
+}
+
+/* ---------- Auto-send nye registreringer ---------- */
+function autoSend(){
+  var all = load(STORE_EVENTS,[]);
+  if(!all.length) return;
   for(var i=0;i<all.length;i++){
-    var it=all[i], li=document.createElement('li');
-    li.className=it.type;
-    li.innerHTML='<div class="bar"></div><div style="flex:1">'+
-      (it.type==='stop'
-        ? renderStopFeedItem(it.row)
-        : renderNoteFeedItem(it.row)
-      )+'</div>';
-    feed.appendChild(li);
-  }
-}
-function renderStopFeedItem(r){
-  var code=(r.reason&&r.reason.code)||'', lab=(r.reason&&r.reason.label)||'Stop';
-  var chips=(r.detailChips||[]).join(', ');
-  var dur=fmtDur(r.durationMs||0);
-  var html='';
-  html+='<div class="meta">'+fmtDate(r.end||r.start)+' · <b>'+lab+'</b>'+(code?(' <span class="tag">'+code+'</span>'):'')+' · <span class="small" style="color:#6b7280">Varighed: '+dur+'</span></div>';
-  html+='<div>'+ (r.comment?r.comment:'') + (r.other? (r.comment?' · ':'')+r.other : '') + (chips? ( (r.comment||r.other)?' · ':'')+chips : '') +'</div>';
-  html+='<div class="grid-mini" style="margin-top:8px">'+
-          '<div class="kv"><b>Linje</b>'+ (r.line||'') +'</div>'+
-          '<div class="kv"><b>Ordre</b>'+ (r.orderNo||'') +'</div>'+
-          '<div class="kv"><b>Vare</b>'+ (r.itemNo||'') +'</div>'+
-          '<div class="kv"><b>Operatør</b>'+ (r.operator||'') +'</div>'+
-        '</div>';
-  return html;
-}
-function renderNoteFeedItem(n){
-  var html='';
-  html+='<div class="meta">'+fmtDate(n.ts)+' · <b>Note</b>'+ (n.tag?(' <span class="tag">'+n.tag+'</span>'):'') +'</div>';
-  html+='<div>'+ (n.txt||'') +'</div>';
-  if(n.line||n.operator){
-    html+='<div class="grid-mini" style="margin-top:8px">'+
-            (n.line?('<div class="kv"><b>Linje</b>'+n.line+'</div>'):'')+
-            (n.operator?('<div class="kv"><b>Operatør</b>'+n.operator+'</div>'):'')+
-          '</div>';
-  }
-  return html;
-}
+    var r=all[i], pl={};
+    if(r.sent) continue;
 
-/* ===== Init + bindings ===== */
-window.addEventListener('DOMContentLoaded', function(){
-  setStatus(false); restoreBasics();
-  renderCodes(''); renderActivity8h(); renderLog8h(); renderFeed();
+    /* BASISFELTER */
+    pl.line = r.line||''; pl.order = r.order||''; pl.item = r.item||''; pl.oper = r.oper||'';
+    pl.id = r.id; pl.timestamp = r.ts; pl.type = r.type;
 
-  // genoptag evt. aktivt stop
-  var cur=loadCurrentStop(); if(cur && cur.start){ STOP_START_ISO=cur.start; stopMeta=cur.meta||null; setStatus(true); if(timer)clearInterval(timer); timer=setInterval(tick,1000) }
-
-  // basisfelter
-  els.line.onchange=syncBasics; els.orderNo.oninput=syncBasics; els.itemNo.oninput=syncBasics; els.operator.oninput=syncBasics;
-  $('btn-clear-order').onclick=function(){els.orderNo.value='';els.itemNo.value='';syncBasics()};
-  $('btn-clear-line').onclick=function(){els.line.value='';els.operator.value='';syncBasics()};
-
-  // åbne/lukke stop-panel
-  els.btnStop.onclick=function(){ show(els.stopPanel); els.stopHint.innerHTML=''; };
-  els.stopCancel.onclick=function(){ hide(els.stopPanel); els.stopHint.innerHTML=''; };
-
-  // filter i fejlkoder
-  els.reasonFilter.oninput=function(){ renderCodes(this.value||''); };
-
-  // ryd detaljer
-  els.btnClearDetail.onclick=function(){
-    var inputs=els.reasonChips.getElementsByTagName('input'), i;
-    for(i=0;i<inputs.length;i++){ inputs[i].checked=false }
-    $('other').value=''; $('comment').value='';
-  };
-
-  // rep-seddel fold
-  els.repMode.onchange=function(){
-    if(els.repMode.value==='create'){ show(els.repFields); if(!els.repTo.value){ var s=loadSettings(); els.repTo.value=s.defaultTo||'vedligehold@pluspack.com' } }
-    else hide(els.repFields);
-  };
-
-  // Bekræft stop (start)
-  els.stopConfirm.onclick=function(){
-    if(!(els.line.value||'').trim() || !(els.orderNo.value||'').trim() || !(els.itemNo.value||'').trim()){
-      els.stopHint.innerHTML='Linje, Ordre nr. og Vare nr. er påkrævet.'; return
+    if(r.type==='stop'){
+      pl.reason = r.reason||''; pl.detail = r.detail||''; pl.comment = r.comment||'';
+      postJSON(ENDPOINT_STOP,pl);
     }
-    var sel=document.querySelector('input[name="reasonRadio"]:checked');
-    var reason=getReason(sel?sel.value:null)||{code:'ANDET',label:'Andet'};
-    stopMeta={
-      reason:{code:reason.code,label:reason.label},
-      detailChips:selectedChips(),
-      other:($('other').value||'').trim(),
-      comment:($('comment').value||'').trim(),
-      rep:(els.repMode.value==='create')?{to:(els.repTo.value||''), cc:(els.repCc.value||''), pri:(els.repPri.value||'Mellem'), type:(els.repType.value||''), desc:(els.repDesc.value||'')}:null
-    };
-    STOP_START_ISO=new Date().toISOString(); setStatus(true); if(timer)clearInterval(timer); timer=setInterval(tick,1000); tick(); hide(els.stopPanel);
-    saveCurrentStop({start:STOP_START_ISO, meta:stopMeta});
-  };
-
-  // Start (afslut + send)
-  els.btnStart.onclick=function(){
-    if(!IS_STOPPED) return;
-    var end=new Date(), start=new Date(STOP_START_ISO), dur=end-start;
-    var row={ id:uuid(), start:start.toISOString(), end:end.toISOString(), durationMs:dur,
-      line:els.line.value||'', operator:els.operator.value||'', orderNo:els.orderNo.value||'', itemNo:els.itemNo.value||'',
-      reason: stopMeta?stopMeta.reason:null, detailChips: stopMeta?stopMeta.detailChips:[], other: stopMeta?stopMeta.other:'', comment: stopMeta?stopMeta.comment:'' };
-
-    // Send til SharePoint
-    var payloadEvent={ id:row.id, start:row.start, end:row.end, duration_ms:row.durationMs,
-      line:row.line, order:row.orderNo, item:row.itemNo, operator:row.operator,
-      cause_code:(row.reason&&row.reason.code)||'', cause_label:(row.reason&&row.reason.label)||'',
-      details:(row.detailChips||[]).join(', '), other:row.other||'', comment:row.comment||'' };
-    postJSON(ENDPOINT_EVENT, payloadEvent, function(){});
-
-    // Rep-seddel hvis valgt
-    if(stopMeta && stopMeta.rep){
-      var rp=stopMeta.rep, repObj={ id:'rep-'+uuid(), created:new Date().toISOString(), related_event_id:row.id,
-        line:row.line, order:row.orderNo, item:row.itemNo, operator:row.operator,
-        priority:rp.pri, type:rp.type, description:rp.desc, to:rp.to, cc:rp.cc, status:'Afventer' };
-      var reps=loadReps(); reps.unshift(repObj); saveReps(reps);
-      var payloadRep={ related_event_id:row.id, line:row.line, order:row.orderNo, item:row.itemNo, operator:row.operator,
-        priority:rp.pri, type:rp.type, description:rp.desc, to:rp.to, cc:rp.cc };
-      postJSON(ENDPOINT_REP, payloadRep, function(){});
+    else if(r.type==='rep'){
+      pl.priority = r.pri||''; pl.errorType = r.typeTxt||''; pl.description = r.desc||'';
+      postJSON(ENDPOINT_REP,pl);
     }
-
-    var rows=loadEvents(); rows.push(row); saveEvents(rows);
-    setStatus(false); STOP_START_ISO=null; stopMeta=null; if(timer){clearInterval(timer); timer=null}
-    renderActivity8h(); renderLog8h(); renderFeed(); clearCurrentStop();
-  };
-
-  /* Overlevering */
-  function addNoteToFeed(){
-    renderFeed();
+    else if(r.type==='note'){
+      pl.note = r.comment||r.desc||'';
+      postJSON(ENDPOINT_NOTE,pl);
+    }
+    r.sent=true;
   }
-  els.handoverSave.onclick=function(){
-    var txt=els.handoverText.value||''; txt=txt.trim(); if(!txt){alert('Skriv en note.');return}
-    var tag=(els.handoverTag.value||'').trim();
-    var row={ts:new Date().toISOString(), txt:txt, tag:tag, line:els.line.value||'', operator:els.operator.value||''};
-    var arr=loadHandover(); arr.unshift(row); saveHandover(arr);
-    postJSON(ENDPOINT_HANDOVER,row,function(){});
-    els.handoverText.value=''; els.handoverTag.value=''; addNoteToFeed();
-  };
-  els.handoverClear.onclick=function(){ els.handoverText.value=''; els.handoverTag.value='' };
+  save(STORE_EVENTS,all);
+}
+
+/* ---------- Periodisk afsendelse + ved start ---------- */
+window.addEventListener('DOMContentLoaded',function(){
+  // send alt ved opstart
+  autoSend();
+  // og gentag hvert 5. minut
+  setInterval(autoSend,5*60*1000);
+});
+
+/* ---------- Ekstra forbedring: behold basisfelter efter refresh ---------- */
+window.addEventListener('beforeunload',function(){
+  syncBasics();
 });
 </script>
 </body>
 </html>
+
