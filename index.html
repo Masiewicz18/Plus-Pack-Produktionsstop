@@ -7,15 +7,35 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plus Pack – Produktionsstop (Edge-kompatibel)</title>
+<title>Plus Pack – Produktionsstop</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{margin:0;font-family:Segoe UI,Arial,Helvetica,sans-serif;background:#f4f6f9;color:#0f172a}
-.topbar{background:#0a61ae;color:#fff;padding:8px 12px;font-weight:800}
-.statuspill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 10px;background:rgba(255,255,255,.08)}
+
+/* Topbar */
+.topbar{background:#0a61ae;color:#fff;padding:8px 12px}
+.toprow{display:flex;align-items:center;gap:10px}
+.brand{font-weight:800;letter-spacing:.2px}
+.statuspill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 10px;background:rgba(255,255,255,.08);font-weight:700}
 .dot{width:10px;height:10px;border-radius:999px;background:#17833e}
 .dot.stop{background:#dc2626}
+#lineNow{opacity:.9}
+
+/* Trafiklys */
+.tl{display:inline-flex;align-items:center;gap:6px;margin-left:auto}
+.lamp{width:14px;height:14px;border-radius:50%;background:#334155;border:1px solid rgba(255,255,255,.35);box-shadow:inset 0 0 4px rgba(0,0,0,.35)}
+.lamp.on{box-shadow:0 0 10px rgba(255,255,255,.6), inset 0 0 2px rgba(255,255,255,.8)}
+.lamp.red.on{background:#ef4444}
+.lamp.yellow.on{background:#f59e0b}
+.lamp.green.on{background:#10b981}
+
+/* pulsering (simpel & Edge-venlig) */
+@-webkit-keyframes glow {0%{opacity:.9}50%{opacity:.6}100%{opacity:.9}}
+@keyframes glow {0%{opacity:.9}50%{opacity:.6}100%{opacity:.9}}
+.lamp.on{animation:glow 1.6s ease-in-out infinite}
+
+/* Layout */
 .container{max-width:1180px;margin:0 auto;padding:12px}
 .card{background:#fff;border:1px solid #e6ecf3;border-radius:12px;padding:12px;box-shadow:0 6px 20px rgba(15,23,42,.06);margin-bottom:10px}
 h3{margin:0 0 6px}
@@ -28,86 +48,178 @@ textarea{min-height:72px}
 .hint{font-size:12px;color:#6b7280}
 .sep{height:1px;background:#e6ecf3;margin:8px 0}
 
-  .btn{border:1px solid #dbe4ef;background:#fff;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer;font-size:14px}
+/* Buttons */
+.btn{border:1px solid #dbe4ef;background:#fff;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer;font-size:14px}
 .btn:disabled{opacity:.55;cursor:not-allowed}
 .btn-primary{background:#e8f1ff;border-color:#cfe2ff;color:#0a3d91}
 .btn-danger{background:#fff1f1;border-color:#f3b3b3;color:#7f1d1d}
 .btn-success{background:#ebfff2;border-color:#b7e6c7;color:#0b5a3c}
+.btn.xs{padding:4px 8px;font-size:12px;border-radius:8px}
+
+/* Timer & chips */
 .timer{font:700 34px/1.1 ui-monospace,Consolas,monospace}
 .timer small{display:block;font:600 11px/1 Segoe UI,Arial;color:#6b7280;margin-bottom:3px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #dbe4ef;background:#f5f9ff;border-radius:999px;padding:6px 8px;font-size:13px;cursor:pointer}
 .chip input{width:16px;height:16px}
+
+/* Aktivitet */
 .activity{width:100%;height:120px}
-.activity .gridline{stroke:#e5e7eb;stroke-width:1}.activity .gridline.sub{opacity:.5}
+.activity .gridline{stroke:#e5e7eb;stroke-width:1}
+.activity .gridline.sub{opacity:.5}
 .activity .now{stroke:#0a61ae;stroke-width:2}
-.activity .runbg{fill:rgba(16,185,129,.06)} .activity .label{fill:#475569;font-size:10px}
+.activity .runbg{fill:rgba(16,185,129,.06)}
+.activity .label{fill:#475569;font-size:10px}
 .activity .stop{fill:rgba(220,38,38,.28);stroke:#dc2626;stroke-width:1}
-.loglist{list-style:none;margin:0;padding:0;border:1px dashed #dbe4ef;border-radius:10px;background:#fff;max-height:320px;overflow:auto}
-.logitem{display:flex;gap:8px;padding:8px;border-bottom:1px solid #eef2f7}
+
+/* Log */
+.loglist{list-style:none;margin:0;padding:0;border:1px dashed #dbe4ef;border-radius:10px;background:#fff;max-height:420px;overflow:auto}
+.logitem{display:flex;gap:8px;padding:8px;border-bottom:1px solid #eef2f7;flex-direction:column}
 .logitem:last-child{border-bottom:0}
+.log-row{display:flex;gap:8px;align-items:flex-start}
 .log-ts{min-width:130px;color:#6b7280;font-size:12px}
 .badge{display:inline-block;border-radius:999px;padding:2px 8px;font-size:12px;border:1px solid #e2e8f0;background:#f8fafc}
 .badge.stop{background:#ffe4e6;border-color:#fecdd3;color:#7f1d1d}
 .badge.rep{background:#ede9fe;border-color:#ddd6fe;color:#4c1d95}
 .badge.note{background:#dbeafe;border-color:#bfdbfe;color:#1e3a8a}
+.badge.noorder{background:#fff7ed;border-color:#fed7aa;color:#92400e}
+.actions{margin-left:auto}
+.editbox{margin:8px 0 0;padding:8px;border:1px dashed #cfe2ff;border-radius:10px;background:#f8fbff}
+
+/* Basis/Ordre split – kompakt */
+.split{display:flex;gap:12px;flex-wrap:wrap}
+.col{flex:1 1 380px;min-width:300px}
+.section{border:1px solid #e6ecf3;border-radius:10px;padding:10px}
+.section h4{margin:0 0 8px;font-size:14px;color:#0f172a}
+.compact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.compact-grid .field{margin:0}
+.compact-grid .wide{grid-column:1/-1}
+
+/* Legend */
 .legend{display:flex;gap:10px;flex-wrap:wrap}
 .legend .dotl{width:10px;height:10px;border-radius:999px;display:inline-block;margin-right:6px}
 .l-stop{background:#ef4444}.l-rep{background:#8b5cf6}.l-note{background:#3b82f6}
-@media (max-width:900px){.row{display:block}}
+
+/* Responsive */
+@media (max-width:900px){.row{display:block}; .compact-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="topbar">
-  <span class="statuspill"><span id="dot" class="dot"></span><span id="statxt">Kører normalt</span></span>
+  <div class="toprow">
+    <div class="brand">Pluspack stoptidsregistering</div>
+    <span class="statuspill" style="margin-left:10px">
+      <span id="dot" class="dot"></span>
+      <span id="statxt">Kører normalt</span>
+    </span>
+    <span id="lineNow" style="margin-left:10px"></span>
+    <!-- Trafiklys til højre -->
+    <div class="tl" title="Systemstatus">
+      <span id="lampR" class="lamp red"></span>
+      <span id="lampY" class="lamp yellow"></span>
+      <span id="lampG" class="lamp green"></span>
+    </div>
+  </div>
 </div>
+
 <div class="container">
+  <!-- BASISOPLYSNINGER (kompakt split) -->
   <div class="card sm">
     <h3>Basisoplysninger</h3>
-    <div class="row">
-      <div class="field"><label>Linje / maskine</label>
-        <select id="line">
-          <option value="">— Vælg —</option>
-          <option>L10 75 t Rhodes special presse</option>
-          <option>L11 Mech RF135 serie nr 18-11 Mnr888</option>
-          <option>L13 Press Beutler PD 40</option>
-          <option>L14 50 t Flexo C50 S20 presse</option>
-          <option>L15 30 t Flexo C30 S15 presse</option>
-          <option>L16 40 t Schuler PNH 40/250 presse</option>
-          <option>L17 30 t Flexo C30 S15 presse</option>
-          <option>L20 50 t Bliss 50F MKII presse</option>
-          <option>L22 50 t Bliss 50F MKII presse</option>
-          <option>L23 45 t Bliss 21½ presse</option>
-          <option>L24 30 t Flexo C30 S15</option>
-          <option>L25 30 t Flexo C30 X presse</option>
-          <option>L26 L 36 30 t Flexo C30 S 15 presse</option>
-          <option>L27 45 t Bliss 21½ presse</option>
-          <option>L28 50 t Flexo presse</option>
-          <option>L29 30 t Flexo C30 presse</option>
-          <option>L30 ny presse 2012</option>
-          <option>L33 50 t Bliss 50F MKII presse</option>
-          <option>L34 50 t Bliss 50F MKII presse</option>
-          <option>L35 30 t Flexo C30 S15 presse</option>
-          <option>L36 30 t Flexo C30 S15 presse Picop</option>
-          <option>L40 50 t Flexo C50 S20 presse</option>
-          <option>L41 L37, 50 t Bliss 50F MKII presse</option>
-          <option>L42 Press Beutler PD 40 alu spez638</option>
-          <option>L43 Press Beutler PD 40 alu spez637</option>
-          <option>L80 Choko-kapsler</option>
-          <option>L81 Lys-manchetter</option>
-          <option>L82 Lys-manchetter</option>
-        </select>
+
+    <div class="split">
+      <!-- BASIS -->
+      <div class="col">
+        <div class="section">
+          <h4>Basis</h4>
+          <div class="compact-grid">
+            <div class="field wide">
+              <label>Linje / maskine</label>
+              <select id="line">
+                <option value="">— Vælg —</option>
+                <option>L10 75 t Rhodes special presse</option>
+                <option>L11 Mech RF135 serie nr 18-11 Mnr888</option>
+                <option>L13 Press Beutler PD 40</option>
+                <option>L14 50 t Flexo C50 S20 presse</option>
+                <option>L15 30 t Flexo C30 S15 presse</option>
+                <option>L16 40 t Schuler PNH 40/250 presse</option>
+                <option>L17 30 t Flexo C30 S15 presse</option>
+                <option>L20 50 t Bliss 50F MKII presse</option>
+                <option>L22 50 t Bliss 50F MKII presse</option>
+                <option>L23 45 t Bliss 21½ presse</option>
+                <option>L24 30 t Flexo C30 S15</option>
+                <option>L25 30 t Flexo C30 X presse</option>
+                <option>L26 L 36 30 t Flexo C30 S 15 presse</option>
+                <option>L27 45 t Bliss 21½ presse</option>
+                <option>L28 50 t Flexo presse</option>
+                <option>L29 30 t Flexo C30 presse</option>
+                <option>L30 ny presse 2012</option>
+                <option>L33 50 t Bliss 50F MKII presse</option>
+                <option>L34 50 t Bliss 50F MKII presse</option>
+                <option>L35 30 t Flexo C30 S15 presse</option>
+                <option>L36 30 t Flexo C30 S15 presse Picop</option>
+                <option>L40 50 t Flexo C50 S20 presse</option>
+                <option>L41 L37, 50 t Bliss 50F MKII presse</option>
+                <option>L42 Press Beutler PD 40 alu spez638</option>
+                <option>L43 Press Beutler PD 40 alu spez637</option>
+                <option>L80 Choko-kapsler</option>
+                <option>L81 Lys-manchetter</option>
+                <option>L82 Lys-manchetter</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Operatør</label>
+              <input id="operator" type="text" placeholder="Navn/initialer">
+            </div>
+            <div class="field">
+              <label>&nbsp;</label>
+              <button id="btn-clear-basis" class="btn">Ryd basis</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="field"><label>Ordre nr. (krævet)</label><input id="orderNo" type="text"></div>
-      <div class="field"><label>Vare nr. (krævet)</label><input id="itemNo" type="text"></div>
-      <div class="field"><label>Værktøjs nr.</label><input id="toolNo" type="text" placeholder="fx 1234-AB"></div>
-      <div class="field"><label>Operatør (valgfri)</label><input id="operator" type="text" placeholder="Navn/initialer"></div>
-      <div class="field"><label>&nbsp;</label><button id="btn-clear-order" class="btn">Ryd ordre/varenr</button></div>
-      <div class="field"><label>&nbsp;</label><button id="btn-clear-line" class="btn">Ryd linje/værktøj/navn</button></div>
+
+      <!-- ORDRE -->
+      <div class="col">
+        <div class="section">
+          <h4>Ordre</h4>
+          <div class="compact-grid">
+            <div class="field">
+              <label>Ordre nr.</label>
+              <input id="orderNo" type="text">
+            </div>
+            <div class="field">
+              <label>Vare nr.</label>
+              <input id="itemNo" type="text">
+            </div>
+            <div class="field">
+              <label>Værktøjs nr.</label>
+              <input id="toolNo" type="text" placeholder="fx 1234-AB">
+            </div>
+            <div class="field">
+              <label>&nbsp;</label>
+              <div class="chips">
+                <label class="chip" title="Registrér stop uden ordre-/varenr">
+                  <input id="no-order" type="checkbox"> Ingen ordre (midlertidigt)
+                </label>
+                <label class="chip" title="Lås nuværende ordredata">
+                  <input id="lock-hugen" type="checkbox"> Lås nuværende ordredata
+                </label>
+              </div>
+            </div>
+            <div class="field">
+              <label>&nbsp;</label>
+              <button id="btn-clear-order" class="btn">Ryd ordre</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="hint">Alle felter autogemmes i browseren – også midt i indtastning.</div>
   </div>
 
+  <!-- KNAPBJÆLKE + PANELER (kun én ad gangen) -->
   <div class="card">
     <div class="row" style="align-items:center;gap:10px">
       <div class="timer" style="min-width:160px"><small>Aktuelt stop</small><span id="liveTimer">—</span></div>
@@ -120,23 +232,118 @@ textarea{min-height:72px}
         <button id="btn-start" class="btn btn-success" disabled>Start (afslut stop)</button>
       </div>
     </div>
-    <!-- Inline afslutningsfelt (vises når man trykker Start) -->
+
+    <!-- Inline afslutning -->
     <div id="doneBlock" class="row" style="margin-top:8px;display:none">
       <div class="field" style="flex:1">
         <label>Hvad blev gjort for at løse problemet?</label>
-        <textarea id="doneWhat" placeholder="Kort beskrivelse af handlinger (valgfri)"></textarea>
+        <textarea id="doneWhat" placeholder="Kort beskrivelse (valgfri)"></textarea>
       </div>
       <div class="field" style="align-self:flex-end">
         <button id="doneSave" class="btn btn-success">Gem & afslut</button>
         <button id="doneSkip" class="btn">Spring over</button>
       </div>
     </div>
+
+    <!-- STOP-PANEL (forenklet) -->
+    <div class="sep" id="sep-stop" style="display:none"></div>
+    <div class="card" id="stopPanel" style="display:none;margin-top:8px;border:none;box-shadow:none;padding:0">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <h3>Registrér stop</h3>
+        <div id="stopHint" class="hint">Udfyld Ordre/Vare eller vælg “Ingen ordre”.</div>
+      </div>
+
+      <div class="sep"></div>
+      <div class="row">
+        <div class="field" style="flex:1 1 320px">
+          <label>Hurtig udfyldning – seneste 10</label>
+          <select id="quick-last">
+            <option value="">— Vælg tidligere registrering —</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sep"></div>
+      <div class="row sm">
+        <div class="field" style="flex:1 1 360px">
+          <label>Årsag</label>
+          <div id="reasonTop" class="chips"></div>
+          <div id="reasonMore" class="chips" style="margin-top:6px"></div>
+        </div>
+        <div class="field" style="flex:1 1 360px">
+          <label>Uddybning</label>
+          <div id="reasonChips" class="chips"></div>
+        </div>
+      </div>
+
+      <div class="row sm">
+        <div class="field"><label>Andet</label><input id="other" type="text"></div>
+        <div class="field"><label>Kommentar</label><input id="comment" type="text"></div>
+      </div>
+
+      <div class="sep"></div>
+      <div class="row sm">
+        <div class="field" style="flex:1 1 240px">
+          <label>Registrér på bagkant</label>
+          <select id="retro-mode">
+            <option value="no">Nej (start nu)</option>
+            <option value="yes">Ja (manuelle tider)</option>
+          </select>
+        </div>
+      </div>
+      <div id="retro-fields" style="display:none">
+        <div class="row sm">
+          <div class="field"><label>Start (dato/tid)</label><input id="retro-start" type="datetime-local"></div>
+          <div class="field"><label>Slut (dato/tid)</label><input id="retro-end" type="datetime-local"></div>
+        </div>
+        <div class="hint">Brug hvis start/stop blev glemt i realtid.</div>
+      </div>
+
+      <div class="row" style="justify-content:flex-end;gap:8px">
+        <button id="stop-clear" class="btn">Ryd formular</button>
+        <button id="stop-cancel" class="btn">Luk</button>
+        <button id="stop-confirm" class="btn btn-danger">Bekræft stop</button>
+      </div>
+    </div>
+
+    <!-- REP-PANEL (forenklet) -->
+    <div class="sep" id="sep-rep" style="display:none"></div>
+    <div class="card" id="repPanel" style="display:none;margin-top:8px;border:none;box-shadow:none;padding:0">
+      <h3>Opret rep-seddel (uafhængigt af stop)</h3>
+      <div class="row sm">
+        <div class="field"><label>Prioritet</label>
+          <select id="rep-pri"><option>Lav</option><option>Mellem</option><option>Høj</option><option>Kritisk</option></select>
+        </div>
+        <div class="field"><label>Fejltype</label><input id="rep-type" type="text" placeholder="fx Mekanisk, Elektrisk"></div>
+      </div>
+      <div class="field"><label>Beskrivelse</label><textarea id="rep-desc" placeholder="Kort og præcis beskrivelse"></textarea></div>
+      <div class="row" style="justify-content:flex-end;gap:8px">
+        <button id="rep-clear" class="btn">Ryd formular</button>
+        <button id="rep-cancel" class="btn">Luk</button>
+        <button id="rep-create" class="btn btn-primary">Opret rep-seddel</button>
+      </div>
+    </div>
+
+    <!-- NOTE-PANEL -->
+    <div class="sep" id="sep-note" style="display:none"></div>
+    <div class="card" id="notePanel" style="display:none;margin-top:8px;border:none;box-shadow:none;padding:0">
+      <h3>Tilføj bemærkning/note</h3>
+      <div class="field"><label>Bemærkning</label><textarea id="note-text" placeholder="Skriv kort note…"></textarea></div>
+      <div class="row" style="justify-content:flex-end;gap:8px">
+        <button id="note-clear" class="btn">Ryd formular</button>
+        <button id="note-cancel" class="btn">Luk</button>
+        <button id="note-create" class="btn btn-primary">Gem note</button>
+      </div>
+    </div>
   </div>
+
+  <!-- AKTIVITET & LISTE -->
   <div class="card">
     <h3>Aktivitet – sidste 8 timer</h3>
     <svg class="activity" id="activity8h" viewBox="0 0 920 120"></svg>
     <div class="hint">Røde felter = registrerede stop. Højre kant er “nu”.</div>
   </div>
+
   <div class="card">
     <h3>Registreringer</h3>
     <div class="legend" style="margin:4px 0 8px">
@@ -146,101 +353,8 @@ textarea{min-height:72px}
     </div>
     <ul id="mixList" class="loglist"></ul>
   </div>
-  <div class="card" id="stopPanel" style="display:none">
-    <div class="row" style="justify-content:space-between;align-items:center">
-      <h3>Registrér stop</h3>
-      <div id="stopHint" class="hint">Udfyld Ordre nr. og Vare nr., vælg årsag og bekræft.</div>
-    </div>
-
-    <div class="sep"></div>
-    <div class="row">
-      <div class="field" style="flex:1 1 320px">
-        <label>Hurtig udfyldning – seneste 10</label>
-        <select id="quick-last">
-          <option value="">— Vælg tidligere registrering —</option>
-        </select>
-      </div>
-      <div class="field" style="flex:1 1 320px">
-        <label>Skabeloner (egne favoritter)</label>
-        <div class="row" style="gap:6px">
-          <select id="tpl-select" style="flex:1">
-            <option value="">— Vælg skabelon —</option>
-          </select>
-          <button id="tpl-save" class="btn">Gem skabelon</button>
-          <button id="tpl-del" class="btn">Slet skabelon</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="sep"></div>
-    <div class="row sm">
-      <div class="field" style="flex:1 1 360px">
-        <label>Årsag</label>
-        <div id="reasonTop" class="chips"></div>
-        <div id="reasonMore" class="chips" style="margin-top:6px"></div>
-      </div>
-      <div class="field" style="flex:1 1 360px">
-        <label>Uddybning</label>
-        <div id="reasonChips" class="chips"></div>
-        <div class="row" style="gap:6px;margin-top:6px">
-          <button id="btn-copy-last" class="btn" style="display:none">Kopier sidste for denne årsag</button>
-          <button id="btn-clear-detail" class="btn">Ryd felter</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="row sm">
-      <div class="field"><label>Andet</label><input id="other" type="text"></div>
-      <div class="field"><label>Kommentar</label><input id="comment" type="text"></div>
-    </div>
-
-    <div class="sep"></div>
-    <div class="row sm">
-      <div class="field" style="flex:1 1 240px">
-        <label>Registrér på bagkant</label>
-        <select id="retro-mode">
-          <option value="no">Nej (start nu)</option>
-          <option value="yes">Ja (manuelle tider)</option>
-        </select>
-      </div>
-      <div class="field" style="flex:3 1 520px"></div>
-    </div>
-    <div id="retro-fields" style="display:none">
-      <div class="row sm">
-        <div class="field"><label>Start (dato/tid)</label><input id="retro-start" type="datetime-local"></div>
-        <div class="field"><label>Slut (dato/tid)</label><input id="retro-end" type="datetime-local"></div>
-      </div>
-      <div class="hint">Brug denne, hvis du glemte at starte/stoppe i realtid.</div>
-    </div>
-
-    <div class="row" style="justify-content:flex-end;gap:8px">
-      <button id="stop-cancel" class="btn">Annuller</button>
-      <button id="stop-confirm" class="btn btn-danger">Bekræft stop</button>
-    </div>
-  </div>
-  <div class="card" id="repPanel" style="display:none">
-    <h3>Opret rep-seddel (uafhængigt af stop)</h3>
-    <div class="row sm">
-      <div class="field"><label>Modtager</label><input id="rep-to" type="email" placeholder="vedligehold@pluspack.com"></div>
-      <div class="field"><label>CC</label><input id="rep-cc" type="text" placeholder="valgfri, kommasepareret"></div>
-      <div class="field"><label>Prioritet</label><select id="rep-pri"><option>Lav</option><option>Mellem</option><option>Høj</option><option>Kritisk</option></select></div>
-      <div class="field"><label>Fejltype</label><input id="rep-type" type="text" placeholder="fx Mekanisk, Elektrisk"></div>
-    </div>
-    <div class="field"><label>Beskrivelse</label><textarea id="rep-desc" placeholder="Kort og præcis beskrivelse"></textarea></div>
-    <div class="row" style="justify-content:flex-end;gap:8px">
-      <button id="rep-cancel" class="btn">Luk</button>
-      <button id="rep-create" class="btn btn-primary">Opret rep-seddel</button>
-    </div>
-  </div>
-  <div class="card" id="notePanel" style="display:none">
-    <h3>Tilføj bemærkning/note</h3>
-    <div class="field"><label>Bemærkning</label><textarea id="note-text" placeholder="Skriv kort note…"></textarea></div>
-    <div class="row" style="justify-content:flex-end;gap:8px">
-      <button id="note-cancel" class="btn">Luk</button>
-      <button id="note-create" class="btn btn-primary">Gem note</button>
-    </div>
-  </div>
 </div> <!-- /container -->
+
 <script>
 function $(id){return document.getElementById(id)}
 function show(el){if(el) el.style.display=''}
@@ -251,10 +365,10 @@ function fmtDur(ms){var s=Math.floor((ms||0)/1000),h=pad(Math.floor(s/3600)),m=p
 function uuid(){return 'id-'+Date.now()+'-'+Math.floor(Math.random()*1e6)}
 function loadJSON(k,def){try{return JSON.parse(localStorage.getItem(k))||def}catch(e){return def}}
 function saveJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
 var KEY_EVENTS='produktionsstop.events.v3';
 var KEY_SETTINGS='produktionsstop.settings.v3';
 var KEY_CURRENT='produktionsstop.current.v1';
-var KEY_TEMPLATES='produktionsstop.templates.v1';
 var KEY_NOTES='produktionsstop.notes.v1';
 var KEY_FEED='produktionsstop.feed.v1';
 
@@ -268,12 +382,93 @@ function settings(){return loadJSON(KEY_SETTINGS,{})}
 function saveSettings(x){saveJSON(KEY_SETTINGS,x)}
 function notes(){return loadJSON(KEY_NOTES,[])}
 function saveNotes(x){saveJSON(KEY_NOTES,x)}
-function templates(){return loadJSON(KEY_TEMPLATES,[])}
-function saveTemplates(x){saveJSON(KEY_TEMPLATES,x)}
 function currentStop(){return loadJSON(KEY_CURRENT,null)}
 function saveCurrent(o){saveJSON(KEY_CURRENT,o)}
 function clearCurrent(){localStorage.removeItem(KEY_CURRENT)}
 
+/* Trafiklys logik */
+function unsentCount(){
+  var feed=loadJSON(KEY_FEED,[]), i, n=0;
+  for(i=0;i<feed.length;i++){ if(feed[i] && feed[i].sent===false){ n++; } }
+  return n;
+}
+function setLamp(el,on){
+  if(!el) return;
+  if(on){ if(el.className.indexOf('on')<0) el.className+=' on'; }
+  else { el.className=el.className.replace(/\bon\b/g,''); }
+}
+function updateLamps(){
+  var r=$('lampR'), y=$('lampY'), g=$('lampG');
+  var hasUnsent=unsentCount()>0;
+  if(window.IS_STOPPED){
+    setLamp(r,true); setLamp(y,false); setLamp(g,false);
+  }else if(hasUnsent){
+    setLamp(r,false); setLamp(y,true); setLamp(g,false);
+  }else{
+    setLamp(r,false); setLamp(y,false); setLamp(g,true);
+  }
+}
+
+/* Låsning og "Ingen ordre" */
+function applyOrderLock(){
+  var lock=$('lock-hugen') && $('lock-hugen').checked;
+  var ids=['orderNo','itemNo','toolNo'], i, el;
+  for(i=0;i<ids.length;i++){ el=$(ids[i]); if(el){ el.disabled=lock; el.style.background=lock?'#f3f4f6':'#fff'; } }
+}
+function applyNoOrderMode(){
+  var on=$('no-order') && $('no-order').checked;
+  var ids=['orderNo','itemNo','toolNo'], i, el;
+  for(i=0;i<ids.length;i++){
+    el=$(ids[i]); if(!el) continue;
+    if(on){ el.value=''; el.disabled=true; el.style.background='#f3f4f6'; }
+    else if(!$('lock-hugen') || !$('lock-hugen').checked){ el.disabled=false; el.style.background='#fff'; }
+  }
+  var s=settings(); s.noOrder=!!on; saveSettings(s);
+}
+
+/* Panelstyring (én ad gangen) */
+function setOpenPanel(name){var s=settings(); s.openPanel=name||''; saveSettings(s);}
+function closeAllPanels(){ hide($('stopPanel')); hide($('sep-stop')); hide($('repPanel')); hide($('sep-rep')); hide($('notePanel')); hide($('sep-note')); setOpenPanel(''); }
+function openStopPanel(){ closeAllPanels(); show($('sep-stop')); show($('stopPanel')); setOpenPanel('stop'); $('stopHint').innerHTML=''; }
+function openRepPanel(){ closeAllPanels(); show($('sep-rep')); show($('repPanel')); setOpenPanel('rep'); }
+function openNotePanel(){ closeAllPanels(); show($('sep-note')); show($('notePanel')); setOpenPanel('note'); }
+
+/* Stop-drafts */
+function saveStopDraft(){
+  var draft=loadJSON('stopDraft',{});
+  var sel=document.querySelector('input[name="reasonRadio"]:checked');
+  draft.reasonCode = sel ? sel.value : (draft.reasonCode||'');
+  var chips=[], nodes=$('reasonChips')?$('reasonChips').getElementsByTagName('input'):[];
+  var i; for(i=0;i<nodes.length;i++){ if(nodes[i].checked) chips.push(nodes[i].value); }
+  draft.chips=chips;
+  draft.other = $('other')?$('other').value:'';
+  draft.comment = $('comment')?$('comment').value:'';
+  draft.retroMode = $('retro-mode')?$('retro-mode').value:'no';
+  draft.retroStart = $('retro-start')?$('retro-start').value:'';
+  draft.retroEnd   = $('retro-end')?$('retro-end').value:'';
+  saveJSON('stopDraft',draft);
+}
+function restoreStopDraft(){
+  var d=loadJSON('stopDraft',null); if(!d) return;
+  if(d.reasonCode){
+    var radios=document.getElementsByName('reasonRadio'); var i;
+    for(i=0;i<radios.length;i++){ if(radios[i].value===d.reasonCode){ radios[i].checked=true; break; } }
+  }
+  var sel=document.querySelector('input[name="reasonRadio"]:checked');
+  if(sel){ renderChipsByCode(sel.value); }
+  if(d.chips && d.chips.length && $('reasonChips')){
+    var nodes=$('reasonChips').getElementsByTagName('input'); var j;
+    for(j=0;j<nodes.length;j++){ nodes[j].checked=(d.chips.indexOf(nodes[j].value)>=0); }
+  }
+  if(typeof d.other==='string' && $('other')) $('other').value=d.other;
+  if(typeof d.comment==='string' && $('comment')) $('comment').value=d.comment;
+  if($('retro-mode')) $('retro-mode').value=d.retroMode||'no';
+  if($('retro-mode') && $('retro-mode').value==='yes'){ show($('retro-fields')); } else { hide($('retro-fields')); }
+  if($('retro-start') && d.retroStart) $('retro-start').value=d.retroStart;
+  if($('retro-end') && d.retroEnd) $('retro-end').value=d.retroEnd;
+}
+
+/* Post JSON */
 function postJSON(url,payload){
   if(!url || url.indexOf('http')!==0){ return; }
   try{
@@ -284,6 +479,8 @@ function postJSON(url,payload){
     xhr.send(JSON.stringify(payload));
   }catch(e){}
 }
+
+/* Årsager */
 var DEFAULT_REASONS=[
   {code:'PRES',label:'Presse',chips:['Rensning','Smøring','Opsætning']},
   {code:'VAERK',label:'Værktøj',chips:['Skift','Slid','Defekt']},
@@ -293,19 +490,17 @@ var DEFAULT_REASONS=[
   {code:'ANDET',label:'Andet',chips:['Sikkerhed','Rengøring']}
 ];
 function allReasons(){
-  var s=settings(), list=(s.customCauses||[]), map={}, out=[], i;
-  for(i=0;i<DEFAULT_REASONS.length;i++) map[DEFAULT_REASONS[i].code]=DEFAULT_REASONS[i];
-  for(i=0;i<list.length;i++){ var c=list[i]; map[c.code]={code:c.code,label:c.label,chips:c.chips||[]} }
+  var list=DEFAULT_REASONS.slice(0), map={}, out=[], i;
+  for(i=0;i<list.length;i++){ map[list[i].code]=list[i]; }
   for(var k in map) out.push(map[k]);
   out.sort(function(a,b){return a.label.localeCompare(b.label)});
   return out;
 }
 function getReason(code){var L=allReasons(),i; for(i=0;i<L.length;i++){if(L[i].code===code)return L[i]} return null}
-
 function renderChipsByCode(code){
   var r=getReason(code)||{chips:[]}, html='', i;
   for(i=0;i<r.chips.length;i++) html+='<label class="chip"><input type="checkbox" value="'+r.chips[i]+'">'+r.chips[i]+'</label>';
-  $('reasonChips').innerHTML=html;
+  if($('reasonChips')) $('reasonChips').innerHTML=html;
 }
 function selectedChips(){
   var nodes=$('reasonChips').getElementsByTagName('input'), out=[], i;
@@ -318,10 +513,15 @@ function renderReasons(){
   for(i=0;i<top.length;i++) html+=mk(top[i]); $('reasonTop').innerHTML=html;
   html=''; for(i=0;i<more.length;i++) html+=mk(more[i]); $('reasonMore').innerHTML=html;
   var first=$('reasonTop').querySelector('input[name="reasonRadio"]')||$('reasonMore').querySelector('input[name="reasonRadio"]');
-  if(first){ first.checked=true; renderChipsByCode(first.value); maybeShowCopy(first.value); }
-  function onChange(e){var t=e.target||e.srcElement; if(t && t.name==='reasonRadio'){ renderChipsByCode(t.value); maybeShowCopy(t.value); }}
+  if(first){ first.checked=true; renderChipsByCode(first.value); }
+  function onChange(e){
+    var t=e.target||e.srcElement;
+    if(t && t.name==='reasonRadio'){ renderChipsByCode(t.value); saveStopDraft(); }
+  }
   $('reasonTop').onclick=onChange; $('reasonMore').onclick=onChange;
 }
+
+/* Basis */
 function syncBasics(){
   var s=settings();
   s.line=$('line').value||'';
@@ -330,6 +530,7 @@ function syncBasics(){
   s.toolNo=$('toolNo').value||'';
   s.operator=$('operator').value||'';
   saveSettings(s);
+  $('lineNow').innerHTML = s.line ? ('· <b>Aktuel linje:</b> ' + s.line) : '';
 }
 function restoreBasics(){
   var s=settings();
@@ -338,33 +539,11 @@ function restoreBasics(){
   if(s.itemNo) $('itemNo').value=s.itemNo;
   if(s.toolNo) $('toolNo').value=s.toolNo;
   if(s.operator) $('operator').value=s.operator;
+  if($('no-order')) { $('no-order').checked=!!s.noOrder; }
+  applyNoOrderMode();
 }
 
-function refreshQuick(){
-  var rows=events().slice(-10).reverse(), html='<option value="">— Vælg tidligere registrering —</option>', i;
-  for(i=0;i<rows.length;i++){
-    var r=rows[i], code=(r.reason&&r.reason.code)||'?', lab=(r.reason&&r.reason.label)||'?';
-    html+='<option value="'+r.id+'">'+code+' · '+lab+' · '+(r.comment||'-')+'</option>';
-  }
-  $('quick-last').innerHTML=html;
-}
-function applyFromEvent(ev){
-  if(!ev) return;
-  var radios=document.getElementsByName('reasonRadio'), i, set;
-  for(i=0;i<radios.length;i++){ if(radios[i].value===((ev.reason&&ev.reason.code)||'')){ radios[i].checked=true; renderChipsByCode(radios[i].value); break; } }
-  set=(ev.detailChips||[]); var nodes=$('reasonChips').getElementsByTagName('input');
-  for(i=0;i<nodes.length;i++){ nodes[i].checked=(set.indexOf(nodes[i].value)>=0) }
-  $('other').value=ev.other||''; $('comment').value=ev.comment||'';
-}
-function refreshTemplates(){
-  var list=templates(), i, html='<option value="">— Vælg skabelon —</option>';
-  for(i=0;i<list.length;i++){ html+='<option value="'+list[i].id+'">'+list[i].name+'</option>' }
-  $('tpl-select').innerHTML=html;
-}
-function captureStopForm(){
-  var sel=document.querySelector('input[name="reasonRadio"]:checked'), reason=getReason(sel?sel.value:null)||{code:'ANDET',label:'Andet'};
-  return {reason:{code:reason.code,label:reason.label}, detailChips:selectedChips(), other:($('other').value||'').trim(), comment:($('comment').value||'').trim()};
-}
+/* Aktivitet */
 function renderActivity(){
   var svg=$('activity8h'); if(!svg) return; svg.innerHTML='';
   var W=920,H=120,m={l:40,r:10,t:18,b:18},w=W-m.l-m.r,h=H-m.t-m.b;
@@ -381,6 +560,8 @@ function renderActivity(){
   for(i=0;i<stops.length;i++){ var xs=xPos(stops[i][0]), xe=xPos(stops[i][1]), rr=document.createElementNS('http://www.w3.org/2000/svg','rect'); rr.setAttribute('x',xs); rr.setAttribute('y',m.t+6); rr.setAttribute('width',Math.max(1,xe-xs)); rr.setAttribute('height',h-12); rr.setAttribute('class','stop'); svg.appendChild(rr); }
   var xnow=xPos(now), nowLn=document.createElementNS('http://www.w3.org/2000/svg','line'); nowLn.setAttribute('x1',xnow); nowLn.setAttribute('y1',m.t-2); nowLn.setAttribute('x2',xnow); nowLn.setAttribute('y2',m.t+h+2); nowLn.setAttribute('class','now'); svg.appendChild(nowLn);
 }
+
+/* LISTE + inline redigering (samme som før) */
 function renderMixList(){
   var list=$('mixList'); list.innerHTML='';
   var ev=events().slice(); var ns=notes().slice(); var arr=[], i;
@@ -395,29 +576,155 @@ function renderMixList(){
   arr.sort(function(a,b){ return new Date(b.ts)-new Date(a.ts); });
 
   for(i=0;i<arr.length;i++){
-    var it=arr[i], li=document.createElement('li'); li.className='logitem';
+    var it=arr[i];
+    var li=document.createElement('li'); li.className='logitem';
+    var row=document.createElement('div'); row.className='log-row';
+    var left=document.createElement('div'); left.className='log-ts'; left.innerHTML=fmtDate(it.ts);
+    var right=document.createElement('div');
+
     if(it.type==='stop'){
       var r2=it.data, code=(r2.reason&&r2.reason.code)||'', lab=(r2.reason&&r2.reason.label)||'Stop';
       var extra='Linje: '+(r2.line||'-')+' · Ordre: '+(r2.orderNo||'-')+' · Vare: '+(r2.itemNo||'-')+' · Værktøj: '+(r2.toolNo||'-');
       var doneTxt=r2.doneWhat?(' · Gjort: '+r2.doneWhat):'';
-      li.innerHTML='<div class="log-ts">'+fmtDate(r2.start)+'</div><div><span class="badge stop">Stop</span> <b>'+code+'</b> – '+lab+' · <span class="hint">'+fmtDur(r2.durationMs||0)+'</span><div class="hint">'+extra+(r2.comment?(' · '+r2.comment):'')+doneTxt+'</div></div>';
+      var noBadge = r2.noOrder ? ' <span class="badge noorder">Ingen ordre</span>' : '';
+      right.innerHTML='<span class="badge stop">Stop</span>'+noBadge+' <b>'+code+'</b> – '+lab+' · <span class="hint">'+fmtDur(r2.durationMs||0)+'</span><div class="hint">'+extra+(r2.comment?(' · '+r2.comment):'')+doneTxt+'</div>';
     } else if(it.type==='rep'){
       var rp=it.data.rep;
-      li.innerHTML='<div class="log-ts">'+fmtDate(it.ts)+'</div><div><span class="badge rep">Rep</span> '+(rp.type||'')+' · '+(rp.priority||'')+'<div class="hint">'+(rp.description||'')+'</div></div>';
+      right.innerHTML='<span class="badge rep">Rep</span> '+(rp.type||'')+' · '+(rp.priority||'')+'<div class="hint">'+(rp.description||'')+'</div>';
     } else {
       var n=it.data, meta='('+[(n.line||'-'),(n.orderNo||'-'),(n.itemNo||'-')].join(' · ')+')';
-      li.innerHTML='<div class="log-ts">'+fmtDate(n.ts)+'</div><div><span class="badge note">Note</span> '+(n.text||'')+' <span class="hint">'+meta+'</span></div>';
+      right.innerHTML='<span class="badge note">Note</span> '+(n.text||'')+' <span class="hint">'+meta+'</span>';
     }
+
+    var act=document.createElement('div'); act.className='actions';
+    var btn=document.createElement('button'); btn.className='btn xs'; btn.innerHTML='Redigér';
+    btn.onclick=(function(item){ return function(){ toggleEditor(item); }; })(it);
+    act.appendChild(btn);
+
+    row.appendChild(left); row.appendChild(right); row.appendChild(act);
+    li.appendChild(row);
+
+    var editor=document.createElement('div'); editor.className='editbox'; editor.style.display='none';
+    editor.id='edit-'+it.type+'-'+(it.type==='rep'?it.data.related:(it.data.id||it.data.id));
+    li.appendChild(editor);
+
     list.appendChild(li);
   }
 }
-var IS_STOPPED=false, STOP_START_ISO=null, stopMeta=null, TICK=null;
+function editorStopHTML(r){
+  var all=allReasons(); var i, opts='';
+  for(i=0;i<all.length;i++){ var sel=(r.reason && r.reason.code===all[i].code)?' selected':''; opts+='<option value="'+all[i].code+'"'+sel+'>'+all[i].code+' – '+all[i].label+'</option>'; }
+  var done=r.doneWhat||'', comment=r.comment||'';
+  return ''+
+    '<div class="row sm">'+
+      '<div class="field" style="flex:1 1 240px"><label>Årsag</label><select id="edit-stop-reason">'+opts+'</select></div>'+
+      '<div class="field" style="flex:2 1 360px"><label>Kommentar</label><input id="edit-stop-comment" type="text" value="'+escapeHtml(comment)+'"></div>'+
+      '<div class="field" style="flex:2 1 360px"><label>Gjort</label><input id="edit-stop-done" type="text" value="'+escapeHtml(done)+'"></div>'+
+    '</div>'+
+    '<div class="row" style="justify-content:flex-end;gap:8px">'+
+      '<button class="btn" id="edit-stop-cancel">Annuller</button>'+
+      '<button class="btn btn-primary" id="edit-stop-save">Gem</button>'+
+    '</div>';
+}
+function editorRepHTML(rp){
+  var pri=['Lav','Mellem','Høj','Kritisk'], i, opts='';
+  for(i=0;i<pri.length;i++){ var sel=(rp.priority===pri[i])?' selected':''; opts+='<option'+sel+'>'+pri[i]+'</option>'; }
+  return ''+
+    '<div class="row sm">'+
+      '<div class="field"><label>Prioritet</label><select id="edit-rep-pri">'+opts+'</select></div>'+
+      '<div class="field"><label>Fejltype</label><input id="edit-rep-type" type="text" value="'+escapeHtml(rp.type||'')+'"></div>'+
+    '</div>'+
+    '<div class="field"><label>Beskrivelse</label><textarea id="edit-rep-desc">'+escapeHtml(rp.description||'')+'</textarea></div>'+
+    '<div class="row" style="justify-content:flex-end;gap:8px">'+
+      '<button class="btn" id="edit-rep-cancel">Annuller</button>'+
+      '<button class="btn btn-primary" id="edit-rep-save">Gem</button>'+
+    '</div>';
+}
+function editorNoteHTML(n){
+  return ''+
+    '<div class="field"><label>Bemærkning</label><textarea id="edit-note-text">'+escapeHtml(n.text||'')+'</textarea></div>'+
+    '<div class="row" style="justify-content:flex-end;gap:8px">'+
+      '<button class="btn" id="edit-note-cancel">Annuller</button>'+
+      '<button class="btn btn-primary" id="edit-note-save">Gem</button>'+
+    '</div>';
+}
+function escapeHtml(s){
+  if(s===null||s===undefined) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function toggleEditor(item){
+  var boxes=document.getElementsByClassName('editbox'), i;
+  for(i=0;i<boxes.length;i++){ boxes[i].style.display='none'; boxes[i].innerHTML=''; }
+  var id=(item.type==='rep'?item.data.related:item.data.id);
+  var box=$('edit-'+item.type+'-'+id); if(!box) return;
+  if(item.type==='stop'){
+    box.innerHTML=editorStopHTML(item.data);
+    box.style.display='';
+    $('edit-stop-cancel').onclick=function(){ box.style.display='none'; box.innerHTML=''; };
+    $('edit-stop-save').onclick=function(){ saveStopEdit(id); };
+  } else if(item.type==='rep'){
+    box.innerHTML=editorRepHTML(item.data.rep||{});
+    box.style.display='';
+    $('edit-rep-cancel').onclick=function(){ box.style.display='none'; box.innerHTML=''; };
+    $('edit-rep-save').onclick=function(){ saveRepEdit(id); };
+  } else if(item.type==='note'){
+    box.innerHTML=editorNoteHTML(item.data);
+    box.style.display='';
+    $('edit-note-cancel').onclick=function(){ box.style.display='none'; box.innerHTML=''; };
+    $('edit-note-save').onclick=function(){ saveNoteEdit(item.data.id); };
+  }
+}
+function saveStopEdit(id){
+  var arr=events(), i, r=null;
+  for(i=0;i<arr.length;i++){ if(arr[i].id===id){ r=arr[i]; break; } }
+  if(!r) return;
+  var newCode=$('edit-stop-reason').value||'ANDET';
+  var R=getReason(newCode)||{code:'ANDET',label:'Andet'};
+  r.reason={code:R.code,label:R.label};
+  r.comment=$('edit-stop-comment').value||'';
+  r.doneWhat=$('edit-stop-done').value||'';
+  saveEvents(arr);
+  queueUpdate('stop_update', {
+    id:r.id,start:r.start,end:r.end,duration_ms:r.durationMs,line:r.line,order:r.orderNo,item:r.itemNo,tool:r.toolNo,operator:r.operator,
+    cause_code:r.reason.code,cause_label:r.reason.label,details:(r.detailChips||[]).join(', '),other:r.other||'',comment:r.comment||'',done:r.doneWhat||'', no_order:(r.noOrder===true)
+  });
+  renderMixList(); updateLamps();
+}
+function saveRepEdit(relatedId){
+  var arr=events(), i, r=null;
+  for(i=0;i<arr.length;i++){ if(arr[i].id===relatedId){ r=arr[i]; break; } }
+  if(!r) return;
+  if(!r.rep) r.rep={};
+  r.rep.priority=$('edit-rep-pri').value||'Mellem';
+  r.rep.type=$('edit-rep-type').value||'';
+  r.rep.description=$('edit-rep-desc').value||'';
+  saveEvents(arr);
+  queueUpdate('rep_update', { id:'rep-'+relatedId, ts:r.end||r.start, line:r.line, order:r.orderNo, item:r.itemNo, tool:r.toolNo, operator:r.operator, priority:r.rep.priority, type:r.rep.type, description:r.rep.description });
+  renderMixList(); updateLamps();
+}
+function saveNoteEdit(noteId){
+  var arr=notes(), i, n=null;
+  for(i=0;i<arr.length;i++){ if(arr[i].id===noteId){ n=arr[i]; break; } }
+  if(!n) return;
+  n.text=$('edit-note-text').value||'';
+  saveNotes(arr);
+  queueUpdate('note_update', { id:n.id, ts:n.ts, line:n.line, order:n.orderNo, item:n.itemNo, tool:n.toolNo, operator:n.operator, text:n.text });
+  renderMixList(); updateLamps();
+}
+function queueUpdate(kind, payload){
+  var feed=loadJSON(KEY_FEED,[]);
+  feed.push({type:kind, sent:false, payload:payload});
+  saveJSON(KEY_FEED,feed);
+}
 
+/* Status/stop-timer */
+var IS_STOPPED=false, STOP_START_ISO=null, stopMeta=null, TICK=null;
 function setStatus(st){
   IS_STOPPED=st; $('btn-start').disabled=!st;
   $('dot').className=st?'dot stop':'dot';
   $('statxt').innerHTML=st?'Stop aktivt':'Kører normalt';
   $('liveTimer').innerHTML=st?'00:00:00':'—';
+  updateLamps();
 }
 function tick(){
   if(!IS_STOPPED) return;
@@ -426,91 +733,150 @@ function tick(){
   renderActivity(); renderMixList();
 }
 
-function maybeShowCopy(code){
-  var rows=events().filter(function(r){return r.reason&&r.reason.code===code}).sort(function(a,b){return new Date(b.start)-new Date(a.start)});
-  var last=rows.length?rows[0]:null;
-  if(last){
-    $('btn-copy-last').style.display='';
-    $('btn-copy-last').onclick=function(){
-      $('other').value=last.other||''; $('comment').value=last.comment||'';
-      var set=(last.detailChips||[]), nodes=$('reasonChips').getElementsByTagName('input'), i;
-      for(i=0;i<nodes.length;i++){ nodes[i].checked=(set.indexOf(nodes[i].value)>=0) }
-    };
-  } else { $('btn-copy-last').style.display='none'; }
-}
-
-function openStopPanel(){ show($('stopPanel')); $('stopHint').innerHTML=''; }
-function closeStopPanel(){ hide($('stopPanel')); }
-
+/* Stop-flow */
 function confirmStop(){
-  if(!(($('orderNo').value||'').trim()) || !(($('itemNo').value||'').trim())){ $('stopHint').innerHTML='Udfyld Ordre nr. og Vare nr.'; return; }
+  var noOrder=$('no-order') && $('no-order').checked;
+  if(!noOrder){
+    if(!(($('orderNo').value||'').trim()) || !(($('itemNo').value||'').trim())){
+      $('stopHint').innerHTML='Udfyld Ordre nr. og Vare nr. – eller vælg "Ingen ordre".'; return;
+    }
+  }
   var sel=document.querySelector('input[name="reasonRadio"]:checked'), reason=getReason(sel?sel.value:null)||{code:'ANDET',label:'Andet'};
   stopMeta={ reason:{code:reason.code,label:reason.label}, detailChips:selectedChips(), other:($('other').value||'').trim(), comment:($('comment').value||'').trim() };
 
   if($('retro-mode').value==='yes'){
     var sVal=$('retro-start').value, eVal=$('retro-end').value;
-    if(!sVal||!eVal){ $('stopHint').innerHTML='Vælg både start og slut ved registrering på bagkant.'; return; }
+    if(!sVal||!eVal){ $('stopHint').innerHTML='Vælg både start og slut.'; return; }
     var s=new Date(sVal), e=new Date(eVal); if(!(s&&e) || e<s){ $('stopHint').innerHTML='Slut skal være efter start.'; return; }
     var row={ id:uuid(), start:s.toISOString(), end:e.toISOString(), durationMs:(e-s),
       line:$('line').value||'', operator:$('operator').value||'', orderNo:$('orderNo').value||'', itemNo:$('itemNo').value||'', toolNo:$('toolNo').value||'',
-      reason:stopMeta.reason, detailChips:stopMeta.detailChips, other:stopMeta.other, comment:stopMeta.comment, doneWhat:'' };
+      reason:stopMeta.reason, detailChips:stopMeta.detailChips, other:stopMeta.other, comment:stopMeta.comment, doneWhat:'', noOrder:noOrder };
     var arr=events(); arr.push(row); saveEvents(arr);
 
-    // send til feed
     var feed=loadJSON(KEY_FEED,[]);
     feed.push({type:'stop',sent:false,id:row.id,start:row.start,end:row.end,durationMs:row.durationMs,
       line:row.line,orderNo:row.orderNo,itemNo:row.itemNo,toolNo:row.toolNo,operator:row.operator,
-      reason:row.reason,detailChips:row.detailChips,other:row.other,comment:row.comment});
+      reason:row.reason,detailChips:row.detailChips,other:row.other,comment:row.comment, no_order:noOrder});
     saveJSON(KEY_FEED,feed);
 
-    renderActivity(); renderMixList(); refreshQuick();
-    closeStopPanel();
+    renderActivity(); renderMixList();
+    closeAllPanels(); updateLamps();
     return;
   }
 
   // realtime
   STOP_START_ISO=new Date().toISOString(); setStatus(true);
-  if(TICK)clearInterval(TICK); TICK=setInterval(tick,1000); tick(); closeStopPanel();
-  saveCurrent({start:STOP_START_ISO, meta:stopMeta});
+  if(TICK)clearInterval(TICK); TICK=setInterval(tick,1000); tick(); closeAllPanels();
+  saveCurrent({start:STOP_START_ISO, meta:stopMeta}); updateLamps();
 }
 function showDoneInline(){ $('doneBlock').style.display=''; }
 function hideDoneInline(){ $('doneBlock').style.display='none'; $('doneWhat').value=''; }
-
 function finalizeStop(withDone){
   var doneTxt=withDone?($('doneWhat').value||''):'';
   var end=new Date(), start=new Date(STOP_START_ISO), dur=end-start;
   var row={ id:uuid(), start:start.toISOString(), end:end.toISOString(), durationMs:dur,
     line:$('line').value||'', operator:$('operator').value||'', orderNo:$('orderNo').value||'', itemNo:$('itemNo').value||'', toolNo:$('toolNo').value||'',
-    reason: stopMeta?stopMeta.reason:null, detailChips: stopMeta?stopMeta.detailChips:[], other: stopMeta?stopMeta.other:'', comment: stopMeta?stopMeta.comment:'', doneWhat:doneTxt };
+    reason: stopMeta?stopMeta.reason:null, detailChips: stopMeta?stopMeta.detailChips:[], other: stopMeta?stopMeta.other:'', comment: stopMeta?stopMeta.comment:'', doneWhat:doneTxt,
+    noOrder:(settings().noOrder===true) };
 
   var arr=events(); arr.push(row); saveEvents(arr);
 
   var feed=loadJSON(KEY_FEED,[]);
   feed.push({type:'stop',sent:false,id:row.id,start:row.start,end:row.end,durationMs:row.durationMs,
     line:row.line,orderNo:row.orderNo,itemNo:row.itemNo,toolNo:row.toolNo,operator:row.operator,
-    reason:row.reason,detailChips:row.detailChips,other:row.other,comment:row.comment,doneWhat:row.doneWhat});
+    reason:row.reason,detailChips:row.detailChips,other:row.other,comment:row.comment,doneWhat:row.doneWhat, no_order:(settings().noOrder===true)});
   saveJSON(KEY_FEED,feed);
 
   setStatus(false); STOP_START_ISO=null; stopMeta=null; if(TICK){clearInterval(TICK); TICK=null;} clearCurrent();
-  hideDoneInline(); renderActivity(); renderMixList(); refreshQuick();
+  hideDoneInline(); renderActivity(); renderMixList(); updateLamps();
 }
 
+/* Quick */
+function refreshQuick(){
+  var rows=events().slice(-10).reverse(), html='<option value="">— Vælg tidligere registrering —</option>', i;
+  for(i=0;i<rows.length;i++){
+    var r=rows[i], code=(r.reason&&r.reason.code)||'?', lab=(r.reason&&r.reason.label)||'?';
+    html+='<option value="'+r.id+'">'+code+' · '+lab+' · '+(r.comment||'-')+'</option>';
+  }
+  $('quick-last').innerHTML=html;
+}
+function applyFromEvent(ev){
+  if(!ev) return;
+  var radios=document.getElementsByName('reasonRadio'), i, set;
+  for(i=0;i<radios.length;i++){ if(radios[i].value===((ev.reason&&ev.reason.code)||'')){ radios[i].checked=true; renderChipsByCode(radios[i].value); break; } }
+  set=(ev.detailChips||[]); var nodes=$('reasonChips').getElementsByTagName('input');
+  for(i=0;i<nodes.length;i++){ nodes[i].checked=(set.indexOf(nodes[i].value)>=0) }
+  $('other').value=ev.other||''; $('comment').value=ev.comment||'';
+  saveStopDraft();
+}
+
+/* Draft & bindings */
+function bindAutosaveInputs(){
+  var ids=['line','orderNo','itemNo','toolNo','operator'];
+  var i; for(i=0;i<ids.length;i++){ (function(id){ var el=$(id); if(!el) return; el.oninput=syncBasics; el.onchange=syncBasics; })(ids[i]); }
+
+  $('btn-clear-basis').onclick=function(){ $('line').value=''; $('operator').value=''; syncBasics(); };
+  $('btn-clear-order').onclick=function(){ $('orderNo').value=''; $('itemNo').value=''; $('toolNo').value=''; syncBasics(); };
+
+  if($('no-order')) $('no-order').onchange=applyNoOrderMode;
+  if($('lock-hugen')) $('lock-hugen').onchange=applyOrderLock;
+
+  var stopBind=['other','comment','retro-mode','retro-start','retro-end'];
+  for(i=0;i<stopBind.length;i++){ (function(id){ var el=$(id); if(!el) return; el.oninput=saveStopDraft; el.onchange=saveStopDraft; })(stopBind[i]); }
+  if($('reasonChips')) $('reasonChips').onclick=function(e){ var t=e.target||e.srcElement; if(t && t.tagName==='INPUT'){ saveStopDraft(); } };
+
+  $('quick-last').onchange=function(){ var id=this.value; if(!id) return; var rows=events(),i,ev=null; for(i=0;i<rows.length;i++){ if(rows[i].id===id){ ev=rows[i]; break } } applyFromEvent(ev); };
+
+  $('btn-open-stop').onclick=function(){ openStopPanel(); };
+  $('stop-cancel').onclick=function(){ closeAllPanels(); };
+  $('btn-open-rep').onclick=function(){ openRepPanel(); };
+  $('rep-cancel').onclick=function(){ closeAllPanels(); };
+  $('btn-open-note').onclick=function(){ openNotePanel(); };
+  $('note-cancel').onclick=function(){ closeAllPanels(); };
+
+  $('stop-clear').onclick=function(){ clearStopForm(); };
+  $('rep-clear').onclick=function(){ $('rep-pri').value='Mellem'; $('rep-type').value=''; $('rep-desc').value=''; };
+  $('note-clear').onclick=function(){ $('note-text').value=''; };
+
+  $('stop-confirm').onclick=confirmStop;
+  $('btn-start').onclick=function(){ if(!IS_STOPPED) return; showDoneInline(); };
+  $('doneSave').onclick=function(){ finalizeStop(true); };
+  $('doneSkip').onclick=function(){ finalizeStop(false); };
+
+  $('rep-create').onclick=createRepStandalone;
+  $('note-create').onclick=createNote;
+}
+
+/* Ryd stop-form */
+function clearStopForm(){
+  var first=$('reasonTop').querySelector('input[name="reasonRadio"]')||$('reasonMore').querySelector('input[name="reasonRadio"]');
+  if(first){ first.checked=true; renderChipsByCode(first.value); }
+  if($('reasonChips')){
+    var nodes=$('reasonChips').getElementsByTagName('input'), i;
+    for(i=0;i<nodes.length;i++){ nodes[i].checked=false; }
+  }
+  if($('other')) $('other').value='';
+  if($('comment')) $('comment').value='';
+  if($('retro-mode')) $('retro-mode').value='no';
+  hide($('retro-fields'));
+  if($('retro-start')) $('retro-start').value='';
+  if($('retro-end')) $('retro-end').value='';
+  saveStopDraft();
+}
+
+/* Rep & Note opret (uændret) */
 function createRepStandalone(){
-  var rp={ to:($('rep-to').value||''), cc:($('rep-cc').value||''), priority:($('rep-pri').value||'Mellem'), type:($('rep-type').value||''), description:($('rep-desc').value||'') };
+  var rp={ to:'', cc:'', priority:($('rep-pri').value||'Mellem'), type:($('rep-type').value||''), description:($('rep-desc').value||'') };
   var now=new Date().toISOString();
-  // læg som separat post i feed og liste
   var feed=loadJSON(KEY_FEED,[]); var id='rep-'+uuid();
   feed.push({type:'rep',sent:false,id:id,ts:now,line:$('line').value||'',orderNo:$('orderNo').value||'',itemNo:$('itemNo').value||'',toolNo:$('toolNo').value||'',operator:$('operator').value||'', priority:rp.priority, faultType:rp.type, description:rp.description});
   saveJSON(KEY_FEED,feed);
 
-  // spejl i mix ved pseudo-event (kun til visning)
   var ev=events(); ev.push({ id:'shadow-'+id, start:now, end:now, durationMs:0, line:$('line').value||'', orderNo:$('orderNo').value||'', itemNo:$('itemNo').value||'', toolNo:$('toolNo').value||'', operator:$('operator').value||'', reason:null, rep:rp });
   saveEvents(ev);
 
-  renderMixList();
-  hide($('repPanel'));
+  renderMixList(); closeAllPanels(); updateLamps();
 }
-
 function createNote(){
   var txt=($('note-text').value||'').trim(); if(!txt){return;}
   var n={id:uuid(), ts:new Date().toISOString(), text:txt, line:$('line').value||'', orderNo:$('orderNo').value||'', itemNo:$('itemNo').value||'', toolNo:$('toolNo').value||'', operator:$('operator').value||''};
@@ -521,9 +887,10 @@ function createNote(){
   saveJSON(KEY_FEED,feed);
 
   $('note-text').value='';
-  hide($('notePanel'));
-  renderMixList();
+  renderMixList(); closeAllPanels(); updateLamps();
 }
+
+/* Afsend kø (og opdatér trafiklys) */
 function resendQueued(){
   var feed=loadJSON(KEY_FEED,[]), changed=false, i;
   for(i=0;i<feed.length;i++){
@@ -531,7 +898,7 @@ function resendQueued(){
     if(r.type==='stop'){
       var payload={ id:r.id,start:r.start,end:r.end,duration_ms:r.durationMs,line:r.line,order:r.orderNo,item:r.itemNo,tool:r.toolNo,operator:r.operator,
         cause_code:(r.reason&&r.reason.code)||'', cause_label:(r.reason&&r.reason.label)||'',
-        details:(r.detailChips||[]).join(', '), other:r.other||'', comment:r.comment||'', done:r.doneWhat||'' };
+        details:(r.detailChips||[]).join(', '), other:r.other||'', comment:r.comment||'', done:r.doneWhat||'', no_order:(r.noOrder===true) };
       postJSON(ENDPOINT_EVENT,payload); r.sent=true; changed=true;
     } else if(r.type==='rep'){
       var payloadR={ id:r.id, ts:r.ts||null, line:r.line, order:r.orderNo, item:r.itemNo, tool:r.toolNo, operator:r.operator, priority:r.priority, type:r.faultType, description:r.description };
@@ -539,72 +906,37 @@ function resendQueued(){
     } else if(r.type==='note'){
       var payloadN={ id:r.id, ts:r.ts||null, line:r.line, order:r.orderNo, item:r.itemNo, tool:r.toolNo, operator:r.operator, text:r.text };
       postJSON(ENDPOINT_NOTE,payloadN); r.sent=true; changed=true;
+    } else if(r.type==='stop_update'){
+      postJSON(ENDPOINT_EVENT, merge({action:'update'}, r.payload)); r.sent=true; changed=true;
+    } else if(r.type==='rep_update'){
+      postJSON(ENDPOINT_REP, merge({action:'update'}, r.payload)); r.sent=true; changed=true;
+    } else if(r.type==='note_update'){
+      postJSON(ENDPOINT_NOTE, merge({action:'update'}, r.payload)); r.sent=true; changed=true;
     }
   }
   if(changed) saveJSON(KEY_FEED,feed);
+  updateLamps();
 }
+function merge(a,b){var o={},k;for(k in a){o[k]=a[k]}for(k in b){o[k]=b[k]}return o}
 
-// autosave under skrivning (basis + stopfelter + note/rep)
-function bindAutosaveInputs(){
-  var ids=['line','orderNo','itemNo','toolNo','operator'];
-  var i; for(i=0;i<ids.length;i++){ (function(id){ var el=$(id); if(!el) return; el.oninput=syncBasics; el.onchange=syncBasics; })(ids[i]); }
-  $('btn-clear-order').onclick=function(){ $('orderNo').value=''; $('itemNo').value=''; syncBasics(); };
-  $('btn-clear-line').onclick=function(){ $('line').value=''; $('toolNo').value=''; $('operator').value=''; syncBasics(); };
-
-  // stopfelt-udkast
-  var stopIds=['other','comment']; for(i=0;i<stopIds.length;i++){ (function(id){ var el=$(id); if(!el) return; el.oninput=function(){ var d=loadJSON('stopDraft',{}); d[id]=el.value||''; saveJSON('stopDraft',d); }; })(stopIds[i]); }
-  // rep/note udkast
-  var rpIds=['rep-to','rep-cc','rep-pri','rep-type','rep-desc']; for(i=0;i<rpIds.length;i++){ (function(id){ var el=$(id); if(!el)return; el.oninput=function(){ var d=loadJSON('repDraft',{}); d[id]=el.value||''; saveJSON('repDraft',d); }; })(rpIds[i]); }
-  if($('note-text')) $('note-text').oninput=function(){ var d=loadJSON('noteDraft',{}); d.text=$('note-text').value||''; saveJSON('noteDraft',d); };
-}
-function restoreDrafts(){
-  var d=loadJSON('stopDraft',{}); if(d.other && $('other')) $('other').value=d.other; if(d.comment && $('comment')) $('comment').value=d.comment;
-  var r=loadJSON('repDraft',{}); if(r['rep-to']) $('rep-to').value=r['rep-to']; if(r['rep-cc']) $('rep-cc').value=r['rep-cc']; if(r['rep-pri']) $('rep-pri').value=r['rep-pri']; if(r['rep-type']) $('rep-type').value=r['rep-type']; if(r['rep-desc']) $('rep-desc').value=r['rep-desc'];
-  var n=loadJSON('noteDraft',{}); if(n.text) $('note-text').value=n.text;
-}
+/* Init */
 window.addEventListener('DOMContentLoaded', function(){
-  // init
   setStatus(false);
   restoreBasics();
   renderReasons();
   renderActivity(); renderMixList();
-  refreshQuick(); refreshTemplates();
-  bindAutosaveInputs(); restoreDrafts();
+  refreshQuick();
+  bindAutosaveInputs();
+  restoreStopDraft();
+  applyOrderLock();
+  updateLamps();
 
-  // genoptag aktivt stop
+  // Genoptag aktivt stop
   var cur=currentStop(); if(cur&&cur.start){ STOP_START_ISO=cur.start; stopMeta=cur.meta||null; setStatus(true); if(TICK)clearInterval(TICK); TICK=setInterval(tick,1000); tick(); }
 
-  // åbne/lukke paneler
-  $('btn-open-stop').onclick=function(){ openStopPanel(); };
-  $('stop-cancel').onclick=function(){ closeStopPanel(); };
-  $('btn-open-rep').onclick=function(){ show($('repPanel')); };
-  $('rep-cancel').onclick=function(){ hide($('repPanel')); };
-  $('btn-open-note').onclick=function(){ show($('notePanel')); };
-  $('note-cancel').onclick=function(){ hide($('notePanel')); };
-
-  // stop-panel interaktion
-  $('retro-mode').onchange=function(){ if(this.value==='yes'){ show($('retro-fields')); } else { hide($('retro-fields')); } };
-  $('quick-last').onchange=function(){ var id=this.value; if(!id) return; var rows=events(),i,ev=null; for(i=0;i<rows.length;i++){ if(rows[i].id===id){ ev=rows[i]; break } } applyFromEvent(ev); };
-  $('tpl-save').onclick=function(){ var name=prompt('Navn på skabelon?'); if(!name) return; var t=captureStopForm(); t.id=uuid(); t.name=name; var list=templates(); list.unshift(t); saveTemplates(list); refreshTemplates(); alert('Skabelon gemt.'); };
-  $('tpl-del').onclick=function(){ var id=$('tpl-select').value; if(!id) return; var list=templates().filter(function(x){return x.id!==id}); saveTemplates(list); refreshTemplates(); };
-  $('tpl-select').onchange=function(){ var id=this.value; if(!id) return; var list=templates(),i,t=null; for(i=0;i<list.length;i++){ if(list[i].id===id){ t=list[i]; break; } } if(t){ var radios=document.getElementsByName('reasonRadio'), i; for(i=0;i<radios.length;i++){ if(radios[i].value===t.reason.code){ radios[i].checked=true; renderChipsByCode(radios[i].value); break } } var nodes=$('reasonChips').getElementsByTagName('input'), set=(t.detailChips||[]), k; for(k=0;k<nodes.length;k++){ nodes[k].checked=(set.indexOf(nodes[k].value)>=0) } $('other').value=t.other||''; $('comment').value=t.comment||''; } };
-  $('btn-clear-detail').onclick=function(){ $('other').value=''; $('comment').value=''; var nodes=$('reasonChips').getElementsByTagName('input'), i; for(i=0;i<nodes.length;i++){nodes[i].checked=false} };
-  $('stop-confirm').onclick=confirmStop;
-
-  // START (afslut) -> spørg inline
-  $('btn-start').onclick=function(){ if(!IS_STOPPED) return; showDoneInline(); };
-  $('doneSave').onclick=function(){ finalizeStop(true); };
-  $('doneSkip').onclick=function(){ finalizeStop(false); };
-
-  // Rep/Note
-  $('rep-create').onclick=createRepStandalone;
-  $('note-create').onclick=createNote;
-
-  // resend feed nu og hver 5. minut
+  // Periodisk: send kø + opdatér trafiklys
   resendQueued(); setInterval(resendQueued, 5*60*1000);
 });
 </script>
 </body>
 </html>
-
-  
