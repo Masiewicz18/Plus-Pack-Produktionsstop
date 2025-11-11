@@ -372,7 +372,7 @@
   function restoreStopDraft(){var d=loadJSON(PFX+'stopDraft',null);if(!d)return;if(d.reasonCode){var radios=document.getElementsByName('reasonRadio');for(var i=0;i<radios.length;i++){if(radios[i].value===d.reasonCode){radios[i].checked=true;break}}}if(typeof d.comment==='string'&&$('comment'))$('comment').value=d.comment;if($('retro-mode'))$('retro-mode').value=d.retroMode||'no';applyRetroModeUI();if($('retro-start')&&d.retroStart)$('retro-start').value=d.retroStart;if($('retro-end')&&d.retroEnd)$('retro-end').value=d.retroEnd}
 
   /* ====== API endpoint + afsendelse ====== */
-  var ENDPOINT_UNIFIED='https://default430cd76f558540b4b6d4f372acf579.16.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/00089d07f67d462dad1316aabf7dd93a/triggers/manual/paths/invoke?api-version=1';
+  var ENDPOINT_UNIFIED='https://default430cd76f558540b4b6d4f372acf579.16.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/00089d07f67d462dad1316aabf7dd93a/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=q5l1qZVpyTnLMatXAuu_fVW_qikNZ9w_rkdY-1eKSeI;
   var API_KEY=null; // sæt evt. 'din-hemmelige-noegle'
 
   function postJSON(url,payload,cb){
@@ -814,3 +814,4 @@
   </script>
 </body>
 </html>
+
