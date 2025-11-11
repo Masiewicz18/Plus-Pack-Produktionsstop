@@ -34,7 +34,6 @@
     .field{margin-bottom:8px}
     .hint{font-size:12px;color:#6b7280}
     .sep{height:1px;background:#e6ecf3;margin:8px 0}
-
     .btn{border:1px solid #dbe4ef;background:#fff;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer;font-size:14px}
     .btn:disabled{opacity:.55;cursor:not-allowed}
     .btn-primary{background:#e8f1ff;border-color:#cfe2ff;color:#0a3d91}
@@ -55,7 +54,6 @@
     .activity .runbg{fill:rgba(16,185,129,.06)}
     .activity .label{fill:#475569;font-size:10px}
     .activity .stop{fill:rgba(220,38,38,.28);stroke:#dc2626;stroke-width:1}
-
     .loglist{list-style:none;margin:0;padding:0;border:1px dashed #dbe4ef;border-radius:10px;background:#fff;max-height:420px;overflow:auto}
     .logitem{display:flex;gap:8px;padding:8px;border-bottom:1px solid #eef2f7;flex-direction:column}
     .logitem:last-child{border-bottom:0}
@@ -65,7 +63,6 @@
     .badge.stop{background:#ffe4e6;border-color:#fecdd3;color:#7f1d1d}
     .badge.rep{background:#ede9fe;border-color:#ddd6fe;color:#4c1d95}
     .badge.note{background:#dbeafe;border-color:#bfdbfe;color:#1e3a8a}
-    .badge.noorder{background:#fff7ed;border-color:#fed7aa;color:#92400e}
     .actions{margin-left:auto}
     .editbox{margin:8px 0 0;padding:8px;border:1px dashed #cfe2ff;border-radius:10px;background:#f8fbff}
 
@@ -82,7 +79,6 @@
     .l-stop{background:#ef4444}.l-rep{background:#8b5cf6}.l-note{background:#3b82f6}
 
     .resetconfirm{display:none;margin-top:8px;padding:8px;border:1px solid #fecaca;background:#fff1f2;border-radius:10px}
-
     .log-meta-right{margin-left:auto;text-align:right;color:#6b7280;font-size:12px;min-width:220px}
     @media (max-width:900px){
       .row{display:block}
@@ -105,7 +101,6 @@
       <button id="btn-test" class="btn xs" style="margin-left:8px">Send test-payload</button>
     </div>
   </div>
-
   <div class="container">
     <div class="card sm">
       <h3>Basisoplysninger</h3>
@@ -159,7 +154,6 @@
             </div>
           </div>
         </div>
-
         <div class="col">
           <div class="section">
             <h4>Ordre</h4>
@@ -181,7 +175,6 @@
       </div>
       <div class="hint">Alle felter autogemmes i browseren.</div>
     </div>
-
     <div class="card">
       <div class="row" style="align-items:center;gap:10px">
         <div class="timer" style="min-width:160px"><small>Aktuelt stop</small><span id="liveTimer">—</span></div>
@@ -194,7 +187,6 @@
           <button id="btn-start" class="btn btn-success" disabled>Start (afslut stop)</button>
         </div>
       </div>
-
       <div id="doneBlock" class="row" style="margin-top:8px;display:none">
         <div class="field" style="flex:1">
           <label>Hvad blev gjort for at løse problemet?</label>
@@ -252,7 +244,6 @@
           <button id="stop-confirm" class="btn btn-danger">Bekræft stop</button>
         </div>
       </div>
-
       <div class="sep" id="sep-rep" style="display:none"></div>
       <div class="card" id="repPanel" style="display:none;margin-top:8px;border:none;box-shadow:none;padding:0">
         <h3>Opret rep-seddel (uafhængigt af stop)</h3>
@@ -269,7 +260,6 @@
           <button id="rep-create" class="btn btn-primary">Opret rep-seddel</button>
         </div>
       </div>
-
       <div class="sep" id="sep-note" style="display:none"></div>
       <div class="card" id="notePanel" style="display:none;margin-top:8px;border:none;box-shadow:none;padding:0">
         <h3>Tilføj bemærkning/note</h3>
@@ -281,7 +271,6 @@
         </div>
       </div>
     </div>
-
     <div class="card">
       <h3>Aktivitet – sidste 8 timer</h3>
       <svg class="activity" id="activity8h" viewBox="0 0 920 120"></svg>
@@ -309,9 +298,7 @@
       <div class="hint">Rydning sletter kun lokalt – basisoplysninger bevares.</div>
     </div>
   </div>
-
   <script>
-  /* ====== ES5 helpers ====== */
   function $(id){return document.getElementById(id)}
   function show(el){if(el) el.style.display=''}
   function hide(el){if(el) el.style.display='none'}
@@ -324,7 +311,6 @@
   function saveJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
   function toLocalDTValue(dt){var d=(dt instanceof Date)?dt:new Date(dt);var off=d.getTimezoneOffset();var local=new Date(d.getTime()-off*60000);return local.toISOString().slice(0,16)}
 
-  /* ====== Keys ====== */
   var PFX='ppstop.';
   var KEY_EVENTS=PFX+'events.v1';
   var KEY_NOTES=PFX+'notes.v1';
@@ -333,7 +319,6 @@
   var KEY_UI=PFX+'ui.v1';
   var KEY_SNAPSHOT=PFX+'formsnapshot.v1';
   var KEY_FEED=PFX+'feed.v1';
-
   function events(){return loadJSON(KEY_EVENTS,[])}
   function saveEvents(x){saveJSON(KEY_EVENTS,x)}
   function notes(){return loadJSON(KEY_NOTES,[])}
@@ -351,28 +336,23 @@
   function saveScroll(){var s=uiState();s.scrollY=(window.pageYOffset||document.documentElement.scrollTop||0);saveUIState(s)}
   function restoreScroll(){try{var y=uiState().scrollY||0;window.scrollTo(0,y)}catch(e){}}
 
-  /* ====== Trafiklys ====== */
   function unsentCount(){var f=loadJSON(KEY_FEED,[]),i,n=0;for(i=0;i<f.length;i++){if(f[i]&&f[i].sent===false)n++}return n}
   function setLamp(el,on){if(!el)return;var cn=el.className;var has=cn.indexOf(' on')>-1||cn.lastIndexOf('on')===cn.length-2;if(on){if(!has)el.className=cn+' on'}else{el.className=cn.replace(/\bon\b/g,'')}}
   function updateLamps(){var r=$('lampR'),y=$('lampY'),g=$('lampG'),u=unsentCount()>0;if(window.IS_STOPPED){setLamp(r,true);setLamp(y,false);setLamp(g,false)}else if(u){setLamp(r,false);setLamp(y,true);setLamp(g,false)}else{setLamp(r,false);setLamp(y,false);setLamp(g,true)}}
 
-  /* ====== Basis ====== */
-  function basisBlock(){var s=settings();return {line:s.line||'',orderNo:s.orderNo||'',itemNo:s.itemNo||'',toolNo:s.toolNo||'',operator:s.operator||'',no_order:!!s.noOrder}}
+  function basisBlock(){var s=settings();return {line:s.line||'',orderNo:s.orderNo||'',itemNo:s.itemNo||'',toolNo:s.toolNo||'',operator:s.operator||'',noOrder:!!s.noOrder}}
   function syncBasics(){var s=settings();s.line=$('line').value||'';s.orderNo=$('orderNo').value||'';s.itemNo=$('itemNo').value||'';s.toolNo=$('toolNo').value||'';s.operator=$('operator').value||'';saveSettings(s);$('lineNow').innerHTML=s.line?('· <b>Aktuel linje:</b> '+s.line):''}
   function applyNoOrder(){var on=$('no-order')&&$('no-order').checked;var ids=['orderNo','itemNo','toolNo'];for(var i=0;i<ids.length;i++){var el=$(ids[i]);if(!el)continue;if(on){el.value='';el.disabled=true;el.style.background='#f3f4f6'}else if(!$('lock-order').checked){el.disabled=false;el.style.background='#fff'}}var s=settings();s.noOrder=!!on;saveSettings(s)}
   function applyLock(){var lock=$('lock-order')&&$('lock-order').checked;var ids=['orderNo','itemNo','toolNo'];for(var i=0;i<ids.length;i++){var el=$(ids[i]);if(el){el.disabled=lock||$('no-order').checked;el.style.background=(lock||$('no-order').checked)?'#f3f4f6':'#fff'}}}
-
-  /* ====== Årsager ====== */
   var DEFAULT_REASONS=[{code:'PRES',label:'Presse'},{code:'VAERK',label:'Værktøj'},{code:'STAK',label:'Stakker'},{code:'FOLIE',label:'Manglende folie'},{code:'ORDRE',label:'Manglende ordre'},{code:'ANDET',label:'Andet'}];
   function getReason(code){for(var i=0;i<DEFAULT_REASONS.length;i++){if(DEFAULT_REASONS[i].code===code)return DEFAULT_REASONS[i]}return null}
   function renderReasons(){var html='';for(var i=0;i<DEFAULT_REASONS.length;i++){var r=DEFAULT_REASONS[i];html+='<label class="chip"><input type="radio" name="reasonRadio" value="'+r.code+'"><b>'+r.code+'</b> – '+r.label+'</label>'}$('reasonTop').innerHTML=html;var first=$('reasonTop').querySelector('input[name="reasonRadio"]');if(first)first.checked=true;$('reasonTop').onclick=function(e){e=e||window.event;var t=e.target||e.srcElement;if(t&&t.name==='reasonRadio'){saveStopDraft()}}}
 
-  /* ====== Draft ====== */
   function saveStopDraft(){var d=loadJSON(PFX+'stopDraft',{});var sel=document.querySelector('input[name="reasonRadio"]:checked');d.reasonCode=sel?sel.value:(d.reasonCode||'');d.comment=$('comment')?$('comment').value:'';d.retroMode=$('retro-mode')?$('retro-mode').value:'no';d.retroStart=$('retro-start')?$('retro-start').value:'';d.retroEnd=$('retro-end')?$('retro-end').value:'';saveJSON(PFX+'stopDraft',d)}
   function restoreStopDraft(){var d=loadJSON(PFX+'stopDraft',null);if(!d)return;if(d.reasonCode){var radios=document.getElementsByName('reasonRadio');for(var i=0;i<radios.length;i++){if(radios[i].value===d.reasonCode){radios[i].checked=true;break}}}if(typeof d.comment==='string'&&$('comment'))$('comment').value=d.comment;if($('retro-mode'))$('retro-mode').value=d.retroMode||'no';applyRetroModeUI();if($('retro-start')&&d.retroStart)$('retro-start').value=d.retroStart;if($('retro-end')&&d.retroEnd)$('retro-end').value=d.retroEnd}
 
   /* ====== API endpoint + afsendelse ====== */
-  var ENDPOINT_UNIFIED='https://default430cd76f558540b4b6d4f372acf579.16.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/00089d07f67d462dad1316aabf7dd93a/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=q5l1qZVpyTnLMatXAuu_fVW_qikNZ9w_rkdY-1eKSeI;
+  var ENDPOINT_UNIFIED = 'https://default430cd76f558540b4b6d4f372acf579.16.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/00089d07f67d462dad1316aabf7dd93a/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=q5l1qZVpyTnLMatXAuu_fVW_qikNZ9w_rkdY-1eKSeI';
   var API_KEY=null; // sæt evt. 'din-hemmelige-noegle'
 
   function postJSON(url,payload,cb){
@@ -382,23 +362,24 @@
       xhr.open('POST',url,true);
       xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8');
       if(API_KEY){xhr.setRequestHeader('x-api-key',API_KEY)}
+      xhr.timeout=15000;
+      xhr.ontimeout=function(){if(cb)cb(false,0,'timeout');updateLamps()};
+      xhr.onerror=function(){if(cb)cb(false,0,'network');updateLamps()};
       xhr.onreadystatechange=function(){
         if(xhr.readyState===4){
           var ok=(xhr.status>=200&&xhr.status<300);
           if(cb)cb(ok,xhr.status,xhr.responseText);
-          // opdater lampe gul/grøn
           updateLamps();
         }
       };
       xhr.send(JSON.stringify(payload));
     }catch(e){if(cb)cb(false,0,String(e))}
   }
-
   function queueUpdate(kind,payload){
     var feed=loadJSON(KEY_FEED,[]);
     feed.push({kind:kind,sent:false,payload:payload});
     saveJSON(KEY_FEED,feed);
-    flushFeedNow(); // NYT: send med det samme
+    flushFeedNow();
   }
 
   function flushFeedNow(){
@@ -407,7 +388,7 @@
       var r=feed[i]; if(r.sent)continue;
       var env={kind:r.kind,client_ts:new Date().toISOString(),basis:basisBlock(),data:r.payload};
       (function(idx){
-        postJSON(ENDPOINT_UNIFIED,env,function(ok,code,_){
+        postJSON(ENDPOINT_UNIFIED,env,function(ok){
           if(ok){var f=loadJSON(KEY_FEED,[]);if(f[idx]){f[idx].sent=true;saveJSON(KEY_FEED,f)}}
         });
       })(i);
@@ -415,16 +396,11 @@
     }
     if(changed)updateLamps();
   }
+  function resendQueued(){flushFeedNow()}
 
-  function resendQueued(){
-    flushFeedNow();
-  }
-
-  /* ====== Status & aktivitet ====== */
   var IS_STOPPED=false,STOP_START_ISO=null,stopMeta=null,TICK=null;window.IS_STOPPED=IS_STOPPED;
   function setStatus(st){IS_STOPPED=st;window.IS_STOPPED=st;$('btn-start').disabled=!st;$('dot').className=st?'dot stop':'dot';$('statxt').innerHTML=st?'Stop aktivt':'Kører normalt';$('liveTimer').innerHTML=st?'00:00:00':'—';updateLamps()}
   function tick(){if(!IS_STOPPED)return;var ms=Date.now()-new Date(STOP_START_ISO);$('liveTimer').innerHTML=fmtDur(ms);renderActivity()}
-
   function renderActivity(){
     var svg=$('activity8h'); if(!svg) return;
     svg.innerHTML='';
@@ -473,7 +449,6 @@
     svg.appendChild(nowLn)
   }
 
-  /* ====== Stop-flow ====== */
   function confirmStop(){
     var s=settings();
     var noOrder=s.noOrder===true;
@@ -495,7 +470,6 @@
     }
     STOP_START_ISO=new Date().toISOString();setStatus(true);if(TICK)clearInterval(TICK);TICK=setInterval(tick,1000);tick();closeAllPanels();saveCurrent({start:STOP_START_ISO,meta:stopMeta});updateLamps()
   }
-
   function showDone(){show($('doneBlock'));setDoneOpen(true);saveScroll()}
   function hideDone(){hide($('doneBlock'));$('doneWhat').value='';setDoneOpen(false);saveScroll()}
   function finalizeStop(withDone){
@@ -507,14 +481,12 @@
     setStatus(false);STOP_START_ISO=null;stopMeta=null;if(TICK){clearInterval(TICK);TICK=null}clearCurrent();hideDone();refreshQuick();renderMixList();renderActivity();updateLamps()
   }
 
-  /* ====== Quick udfyld & autosave ====== */
   function refreshQuick(){var rows=events().slice(-10).reverse(),html='<option value=\"\">— Vælg tidligere registrering —</option>';for(var i=0;i<rows.length;i++){var r=rows[i],code=(r.reason&&r.reason.code)||'?',lab=(r.reason&&r.reason.label)||'?';html+='<option value=\"'+r.id+'\">'+code+' · '+lab+' · '+(r.comment||'-')+'</option>'}$('quick-last').innerHTML=html}
   function applyFromEvent(ev){if(!ev)return;var radios=document.getElementsByName('reasonRadio');for(var i=0;i<radios.length;i++){if(radios[i].value===((ev.reason&&ev.reason.code)||'')){radios[i].checked=true;break}}$('comment').value=ev.comment||'';saveStopDraft()}
   function collectFormValues(){var snap={};var all=document.querySelectorAll('input,select,textarea');for(var i=0;i<all.length;i++){var el=all[i];if(!el.id&&!el.name)continue;var key=el.id||('name:'+el.name);var t=(el.type||'').toLowerCase();if(t==='checkbox'||t==='radio'){snap[key]={t:t,v:el.checked,val:el.value}}else{snap[key]={t:t,v:el.value}}}return snap}
   function applyFormValues(snap){if(!snap)return;for(var k in snap){if(!snap.hasOwnProperty(k))continue;var meta=snap[k];var el=(k.indexOf('name:')===0)?document.getElementsByName(k.substr(5))[0]:document.getElementById(k);if(!el)continue;var t=(el.type||'').toLowerCase();if(t==='checkbox'||t==='radio'){if(t==='radio'){var group=(el.name&&document.getElementsByName(el.name))||[];for(var i=0;i<group.length;i++){var r=group[i];if(r.value===meta.val){r.checked=!!meta.v}}}else{el.checked=!!meta.v}}else{el.value=(meta.v!=null)?meta.v:''}}}
   function saveFormSnapshot(){try{saveJSON(KEY_SNAPSHOT,collectFormValues())}catch(e){}}
   function restoreFormSnapshot(){try{var snap=loadJSON(KEY_SNAPSHOT,null);applyFormValues(snap)}catch(e){}}
-
   function applyRetroModeUI(){
     var sel=$('retro-mode'); if(!sel) return;
     var mode=sel.value||'no';
@@ -531,7 +503,6 @@
     if(typeof renderActivity==='function') renderActivity();
   }
 
-  /* ====== Liste & redigering ====== */
   function renderMixList(){
     var list = $('mixList'); list.innerHTML = '';
     var ev = events().slice();
@@ -547,10 +518,7 @@
         arr.push({type:'stop', ts:r.end||r.start, data:r});
       }
     }
-    for(i=0;i<ns.length;i++){
-      var n = ns[i]; arr.push({type:'note', ts:n.ts, data:n});
-    }
-
+    for(i=0;i<ns.length;i++){ arr.push({type:'note', ts:ns[i].ts, data:ns[i]}); }
     arr.sort(function(a,b){ return new Date(b.ts) - new Date(a.ts); });
 
     function metaHtml(line, orderNo, itemNo, toolNo, operator){
@@ -566,7 +534,6 @@
     for(i=0;i<arr.length;i++){
       var it = arr[i];
       var li = document.createElement('li'); li.className = 'logitem';
-
       var row = document.createElement('div'); row.className = 'log-row';
       var left = document.createElement('div'); left.className = 'log-ts'; left.innerHTML = fmtDate(it.ts);
       var center = document.createElement('div');
@@ -610,24 +577,6 @@
       li.appendChild(editor);
 
       list.appendChild(li);
-    }
-  }
-
-  function toggleEditor(item){
-    var boxes=document.getElementsByClassName('editbox');for(var i=0;i<boxes.length;i++){boxes[i].style.display='none';boxes[i].innerHTML=''}
-    var id=(item.type==='rep'?item.data.related:item.data.id);var box=$('edit-'+item.type+'-'+id);if(!box)return;
-    if(item.type==='stop'){
-      box.innerHTML=editorStopHTML(item.data);box.style.display='';
-      $('edit-stop-cancel').onclick=function(){box.style.display='none';box.innerHTML=''};
-      $('edit-stop-save').onclick=function(){saveStopEdit(id)}
-    }else if(item.type==='rep'){
-      box.innerHTML=editorRepHTML(item.data.rep||{});box.style.display='';
-      $('edit-rep-cancel').onclick=function(){box.style.display='none';box.innerHTML=''};
-      $('edit-rep-save').onclick=function(){saveRepEdit(id)}
-    }else{
-      box.innerHTML=editorNoteHTML(item.data);box.style.display='';
-      $('edit-note-cancel').onclick=function(){box.style.display='none';box.innerHTML=''};
-      $('edit-note-save').onclick=function(){saveNoteEdit(item.data.id)}
     }
   }
 
@@ -814,4 +763,3 @@
   </script>
 </body>
 </html>
-
