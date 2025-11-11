@@ -10,22 +10,19 @@
     html,body{height:100%}
     body{margin:0;font-family:Segoe UI,Arial,Helvetica,sans-serif;background:#f5f7fb;color:#0f172a}
     :focus{outline:2px solid #94c5ff;outline-offset:1px}
-
     .topbar{background:#0a61ae;color:#fff;padding:8px 12px}
     .toprow{display:flex;align-items:center}
     .brand{font-weight:800;letter-spacing:.2px}
-    .statuspill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.35);
-      border-radius:999px;padding:4px 10px;background:rgba(255,255,255,.08);font-weight:700;margin-left:10px}
+    .statuspill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 10px;background:rgba(255,255,255,.08);font-weight:700;margin-left:10px}
     .dot{width:10px;height:10px;border-radius:999px;background:#17833e;display:inline-block}
     .dot.stop{background:#dc2626}
     .tl{display:inline-flex;align-items:center;gap:6px;margin-left:auto}
-    .lamp{width:14px;height:14px;border-radius:50%;background:#334155;
-      border:1px solid rgba(255,255,255,.35);box-shadow:inset 0 0 4px rgba(0,0,0,.35)}
+    .lamp{width:14px;height:14px;border-radius:50%;background:#334155;border:1px solid rgba(255,255,255,.35);box-shadow:inset 0 0 4px rgba(0,0,0,.35)}
     .lamp.on{box-shadow:0 0 10px rgba(255,255,255,.6), inset 0 0 2px rgba(255,255,255,.8)}
     .lamp.red.on{background:#ef4444}
     .lamp.yellow.on{background:#f59e0b}
     .lamp.green.on{background:#10b981}
-    /* ——— Layout ——— */
+
     .container{max-width:1180px;margin:0 auto;padding:12px}
     .card{background:#fff;border:1px solid #e6ecf3;border-radius:12px;padding:12px;box-shadow:0 6px 20px rgba(15,23,42,.06);margin-bottom:10px}
     h3{margin:0 0 6px}
@@ -50,7 +47,7 @@
     .chips{display:flex;flex-wrap:wrap;gap:6px}
     .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #dbe4ef;background:#f5f9ff;border-radius:999px;padding:6px 8px;font-size:13px;cursor:pointer}
     .chip input{width:16px;height:16px}
-    /* ——— Aktivitet (8 timer) ——— */
+
     .activity{width:100%;height:120px}
     .activity .gridline{stroke:#e5e7eb;stroke-width:1}
     .activity .gridline.sub{opacity:.5}
@@ -71,7 +68,7 @@
     .badge.noorder{background:#fff7ed;border-color:#fed7aa;color:#92400e}
     .actions{margin-left:auto}
     .editbox{margin:8px 0 0;padding:8px;border:1px dashed #cfe2ff;border-radius:10px;background:#f8fbff}
-    /* Sektioner */
+
     .split{display:flex;gap:12px;flex-wrap:wrap}
     .col{flex:1 1 380px;min-width:300px}
     .section{border:1px solid #e6ecf3;border-radius:10px;padding:10px}
@@ -80,23 +77,13 @@
     .compact-grid .field{margin:0}
     .compact-grid .wide{grid-column:1/-1}
 
-    /* Legend */
     .legend{display:flex;gap:10px;flex-wrap:wrap}
     .legend .dotl{width:10px;height:10px;border-radius:999px;display:inline-block;margin-right:6px}
     .l-stop{background:#ef4444}.l-rep{background:#8b5cf6}.l-note{background:#3b82f6}
 
-    /* Inline confirm-boks */
     .resetconfirm{display:none;margin-top:8px;padding:8px;border:1px solid #fecaca;background:#fff1f2;border-radius:10px}
 
-    /* Højre meta-kolonne for alle registreringer */
-    .log-meta-right{
-      margin-left:auto;
-      text-align:right;
-      color:#6b7280;
-      font-size:12px;
-      min-width:220px;
-    }
-
+    .log-meta-right{margin-left:auto;text-align:right;color:#6b7280;font-size:12px;min-width:220px}
     @media (max-width:900px){
       .row{display:block}
       .compact-grid{grid-template-columns:1fr}
@@ -115,10 +102,11 @@
         <span id="lampY" class="lamp yellow"></span>
         <span id="lampG" class="lamp green"></span>
       </div>
+      <button id="btn-test" class="btn xs" style="margin-left:8px">Send test-payload</button>
     </div>
   </div>
+
   <div class="container">
-    <!-- BASIS -->
     <div class="card sm">
       <h3>Basisoplysninger</h3>
       <div class="split">
@@ -171,6 +159,7 @@
             </div>
           </div>
         </div>
+
         <div class="col">
           <div class="section">
             <h4>Ordre</h4>
@@ -190,9 +179,9 @@
           </div>
         </div>
       </div>
-      <div class="hint">Alle felter autogemmes i browseren – også midt i indtastning. Paneler, “Gem &amp; afslut” og scroll huskes ved refresh.</div>
+      <div class="hint">Alle felter autogemmes i browseren.</div>
     </div>
-    <!-- KNAPPER -->
+
     <div class="card">
       <div class="row" style="align-items:center;gap:10px">
         <div class="timer" style="min-width:160px"><small>Aktuelt stop</small><span id="liveTimer">—</span></div>
@@ -216,7 +205,7 @@
           <button id="doneSkip" class="btn">Spring over</button>
         </div>
       </div>
-      <!-- STOP -->
+
       <div class="sep" id="sep-stop" style="display:none"></div>
       <div class="card" id="stopPanel" style="display:none;margin-top:8px;border:none;box-shadow:none;padding:0">
         <div class="row" style="justify-content:space-between;align-items:center">
@@ -255,7 +244,7 @@
             <div class="field"><label>Start (dato/tid)</label><input id="retro-start" type="datetime-local" placeholder="ÅÅÅÅ-MM-DDTT:MM"></div>
             <div class="field"><label>Slut (dato/tid)</label><input id="retro-end" type="datetime-local" placeholder="ÅÅÅÅ-MM-DDTT:MM"></div>
           </div>
-          <div class="hint">Hvis felterne ikke viser en dato-picker, skriv fx 2025-11-10T08:30.</div>
+          <div class="hint">Hvis der ikke er date-picker, skriv fx 2025-11-10T08:30.</div>
         </div>
         <div class="row" style="justify-content:flex-end;gap:8px">
           <button id="stop-clear" class="btn">Ryd formular</button>
@@ -263,7 +252,7 @@
           <button id="stop-confirm" class="btn btn-danger">Bekræft stop</button>
         </div>
       </div>
-      <!-- REP -->
+
       <div class="sep" id="sep-rep" style="display:none"></div>
       <div class="card" id="repPanel" style="display:none;margin-top:8px;border:none;box-shadow:none;padding:0">
         <h3>Opret rep-seddel (uafhængigt af stop)</h3>
@@ -281,7 +270,6 @@
         </div>
       </div>
 
-      <!-- NOTE -->
       <div class="sep" id="sep-note" style="display:none"></div>
       <div class="card" id="notePanel" style="display:none;margin-top:8px;border:none;box-shadow:none;padding:0">
         <h3>Tilføj bemærkning/note</h3>
@@ -293,14 +281,13 @@
         </div>
       </div>
     </div>
-    <!-- Aktivitet – sidste 8 timer -->
+
     <div class="card">
       <h3>Aktivitet – sidste 8 timer</h3>
       <svg class="activity" id="activity8h" viewBox="0 0 920 120"></svg>
       <div class="hint">Røde felter = registrerede stop. Højre kant er “nu”.</div>
     </div>
 
-    <!-- REGISTRERINGER -->
     <div class="card">
       <h3>Registreringer</h3>
       <div class="legend" style="margin:4px 0 8px">
@@ -308,13 +295,10 @@
         <span><span class="dotl l-rep"></span>Rep-seddel</span>
         <span><span class="dotl l-note"></span>Bemærkning/Note</span>
       </div>
-
       <ul id="mixList" class="loglist"></ul>
-
       <div class="row" style="justify-content:flex-end;gap:8px;margin-top:8px">
         <button id="btn-clear-list" class="btn btn-danger">Ryd registreringsliste</button>
       </div>
-
       <div id="list-confirm" class="resetconfirm">
         <b>Er du sikker?</b> Dette sletter alle registreringer lokalt. Basisoplysninger bevares.
         <div class="row" style="justify-content:flex-end;gap:8px;margin-top:6px">
@@ -322,13 +306,12 @@
           <button id="btn-list-do" class="btn btn-danger">Ja, slet registreringer</button>
         </div>
       </div>
-
-      <div class="hint">Rydning af registreringslisten sletter kun registreringer lokalt – basisoplysninger bevares.</div>
+      <div class="hint">Rydning sletter kun lokalt – basisoplysninger bevares.</div>
     </div>
   </div>
+
   <script>
-  /******************** Edge/Win10-kompatibel JS (ES5) ********************/
-  /* ——— Helpers ——— */
+  /* ====== ES5 helpers ====== */
   function $(id){return document.getElementById(id)}
   function show(el){if(el) el.style.display=''}
   function hide(el){if(el) el.style.display='none'}
@@ -339,15 +322,9 @@
   function escapeHtml(s){if(s===null||s===undefined)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;')}
   function loadJSON(k,def){try{var v=localStorage.getItem(k);return v?JSON.parse(v):def}catch(e){return def}}
   function saveJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  function toLocalDTValue(dt){var d=(dt instanceof Date)?dt:new Date(dt);var off=d.getTimezoneOffset();var local=new Date(d.getTime()-off*60000);return local.toISOString().slice(0,16)}
 
-  /* ——— NYT: lokal tidsværdi til datetime-local ——— */
-  function toLocalDTValue(dt){
-    var d=(dt instanceof Date)?dt:new Date(dt);
-    var off=d.getTimezoneOffset(); // min
-    var local=new Date(d.getTime()-off*60000);
-    return local.toISOString().slice(0,16); // YYYY-MM-DDTHH:MM
-  }
-  /* ——— Keys ——— */
+  /* ====== Keys ====== */
   var PFX='ppstop.';
   var KEY_EVENTS=PFX+'events.v1';
   var KEY_NOTES=PFX+'notes.v1';
@@ -357,7 +334,6 @@
   var KEY_SNAPSHOT=PFX+'formsnapshot.v1';
   var KEY_FEED=PFX+'feed.v1';
 
-  /* ——— Collections ——— */
   function events(){return loadJSON(KEY_EVENTS,[])}
   function saveEvents(x){saveJSON(KEY_EVENTS,x)}
   function notes(){return loadJSON(KEY_NOTES,[])}
@@ -368,124 +344,87 @@
   function saveCurrent(o){saveJSON(KEY_CURRENT,o)}
   function clearCurrent(){try{localStorage.removeItem(KEY_CURRENT)}catch(e){}}
 
-  /* ——— UI state ——— */
   function uiState(){return loadJSON(KEY_UI,{openPanel:'',doneOpen:false,scrollY:0})}
   function saveUIState(s){saveJSON(KEY_UI,s)}
   function setOpenPanel(name){var s=uiState();s.openPanel=name||'';saveUIState(s)}
   function setDoneOpen(b){var s=uiState();s.doneOpen=!!b;saveUIState(s)}
   function saveScroll(){var s=uiState();s.scrollY=(window.pageYOffset||document.documentElement.scrollTop||0);saveUIState(s)}
   function restoreScroll(){try{var y=uiState().scrollY||0;window.scrollTo(0,y)}catch(e){}}
-  /* ——— Trafiklys (unsent feed) ——— */
+
+  /* ====== Trafiklys ====== */
   function unsentCount(){var f=loadJSON(KEY_FEED,[]),i,n=0;for(i=0;i<f.length;i++){if(f[i]&&f[i].sent===false)n++}return n}
-  function setLamp(el,on){if(!el)return;var cn=el.className;var has=cn.indexOf(' on')>-1||cn.lastIndexOf('on')===cn.length-2; if(on){if(!has)el.className=cn+' on'}else{el.className=cn.replace(/\bon\b/g,'')}}
+  function setLamp(el,on){if(!el)return;var cn=el.className;var has=cn.indexOf(' on')>-1||cn.lastIndexOf('on')===cn.length-2;if(on){if(!has)el.className=cn+' on'}else{el.className=cn.replace(/\bon\b/g,'')}}
   function updateLamps(){var r=$('lampR'),y=$('lampY'),g=$('lampG'),u=unsentCount()>0;if(window.IS_STOPPED){setLamp(r,true);setLamp(y,false);setLamp(g,false)}else if(u){setLamp(r,false);setLamp(y,true);setLamp(g,false)}else{setLamp(r,false);setLamp(y,false);setLamp(g,true)}}
 
-  /* ——— Basis ——— */
+  /* ====== Basis ====== */
   function basisBlock(){var s=settings();return {line:s.line||'',orderNo:s.orderNo||'',itemNo:s.itemNo||'',toolNo:s.toolNo||'',operator:s.operator||'',no_order:!!s.noOrder}}
-  function syncBasics(){
-    var s=settings();
-    s.line=$('line').value||'';
-    s.orderNo=$('orderNo').value||'';
-    s.itemNo=$('itemNo').value||'';
-    s.toolNo=$('toolNo').value||'';
-    s.operator=$('operator').value||'';
-    saveSettings(s);
-    $('lineNow').innerHTML=s.line?('· <b>Aktuel linje:</b> '+s.line):'';
-  }
-  function applyNoOrder(){
-    var on=$('no-order')&&$('no-order').checked;
-    var ids=['orderNo','itemNo','toolNo'];
-    for(var i=0;i<ids.length;i++){
-      var el=$(ids[i]);if(!el)continue;
-      if(on){el.value='';el.disabled=true;el.style.background='#f3f4f6'}
-      else if(!$('lock-order').checked){el.disabled=false;el.style.background='#fff'}
-    }
-    var s=settings();s.noOrder=!!on;saveSettings(s)
-  }
-  function applyLock(){
-    var lock=$('lock-order')&&$('lock-order').checked;
-    var ids=['orderNo','itemNo','toolNo'];
-    for(var i=0;i<ids.length;i++){
-      var el=$(ids[i]);
-      if(el){el.disabled=lock||$('no-order').checked;el.style.background=(lock||$('no-order').checked)?'#f3f4f6':'#fff'}
-    }
-  }
-  /* ——— Årsager ——— */
+  function syncBasics(){var s=settings();s.line=$('line').value||'';s.orderNo=$('orderNo').value||'';s.itemNo=$('itemNo').value||'';s.toolNo=$('toolNo').value||'';s.operator=$('operator').value||'';saveSettings(s);$('lineNow').innerHTML=s.line?('· <b>Aktuel linje:</b> '+s.line):''}
+  function applyNoOrder(){var on=$('no-order')&&$('no-order').checked;var ids=['orderNo','itemNo','toolNo'];for(var i=0;i<ids.length;i++){var el=$(ids[i]);if(!el)continue;if(on){el.value='';el.disabled=true;el.style.background='#f3f4f6'}else if(!$('lock-order').checked){el.disabled=false;el.style.background='#fff'}}var s=settings();s.noOrder=!!on;saveSettings(s)}
+  function applyLock(){var lock=$('lock-order')&&$('lock-order').checked;var ids=['orderNo','itemNo','toolNo'];for(var i=0;i<ids.length;i++){var el=$(ids[i]);if(el){el.disabled=lock||$('no-order').checked;el.style.background=(lock||$('no-order').checked)?'#f3f4f6':'#fff'}}}
+
+  /* ====== Årsager ====== */
   var DEFAULT_REASONS=[{code:'PRES',label:'Presse'},{code:'VAERK',label:'Værktøj'},{code:'STAK',label:'Stakker'},{code:'FOLIE',label:'Manglende folie'},{code:'ORDRE',label:'Manglende ordre'},{code:'ANDET',label:'Andet'}];
   function getReason(code){for(var i=0;i<DEFAULT_REASONS.length;i++){if(DEFAULT_REASONS[i].code===code)return DEFAULT_REASONS[i]}return null}
-  function renderReasons(){
-    var html='';
-    for(var i=0;i<DEFAULT_REASONS.length;i++){
-      var r=DEFAULT_REASONS[i];
-      html+='<label class="chip"><input type="radio" name="reasonRadio" value="'+r.code+'"><b>'+r.code+'</b> – '+r.label+'</label>'
-    }
-    $('reasonTop').innerHTML=html;
-    var first=$('reasonTop').querySelector('input[name="reasonRadio"]');
-    if(first)first.checked=true;
-    $('reasonTop').onclick=function(e){e=e||window.event;var t=e.target||e.srcElement;if(t&&t.name==='reasonRadio'){saveStopDraft()}}
-  }
+  function renderReasons(){var html='';for(var i=0;i<DEFAULT_REASONS.length;i++){var r=DEFAULT_REASONS[i];html+='<label class="chip"><input type="radio" name="reasonRadio" value="'+r.code+'"><b>'+r.code+'</b> – '+r.label+'</label>'}$('reasonTop').innerHTML=html;var first=$('reasonTop').querySelector('input[name="reasonRadio"]');if(first)first.checked=true;$('reasonTop').onclick=function(e){e=e||window.event;var t=e.target||e.srcElement;if(t&&t.name==='reasonRadio'){saveStopDraft()}}}
 
-  /* ——— Stop-draft ——— */
-  function saveStopDraft(){
-    var d=loadJSON(PFX+'stopDraft',{});
-    var sel=document.querySelector('input[name="reasonRadio"]:checked');
-    d.reasonCode=sel?sel.value:(d.reasonCode||'');
-    d.comment=$('comment')?$('comment').value:'';
-    d.retroMode=$('retro-mode')?$('retro-mode').value:'no';
-    d.retroStart=$('retro-start')?$('retro-start').value:'';
-    d.retroEnd=$('retro-end')?$('retro-end').value:'';
-    saveJSON(PFX+'stopDraft',d)
-  }
-  function restoreStopDraft(){
-    var d=loadJSON(PFX+'stopDraft',null);
-    if(!d)return;
-    if(d.reasonCode){
-      var radios=document.getElementsByName('reasonRadio');
-      for(var i=0;i<radios.length;i++){if(radios[i].value===d.reasonCode){radios[i].checked=true;break}}
-    }
-    if(typeof d.comment==='string'&&$('comment'))$('comment').value=d.comment;
-    if($('retro-mode'))$('retro-mode').value=d.retroMode||'no';
-    applyRetroModeUI();
-    if($('retro-start')&&d.retroStart)$('retro-start').value=d.retroStart;
-    if($('retro-end')&&d.retroEnd)$('retro-end').value=d.retroEnd
-  }
-  /* ——— Poster (XHR) ——— */
+  /* ====== Draft ====== */
+  function saveStopDraft(){var d=loadJSON(PFX+'stopDraft',{});var sel=document.querySelector('input[name="reasonRadio"]:checked');d.reasonCode=sel?sel.value:(d.reasonCode||'');d.comment=$('comment')?$('comment').value:'';d.retroMode=$('retro-mode')?$('retro-mode').value:'no';d.retroStart=$('retro-start')?$('retro-start').value:'';d.retroEnd=$('retro-end')?$('retro-end').value:'';saveJSON(PFX+'stopDraft',d)}
+  function restoreStopDraft(){var d=loadJSON(PFX+'stopDraft',null);if(!d)return;if(d.reasonCode){var radios=document.getElementsByName('reasonRadio');for(var i=0;i<radios.length;i++){if(radios[i].value===d.reasonCode){radios[i].checked=true;break}}}if(typeof d.comment==='string'&&$('comment'))$('comment').value=d.comment;if($('retro-mode'))$('retro-mode').value=d.retroMode||'no';applyRetroModeUI();if($('retro-start')&&d.retroStart)$('retro-start').value=d.retroStart;if($('retro-end')&&d.retroEnd)$('retro-end').value=d.retroEnd}
+
+  /* ====== API endpoint + afsendelse ====== */
   var ENDPOINT_UNIFIED='https://default430cd76f558540b4b6d4f372acf579.16.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/00089d07f67d462dad1316aabf7dd93a/triggers/manual/paths/invoke?api-version=1';
-  var API_KEY=null; // hvis du senere bruger API-key, sæt fx: 'abc123'
+  var API_KEY=null; // sæt evt. 'din-hemmelige-noegle'
 
-  function postJSON(url,payload){
-    if(!url||url.indexOf('http')!==0){return}
+  function postJSON(url,payload,cb){
+    if(!url||url.indexOf('http')!==0){if(cb)cb(false,0,'bad url');return}
     try{
       var xhr=new XMLHttpRequest();
       xhr.open('POST',url,true);
       xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8');
       if(API_KEY){xhr.setRequestHeader('x-api-key',API_KEY)}
+      xhr.onreadystatechange=function(){
+        if(xhr.readyState===4){
+          var ok=(xhr.status>=200&&xhr.status<300);
+          if(cb)cb(ok,xhr.status,xhr.responseText);
+          // opdater lampe gul/grøn
+          updateLamps();
+        }
+      };
       xhr.send(JSON.stringify(payload));
-    }catch(e){}
+    }catch(e){if(cb)cb(false,0,String(e))}
   }
 
   function queueUpdate(kind,payload){
     var feed=loadJSON(KEY_FEED,[]);
     feed.push({kind:kind,sent:false,payload:payload});
-    saveJSON(KEY_FEED,feed)
+    saveJSON(KEY_FEED,feed);
+    flushFeedNow(); // NYT: send med det samme
   }
-  function resendQueued(){
-    var feed=loadJSON(KEY_FEED,[]),changed=false;
-    for(var i=0;i<feed.length;i++){
+
+  function flushFeedNow(){
+    var feed=loadJSON(KEY_FEED,[]),i,changed=false;
+    for(i=0;i<feed.length;i++){
       var r=feed[i]; if(r.sent)continue;
       var env={kind:r.kind,client_ts:new Date().toISOString(),basis:basisBlock(),data:r.payload};
-      postJSON(ENDPOINT_UNIFIED,env);
-      r.sent=true; changed=true
+      (function(idx){
+        postJSON(ENDPOINT_UNIFIED,env,function(ok,code,_){
+          if(ok){var f=loadJSON(KEY_FEED,[]);if(f[idx]){f[idx].sent=true;saveJSON(KEY_FEED,f)}}
+        });
+      })(i);
+      changed=true;
     }
-    if(changed)saveJSON(KEY_FEED,feed);
-    updateLamps()
+    if(changed)updateLamps();
   }
-  /* ——— Status & timer ——— */
+
+  function resendQueued(){
+    flushFeedNow();
+  }
+
+  /* ====== Status & aktivitet ====== */
   var IS_STOPPED=false,STOP_START_ISO=null,stopMeta=null,TICK=null;window.IS_STOPPED=IS_STOPPED;
   function setStatus(st){IS_STOPPED=st;window.IS_STOPPED=st;$('btn-start').disabled=!st;$('dot').className=st?'dot stop':'dot';$('statxt').innerHTML=st?'Stop aktivt':'Kører normalt';$('liveTimer').innerHTML=st?'00:00:00':'—';updateLamps()}
   function tick(){if(!IS_STOPPED)return;var ms=Date.now()-new Date(STOP_START_ISO);$('liveTimer').innerHTML=fmtDur(ms);renderActivity()}
 
-  /* ——— Aktivitet 8 timer (SVG) ——— */
   function renderActivity(){
     var svg=$('activity8h'); if(!svg) return;
     svg.innerHTML='';
@@ -508,8 +447,8 @@
       }
     }
 
-    var rows=events(),stops=[];
-    for(var j=0;j<rows.length;j++){
+    var rows=events(),stops=[],j;
+    for(j=0;j<rows.length;j++){
       var r=rows[j]; if(!r.end)continue;
       var s=new Date(r.start), e=new Date(r.end);
       if(e<start||s>now)continue;
@@ -533,7 +472,8 @@
     nowLn.setAttribute('x1',xnow);nowLn.setAttribute('y1',m.t-2);nowLn.setAttribute('x2',xnow);nowLn.setAttribute('y2',m.t+h+2);nowLn.setAttribute('class','now');
     svg.appendChild(nowLn)
   }
-  /* ——— Stop-flow ——— */
+
+  /* ====== Stop-flow ====== */
   function confirmStop(){
     var s=settings();
     var noOrder=s.noOrder===true;
@@ -556,7 +496,6 @@
     STOP_START_ISO=new Date().toISOString();setStatus(true);if(TICK)clearInterval(TICK);TICK=setInterval(tick,1000);tick();closeAllPanels();saveCurrent({start:STOP_START_ISO,meta:stopMeta});updateLamps()
   }
 
-  /* ——— Done/afslut ——— */
   function showDone(){show($('doneBlock'));setDoneOpen(true);saveScroll()}
   function hideDone(){hide($('doneBlock'));$('doneWhat').value='';setDoneOpen(false);saveScroll()}
   function finalizeStop(withDone){
@@ -567,41 +506,15 @@
     queueUpdate('stop',{id:row.id,start:row.start,end:row.end,duration_ms:row.durationMs,cause_code:(row.reason&&row.reason.code)||'',cause_label:(row.reason&&row.reason.label)||'',description:row.comment,done:row.doneWhat});
     setStatus(false);STOP_START_ISO=null;stopMeta=null;if(TICK){clearInterval(TICK);TICK=null}clearCurrent();hideDone();refreshQuick();renderMixList();renderActivity();updateLamps()
   }
-  /* ——— Stop-flow ——— */
-  function confirmStop(){
-    var s=settings();
-    var noOrder=s.noOrder===true;
-    if(!noOrder){
-      if(!(($('orderNo').value||'').replace(/\s+/g,'').length)&&!(($('itemNo').value||'').replace(/\s+/g,'').length)){
-        $('stopHint').innerHTML='Udfyld Ordre nr. og Vare nr. – eller vælg "Ingen ordre".'; return
-      }
-    }
-    var sel=document.querySelector('input[name="reasonRadio"]:checked');var rr=getReason(sel?sel.value:null)||{code:'ANDET',label:'Andet'};
-    stopMeta={reason:{code:rr.code,label:rr.label},comment:($('comment').value||'').replace(/^\s+|\s+$/g,'')};
 
-    if($('retro-mode').value==='yes'){
-      var sVal=$('retro-start').value,eVal=$('retro-end').value;if(!sVal||!eVal){$('stopHint').innerHTML='Vælg både start og slut.';return}
-      var sdt=new Date(sVal),edt=new Date(eVal); if(!(sdt&&edt)||edt<sdt){$('stopHint').innerHTML='Slut skal være efter start.';return}
-      var row={id:uuid(),start:sdt.toISOString(),end:edt.toISOString(),durationMs:(edt-sdt),line:settings().line||'',operator:settings().operator||'',orderNo:settings().orderNo||'',itemNo:settings().itemNo||'',toolNo:settings().toolNo||'',reason:stopMeta.reason,comment:stopMeta.comment,doneWhat:'',noOrder:noOrder};
-      var arr=events();arr.push(row);saveEvents(arr);
-      queueUpdate('stop',{id:row.id,start:row.start,end:row.end,duration_ms:row.durationMs,cause_code:row.reason.code,cause_label:row.reason.label,description:row.comment,done:''});
-      refreshQuick();renderMixList();renderActivity();closeAllPanels();updateLamps();return
-    }
-    STOP_START_ISO=new Date().toISOString();setStatus(true);if(TICK)clearInterval(TICK);TICK=setInterval(tick,1000);tick();closeAllPanels();saveCurrent({start:STOP_START_ISO,meta:stopMeta});updateLamps()
-  }
+  /* ====== Quick udfyld & autosave ====== */
+  function refreshQuick(){var rows=events().slice(-10).reverse(),html='<option value=\"\">— Vælg tidligere registrering —</option>';for(var i=0;i<rows.length;i++){var r=rows[i],code=(r.reason&&r.reason.code)||'?',lab=(r.reason&&r.reason.label)||'?';html+='<option value=\"'+r.id+'\">'+code+' · '+lab+' · '+(r.comment||'-')+'</option>'}$('quick-last').innerHTML=html}
+  function applyFromEvent(ev){if(!ev)return;var radios=document.getElementsByName('reasonRadio');for(var i=0;i<radios.length;i++){if(radios[i].value===((ev.reason&&ev.reason.code)||'')){radios[i].checked=true;break}}$('comment').value=ev.comment||'';saveStopDraft()}
+  function collectFormValues(){var snap={};var all=document.querySelectorAll('input,select,textarea');for(var i=0;i<all.length;i++){var el=all[i];if(!el.id&&!el.name)continue;var key=el.id||('name:'+el.name);var t=(el.type||'').toLowerCase();if(t==='checkbox'||t==='radio'){snap[key]={t:t,v:el.checked,val:el.value}}else{snap[key]={t:t,v:el.value}}}return snap}
+  function applyFormValues(snap){if(!snap)return;for(var k in snap){if(!snap.hasOwnProperty(k))continue;var meta=snap[k];var el=(k.indexOf('name:')===0)?document.getElementsByName(k.substr(5))[0]:document.getElementById(k);if(!el)continue;var t=(el.type||'').toLowerCase();if(t==='checkbox'||t==='radio'){if(t==='radio'){var group=(el.name&&document.getElementsByName(el.name))||[];for(var i=0;i<group.length;i++){var r=group[i];if(r.value===meta.val){r.checked=!!meta.v}}}else{el.checked=!!meta.v}}else{el.value=(meta.v!=null)?meta.v:''}}}
+  function saveFormSnapshot(){try{saveJSON(KEY_SNAPSHOT,collectFormValues())}catch(e){}}
+  function restoreFormSnapshot(){try{var snap=loadJSON(KEY_SNAPSHOT,null);applyFormValues(snap)}catch(e){}}
 
-  /* ——— Done/afslut ——— */
-  function showDone(){show($('doneBlock'));setDoneOpen(true);saveScroll()}
-  function hideDone(){hide($('doneBlock'));$('doneWhat').value='';setDoneOpen(false);saveScroll()}
-  function finalizeStop(withDone){
-    var doneTxt=withDone?($('doneWhat').value||''):'';
-    var end=new Date(),start=new Date(STOP_START_ISO),dur=end-start;var s=settings();
-    var row={id:uuid(),start:start.toISOString(),end:end.toISOString(),durationMs:dur,line:s.line||'',operator:s.operator||'',orderNo:s.orderNo||'',itemNo:s.itemNo||'',toolNo:s.toolNo||'',reason:stopMeta?stopMeta.reason:null,comment:stopMeta?stopMeta.comment:'',doneWhat:doneTxt,noOrder:(s.noOrder===true)};
-    var arr=events();arr.push(row);saveEvents(arr);
-    queueUpdate('stop',{id:row.id,start:row.start,end:row.end,duration_ms:row.durationMs,cause_code:(row.reason&&row.reason.code)||'',cause_label:(row.reason&&row.reason.label)||'',description:row.comment,done:row.doneWhat});
-    setStatus(false);STOP_START_ISO=null;stopMeta=null;if(TICK){clearInterval(TICK);TICK=null}clearCurrent();hideDone();refreshQuick();renderMixList();renderActivity();updateLamps()
-  }
-  /* ——— NYT: Toggle af retro-mode (manuel/auto) ——— */
   function applyRetroModeUI(){
     var sel=$('retro-mode'); if(!sel) return;
     var mode=sel.value||'no';
@@ -618,7 +531,7 @@
     if(typeof renderActivity==='function') renderActivity();
   }
 
-  /* ——— Liste & redigering m. højre meta ——— */
+  /* ====== Liste & redigering ====== */
   function renderMixList(){
     var list = $('mixList'); list.innerHTML = '';
     var ev = events().slice();
@@ -628,9 +541,7 @@
     for(i=0;i<ev.length;i++){
       var r = ev[i];
       if(r.rep){
-        arr.push({type:'rep', ts:r.end||r.start||new Date().toISOString(), data:{
-          related:r.id, rep:r.rep,
-          line:r.line||'', orderNo:r.orderNo||'', itemNo:r.itemNo||'', toolNo:r.toolNo||'', operator:r.operator||''}});
+        arr.push({type:'rep', ts:r.end||r.start||new Date().toISOString(), data:{related:r.id, rep:r.rep, line:r.line||'', orderNo:r.orderNo||'', itemNo:r.itemNo||'', toolNo:r.toolNo||'', operator:r.operator||''}});
       }
       if(r.end && r.reason){
         arr.push({type:'stop', ts:r.end||r.start, data:r});
@@ -651,6 +562,7 @@
       pieces.push('Operatør: ' + (operator||'-'));
       return pieces.join(' · ');
     }
+
     for(i=0;i<arr.length;i++){
       var it = arr[i];
       var li = document.createElement('li'); li.className = 'logitem';
@@ -678,7 +590,7 @@
           (rp.description?('<div class="hint">'+escapeHtml(rp.description)+'</div>'):'');
         right.innerHTML = metaHtml(it.data.line, it.data.orderNo, it.data.itemNo, it.data.toolNo, it.data.operator);
 
-      } else { // note
+      } else {
         var n2 = it.data;
         center.innerHTML =
           '<span class="badge note">Note</span> '+escapeHtml(n2.text||'');
@@ -690,11 +602,7 @@
       btn.onclick = (function(item){ return function(){ toggleEditor(item); } })(it);
       act.appendChild(btn);
 
-      row.appendChild(left);
-      row.appendChild(center);
-      row.appendChild(right);
-      row.appendChild(act);
-
+      row.appendChild(left); row.appendChild(center); row.appendChild(right); row.appendChild(act);
       li.appendChild(row);
 
       var editor = document.createElement('div'); editor.className='editbox'; editor.style.display='none';
@@ -704,6 +612,7 @@
       list.appendChild(li);
     }
   }
+
   function toggleEditor(item){
     var boxes=document.getElementsByClassName('editbox');for(var i=0;i<boxes.length;i++){boxes[i].style.display='none';boxes[i].innerHTML=''}
     var id=(item.type==='rep'?item.data.related:item.data.id);var box=$('edit-'+item.type+'-'+id);if(!box)return;
@@ -721,6 +630,7 @@
       $('edit-note-save').onclick=function(){saveNoteEdit(item.data.id)}
     }
   }
+
   function editorStopHTML(r){
     var opts='';for(var i=0;i<DEFAULT_REASONS.length;i++){var sel=(r.reason&&r.reason.code===DEFAULT_REASONS[i].code)?' selected':'';opts+='<option value="'+DEFAULT_REASONS[i].code+'"'+sel+'>'+DEFAULT_REASONS[i].code+' – '+DEFAULT_REASONS[i].label+'</option>'}
     var done=r.doneWhat||'',comment=r.comment||'';
@@ -735,6 +645,7 @@
         '<button class="btn btn-primary" id="edit-stop-save">Gem</button>'+
       '</div>';
   }
+
   function editorRepHTML(rp){
     var pri=['Lav','Mellem','Høj','Kritisk'],opts='';for(var i=0;i<pri.length;i++){var sel=(rp.priority===pri[i])?' selected':'';opts+='<option'+sel+'>'+pri[i]+'</option>'}
     return ''+
@@ -748,6 +659,7 @@
         '<button class="btn btn-primary" id="edit-rep-save">Gem</button>'+
       '</div>';
   }
+
   function editorNoteHTML(n){
     return ''+
       '<div class="field"><label>Bemærkning</label><textarea id="edit-note-text">'+escapeHtml(n.text||'')+'</textarea></div>'+
@@ -756,6 +668,7 @@
         '<button class="btn btn-primary" id="edit-note-save">Gem</button>'+
       '</div>';
   }
+
   function saveStopEdit(id){
     var arr=events(),i,r=null;for(i=0;i<arr.length;i++){if(arr[i].id===id){r=arr[i];break}}if(!r)return;
     var newCode=$('edit-stop-reason').value||'ANDET';var R=getReason(newCode)||{code:'ANDET',label:'Andet'};
@@ -766,6 +679,7 @@
     queueUpdate('stop_update',{id:r.id,start:r.start,end:r.end,duration_ms:r.durationMs,cause_code:r.reason.code,cause_label:r.reason.label,description:r.comment,done:r.doneWhat});
     renderMixList();renderActivity();updateLamps()
   }
+
   function saveRepEdit(relatedId){
     var arr=events(),i,r=null;for(i=0;i<arr.length;i++){if(arr[i].id===relatedId){r=arr[i];break}}if(!r)return; if(!r.rep)r.rep={};
     r.rep.priority=$('edit-rep-pri').value||'Mellem';
@@ -775,6 +689,7 @@
     queueUpdate('rep_update',{id:'rep-'+relatedId,ts:r.end||r.start,priority:r.rep.priority,type:r.rep.type,description:r.rep.description});
     renderMixList();updateLamps()
   }
+
   function saveNoteEdit(noteId){
     var arr=notes(),i,n=null;for(i=0;i<arr.length;i++){if(arr[i].id===noteId){n=arr[i];break}}if(!n)return;
     n.text=$('edit-note-text').value||'';
@@ -797,6 +712,7 @@
     if($('rep-pri'))$('rep-pri').value='Mellem';if($('rep-type'))$('rep-type').value='';if($('rep-desc'))$('rep-desc').value='';
     renderMixList();updateLamps();closeAllPanels()
   }
+
   function createNote(){
     var txt=($('note-text').value||'').replace(/^\s+|\s+$/g,'');if(!txt){return}
     var s=settings();
@@ -837,6 +753,7 @@
     $('stop-clear').onclick=function(){var first=$('reasonTop').querySelector('input[name="reasonRadio"]');if(first)first.checked=true;$('comment').value='';$('retro-mode').value='no';hide($('retro-fields'));$('retro-start').value='';$('retro-end').value='';saveStopDraft();applyRetroModeUI()};
     $('rep-clear').onclick=function(){$('rep-pri').value='Mellem';$('rep-type').value='';$('rep-desc').value=''};
     $('note-clear').onclick=function(){$('note-text').value=''};
+
     $('stop-confirm').onclick=confirmStop;
     $('btn-start').onclick=function(){if(!IS_STOPPED)return;showDone()};
     $('doneSave').onclick=function(){finalizeStop(true)}; $('doneSkip').onclick=function(){finalizeStop(false)};
@@ -853,17 +770,18 @@
       $('btn-list-do').onclick=function(){clearRegistrationList();if(listBox){listBox.style.display='none'}}
     }
 
+    $('btn-test').onclick=function(){
+      var env={kind:'test',client_ts:new Date().toISOString(),basis:basisBlock(),data:{hello:'world',rand:Math.floor(Math.random()*100000)}};
+      postJSON(ENDPOINT_UNIFIED,env,function(ok,code,_){alert(ok?'Test sendt (HTTP '+code+')':'Fejl ved test (HTTP '+code+')');});
+    };
+
     window.addEventListener('scroll',function(){saveScroll()});
   }
 
   document.addEventListener('visibilitychange', function(){
-    if (document.visibilityState === 'hidden') {
-      try { saveFormSnapshot(); syncBasics(); } catch(e){}
-    }
+    if (document.visibilityState === 'hidden') { try { saveFormSnapshot(); syncBasics(); } catch(e){} }
   });
-  window.addEventListener('beforeunload', function(){
-    try { saveFormSnapshot(); syncBasics(); } catch(e){}
-  });
+  window.addEventListener('beforeunload', function(){ try { saveFormSnapshot(); syncBasics(); } catch(e){} });
 
   window.addEventListener('DOMContentLoaded',function(){
     setStatus(false); renderReasons();
@@ -876,16 +794,11 @@
     setTimeout(restoreScroll,0);
 
     var b=settings();
-    $('line').value=b.line||'';
-    $('orderNo').value=b.orderNo||'';
-    $('itemNo').value=b.itemNo||'';
-    $('toolNo').value=b.toolNo||'';
-    $('operator').value=b.operator||'';
+    $('line').value=b.line||''; $('orderNo').value=b.orderNo||''; $('itemNo').value=b.itemNo||''; $('toolNo').value=b.toolNo||''; $('operator').value=b.operator||'';
     if(b.noOrder){$('no-order').checked=true}
     syncBasics(); applyNoOrder(); applyLock();
 
-    restoreFormSnapshot();
-    syncBasics();
+    restoreFormSnapshot(); syncBasics();
 
     renderMixList(); refreshQuick(); restoreStopDraft();
     renderActivity();
